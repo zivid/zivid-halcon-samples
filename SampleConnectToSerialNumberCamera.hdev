@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<procedure name="main">
+<interface/>
+<body>
+<c>* Copyright (c) 2019, Zivid AS</c>
+<c>* All rights reserved.</c>
+<c>* </c>
+<c>* Redistribution and use in source and binary forms, with or without</c>
+<c>* modification, are permitted provided that the following conditions are</c>
+<c>* met:</c>
+<c>* </c>
+<c>* 1. Redistributions of source code must retain the above copyright</c>
+<c>*   notice, this list of conditions and the following disclaimer.</c>
+<c>* </c>
+<c>* 2. Redistributions in binary form must reproduce the above copyright</c>
+<c>*    notice, this list of conditions and the following disclaimer in the</c>
+<c>*    documentation and/or other materials provided with the</c>
+<c>*    distribution.</c>
+<c>* </c>
+<c>* 3. Neither the name of Zivid AS nor the names of its contributors may</c>
+<c>*    be used to endorse or promote products derived from this software</c>
+<c>*    without specific prior written permission.</c>
+<c>* </c>
+<c>* THIS SOFTWARE IS PROVIDED BY ZIVID AS AND CONTRIBUTORS "AS IS" AND ANY</c>
+<c>* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</c>
+<c>* IMPLIED WARRANTIES OF MERCHANTABILITY, AND FITNESS FOR A PARTICULAR</c>
+<c>* PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ZIVID AS OR CONTRIBUTORS BE</c>
+<c>* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</c>
+<c>* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</c>
+<c>* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</c>
+<c>* BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</c>
+<c>* WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE</c>
+<c>* OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN</c>
+<c>* IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </c>
+<c></c>
+<c>* </c>
+<c>* Example for the usage of a Zivid 3D camera in HALCON</c>
+<c>* </c>
+<c>* This example shows how to connect to a specific Zivid 3D</c>
+<c>* camera based on its serial number.</c>
+<c>* </c>
+<c>* Please note that you first need to install Zivid Software and</c>
+<c>* correctly set the environment variables. After this, you can</c>
+<c>* access the camera with the HALCON GenICamTL interface.</c>
+<c>* </c>
+<c></c>
+<c>* Connect to the Zivid camera with serial number 1021809010101</c>
+<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'Zivid_DEV_1021712010043', 0, 0, AcqHandle)</l>
+<c>    </c>
+<c>* Disconnect from the Zivid Camera</c>
+<l>close_framegrabber (AcqHandle)</l>
+<c></c>
+<c>* To find your device serial number, query information about the connected image acquisition devices</c>
+<l>info_framegrabber ('GenICamTL', 'device', Information, Device)</l>
+<c></c>
+<c>* Extract the serial number from your device</c>
+<l>tuple_split (Device[0], '|' , Substrings)</l>
+<l>tuple_strlen (Substrings[2], StrLength)</l>
+<l>tuple_substr (Substrings[2],13,StrLength-2,CameraSerial)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

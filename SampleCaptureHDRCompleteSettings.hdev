@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<procedure name="main">
+<interface/>
+<body>
+<c>* Copyright (c) 2019, Zivid AS</c>
+<c>* All rights reserved.</c>
+<c>* </c>
+<c>* Redistribution and use in source and binary forms, with or without</c>
+<c>* modification, are permitted provided that the following conditions are</c>
+<c>* met:</c>
+<c>* </c>
+<c>* 1. Redistributions of source code must retain the above copyright</c>
+<c>*   notice, this list of conditions and the following disclaimer.</c>
+<c>* </c>
+<c>* 2. Redistributions in binary form must reproduce the above copyright</c>
+<c>*    notice, this list of conditions and the following disclaimer in the</c>
+<c>*    documentation and/or other materials provided with the</c>
+<c>*    distribution.</c>
+<c>* </c>
+<c>* 3. Neither the name of Zivid AS nor the names of its contributors may</c>
+<c>*    be used to endorse or promote products derived from this software</c>
+<c>*    without specific prior written permission.</c>
+<c>* </c>
+<c>* THIS SOFTWARE IS PROVIDED BY ZIVID AS AND CONTRIBUTORS "AS IS" AND ANY</c>
+<c>* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</c>
+<c>* IMPLIED WARRANTIES OF MERCHANTABILITY, AND FITNESS FOR A PARTICULAR</c>
+<c>* PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ZIVID AS OR CONTRIBUTORS BE</c>
+<c>* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</c>
+<c>* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</c>
+<c>* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</c>
+<c>* BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</c>
+<c>* WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE</c>
+<c>* OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN</c>
+<c>* IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </c>
+<c></c>
+<c>* </c>
+<c>* Example for the usage of a Zivid 3D camera in HALCON</c>
+<c>* </c>
+<c>* This example shows how to acquire an HDR image from the camera</c>
+<c>* (with fully configured settings for each image) and use it</c>
+<c>* to generate a HALCON ObjectModel3D which is then visualized.</c>
+<c>* </c>
+<c>* Please note that you first need to install Zivid Software and</c>
+<c>* correctly set the environment variables. After this, you can</c>
+<c>* access the camera with the HALCON GenICamTL interface.</c>
+<c>* </c>
+<c></c>
+<c>* Prepare the graphics window</c>
+<l>dev_close_window ()</l>
+<l>WinWidth := 960</l>
+<l>WinHeight := 800</l>
+<l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
+<c></c>
+<c>* Connect to the Zivid camera</c>
+<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'default', 0, 0, AcqHandle)</l>
+<c></c>
+<c>* Configure 3D-settings</c>
+<l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
+<l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
+<c></c>
+<c>* Set the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
+<l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
+<c></c>
+<c>* Switch to the HDR mode</c>
+<l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
+<c></c>
+<c>* Reset any previous HDR settings</c>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
+<c></c>
+<c>* Configure HDR settings for the first image</c>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain',1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', 0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',10)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<c></c>
+<c></c>
+<c>* Configure HDR settings for the second image</c>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 20000)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 0.5)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain',2)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', 0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',20)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<c></c>
+<c></c>
+<c>* Configure HDR settings for the third image</c>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 33000)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain',1)</l>
+<c>* Exposure time must be &gt;= 33000 when using bidirectional patterns</c>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',30)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<c></c>
+<c>* Grab the HDR image</c>
+<l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
+<c></c>
+<c>* Display the 3D color point cloud, press the button to continue</c>
+<l>Instructions[0] := 'Rotate: Left button'</l>
+<l>Instructions[1] := 'Zoom:   Shift + left button'</l>
+<l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
+<l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], ['red_channel_attrib','green_channel_attrib','blue_channel_attrib'], ['&amp;overlay_red','&amp;overlay_green','&amp;overlay_blue'], [], [], [Instructions], PoseOut)</l>
+<c></c>
+<c>* Disconnect from the Zivid Camera</c>
+<l>close_framegrabber (AcqHandle)</l>
+<c></c>
+<c>* Close the graphics window</c>
+<l>dev_close_window ()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
