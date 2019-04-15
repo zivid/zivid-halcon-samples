@@ -37,12 +37,13 @@
 <c>* </c>
 <c>* Example for the usage of a Zivid 3D camera in HALCON</c>
 <c>* </c>
-<c>* This example shows surface-based 3D matching on data taken with</c>
-<c>* the Zivid camera. The model used for matching is created from a</c>
-<c>* reference view of the object. That model is then searched for</c>
-<c>* in a newly acquired 3D point cloud. This example comes</c>
-<c>* with three models created by this program: a Twinings tea box,</c>
-<c>* a Pringles can (190 g), and a plastic Coca-Cola bottle (0.5 l).</c>
+<c>* This example demonstrates surface-based 3D matching on data taken with</c>
+<c>* a Zivid camera. The model used for matching is created from a</c>
+<c>* reference view of the object, see SampleSurfaceMatchingCreateModel.hdev</c>
+<c>* or SampleSurfaceMatchingCreateModel.hdevFromFile. The model is then</c>
+<c>* searched for in a newly acquired 3D point cloud. This example comes with</c>
+<c>* models for the three following objects: a Twinings tea box, a Pringles</c>
+<c>* can (190 g), and a plastic Coca-Cola bottle (0.5 l).</c>
 <c>* </c>
 <c>* Please note that you first need to install Zivid Software and</c>
 <c>* correctly set the environment variables. After this, you can</c>

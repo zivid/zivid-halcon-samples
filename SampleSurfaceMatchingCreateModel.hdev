@@ -37,9 +37,12 @@
 <c>* </c>
 <c>* Example for the usage of a Zivid 3D camera in HALCON</c>
 <c>* </c>
-<c>* This example shows how to create a model for surface-based</c>
-<c>* matching algorithm integrated into HALCON. This example comes</c>
-<c>* with three models created by this program: a Twinings tea box,</c>
+<c>* This example shows how to create a model for HALCON surface-based 3D</c>
+<c>* matching algorithm. It should be used together with the</c>
+<c>* SampleSurfaceMatchingFindModel.hdev where the model created by this</c>
+<c>* program is utilized for surface-based 3D matching algorithm. This</c>
+<c>* example comes with HDR settings and other parameters which were used</c>
+<c>* to create models of the following three objects: a Twinings tea box,</c>
 <c>* a Pringles can (190 g), and a plastic Coca-Cola bottle (0.5 l).</c>
 <c>* </c>
 <c>* Please note that you first need to install Zivid Software and</c>
