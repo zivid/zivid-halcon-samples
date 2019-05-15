@@ -3,36 +3,35 @@
 <procedure name="main">
 <interface/>
 <body>
+<c>* BSD 3-Clause License</c>
+<c>* </c>
 <c>* Copyright (c) 2019, Zivid AS</c>
 <c>* All rights reserved.</c>
 <c>* </c>
 <c>* Redistribution and use in source and binary forms, with or without</c>
-<c>* modification, are permitted provided that the following conditions are</c>
-<c>* met:</c>
+<c>* modification, are permitted provided that the following conditions are met:</c>
 <c>* </c>
-<c>* 1. Redistributions of source code must retain the above copyright</c>
-<c>*   notice, this list of conditions and the following disclaimer.</c>
+<c>* 1. Redistributions of source code must retain the above copyright notice, this</c>
+<c>*    list of conditions and the following disclaimer.</c>
 <c>* </c>
-<c>* 2. Redistributions in binary form must reproduce the above copyright</c>
-<c>*    notice, this list of conditions and the following disclaimer in the</c>
-<c>*    documentation and/or other materials provided with the</c>
-<c>*    distribution.</c>
+<c>* 2. Redistributions in binary form must reproduce the above copyright notice,</c>
+<c>*    this list of conditions and the following disclaimer in the documentation</c>
+<c>*    and/or other materials provided with the distribution.</c>
 <c>* </c>
-<c>* 3. Neither the name of Zivid AS nor the names of its contributors may</c>
-<c>*    be used to endorse or promote products derived from this software</c>
-<c>*    without specific prior written permission.</c>
+<c>* 3. Neither the name of the copyright holder nor the names of its</c>
+<c>*    contributors may be used to endorse or promote products derived from</c>
+<c>*    this software without specific prior written permission.</c>
 <c>* </c>
-<c>* THIS SOFTWARE IS PROVIDED BY ZIVID AS AND CONTRIBUTORS "AS IS" AND ANY</c>
-<c>* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</c>
-<c>* IMPLIED WARRANTIES OF MERCHANTABILITY, AND FITNESS FOR A PARTICULAR</c>
-<c>* PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ZIVID AS OR CONTRIBUTORS BE</c>
-<c>* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</c>
-<c>* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</c>
-<c>* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</c>
-<c>* BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</c>
-<c>* WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE</c>
-<c>* OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN</c>
-<c>* IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </c>
+<c>* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"</c>
+<c>* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</c>
+<c>* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</c>
+<c>* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE</c>
+<c>* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL</c>
+<c>* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR</c>
+<c>* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER</c>
+<c>* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,</c>
+<c>* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</c>
+<c>* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</c>
 <c></c>
 <c>* </c>
 <c>* Example for the usage of a Zivid 3D camera in HALCON</c>
