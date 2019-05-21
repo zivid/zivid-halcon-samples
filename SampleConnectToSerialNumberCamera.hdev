@@ -44,8 +44,9 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>* </c>
 <c></c>
-<c>* Connect to the Zivid camera with serial number 1021809010101</c>
-<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'Zivid_DEV_1021712010043', 0, 0, AcqHandle)</l>
+<c>* Connect to the Zivid camera with the following serial number</c>
+<l>CameraSerial := 'Zivid_DEV_19176A22'</l>
+<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', CameraSerial, 0, 0, AcqHandle)</l>
 <c>    </c>
 <c>* Disconnect from the Zivid Camera</c>
 <l>close_framegrabber (AcqHandle)</l>
