@@ -68,6 +68,8 @@
 <l>set_framegrabber_param (AcqHandle, 'Gain',1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'OutlierFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'GaussianFilterEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'GaussianFilterSigma', 1.5)</l>
 <l>set_framegrabber_param (AcqHandle, 'OutlierFilterThreshold', 5)</l>
 <c></c>
 <c>* Grab the image</c>
