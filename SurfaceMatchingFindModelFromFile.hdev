@@ -19,7 +19,7 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>*</c>
 <c></c>
-<c>* Prepare the graphics window</c>
+<c>* Preparing the graphics window</c>
 <l>dev_close_window ()</l>
 <l>WinWidth := 1920</l>
 <l>WinHeight := 1200</l>
@@ -37,7 +37,7 @@
 <l>MyModel := false</l>
 <l>* MyModel := true</l>
 <c></c>
-<c>* Load the HALCON model for surface-based 3D matching</c>
+<c>* Loading the HALCON model for surface-based 3D matching</c>
 <l>if (MyModel)</l>
 <l>    SFMFilename := 'SFM'</l>
 <l>else</l>
@@ -45,7 +45,7 @@
 <l>endif</l>
 <l>read_surface_model (SFMFilename, SFM)</l>
 <c></c>
-<c>* Load the HALCON 3D object model (used for visualization purpose)</c>
+<c>* Loading the HALCON 3D object model (used for visualization purpose)</c>
 <l>if (MyModel)</l>
 <l>    ObjectModel3DFilename := 'ObjectModel3D'</l>
 <l>else</l>
@@ -60,7 +60,7 @@
 <l>    tuple_add(SceneFilename,'.ply', SceneFilename)    </l>
 <l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
 <c>    </c>
-<c>    * Fix to make the point cloud appear with colors</c>
+<c>    * Fixing to make the point cloud appear with colors</c>
 <l>    get_object_model_3d_params (ObjectModel3D_Scene, 'red', red)</l>
 <l>    get_object_model_3d_params (ObjectModel3D_Scene, 'green', green)</l>
 <l>    get_object_model_3d_params (ObjectModel3D_Scene, 'blue', blue)</l>
@@ -68,10 +68,10 @@
 <l>    set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;green', 'points', green, ObjectModel3D_Scene)</l>
 <l>    set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;blue', 'points', blue, ObjectModel3D_Scene)</l>
 <c>    </c>
-<c>    * Generate X, Y, and Z image</c>
+<c>    * Generating X, Y, and Z image</c>
 <l>    object_model_3d_to_xyz( X, Y, Z, ObjectModel3D_Scene, 'from_xyz_map', [], [])  </l>
 <c>    </c>
-<c>    * Generate R, G, B, and RGB image</c>
+<c>    * Generating R, G, B, and RGB image</c>
 <l>    get_image_size (X, Width, Height)</l>
 <l>    gen_image_const (R, 'real', Width, Height)</l>
 <l>    gen_image_const (G, 'real', Width, Height)</l>
@@ -83,7 +83,7 @@
 <l>    set_grayval (B, Rows, Columns, blue)</l>
 <l>    compose3(R,G,B,RGB)</l>
 <c>    </c>
-<c>    * Compute 3D object model normals, which is necessary for surface-based 3D matching</c>
+<c>    * Computing 3D object model normals, which is necessary for surface-based 3D matching</c>
 <l>    count_seconds (T0)</l>
 <l>    sample_object_model_3d (ObjectModel3D_Scene,'fast_compute_normals', 1, [], [], ObjectModel3D_Scene)</l>
 <l>    count_seconds (T1)</l>
@@ -114,14 +114,14 @@
 <c>    </c>
 <l>    if (Score!=[])</l>
 <c></c>
-<c>        * Prepare the result(s)</c>
+<c>        * Preparing the result(s)</c>
 <l>        if (Score[0] &lt; MinScore)</l>
 <l>            continue</l>
 <l>        endif    </l>
 <l>        CPose := Pose[0:6]</l>
 <l>        rigid_trans_object_model_3d (ObjectModel3D, CPose, ObjectModel3D_Result)</l>
 <c></c>
-<c>        * Visualize matching scene and key points</c>
+<c>        * Visualizing matching scene and key points</c>
 <l>        Message := 'Original scene points (white)'</l>
 <l>        Message[1] := 'Sampled scene points (cyan)'</l>
 <l>        Message[2] := 'Key points (yellow)'</l>
@@ -134,7 +134,7 @@
 <l>        Message[6] := 'Move:   Ctrl  + left button'</l>
 <l>        visualize_object_model_3d (Window3D, [ObjectModel3D_Scene,SampledScene,KeyPoints], [], [], ['color_' + [0,1,2],'point_size_' + [0,1,2]], ['gray','cyan','yellow',1.0,3.0,5.0], Message, [], Message, PoseOut)</l>
 <c>         </c>
-<c>        * Visualize result(s)</c>
+<c>        * Visualizing result(s)</c>
 <l>        Message1 := 'Scene: ' + Index</l>
 <l>        Message1[1] := 'Found ' + |ObjectModel3D_Result| + ' object(s) in ' + TimeForMatching$'.3' + ' ms'</l>
 <l>        ScoreString := sum(Score$'.2f' + ' / ')</l>
@@ -161,7 +161,7 @@
 <c></c>
 <l>endfor</l>
 <c></c>
-<c>* Close the graphics window</c>
+<c>* Closing the graphics window</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_close_window ()</l>
 </body>

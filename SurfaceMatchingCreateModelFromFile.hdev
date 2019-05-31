@@ -18,13 +18,13 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>*</c>
 <c></c>
-<c>* Prepare the graphics window</c>
+<c>* Preparing the graphics window</c>
 <l>dev_close_window ()</l>
 <l>WinWidth := 1920</l>
 <l>WinHeight := 1200</l>
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'black', Window3D)</l>
 <c></c>
-<c>* Read a 3D point cloud of the scene</c>
+<c>* Reading a 3D point cloud of the scene</c>
 <c>* Twinings tea box</c>
 <l>SceneFilename:= 'Twinings tea box/im1.ply'</l>
 <c>* Pringles can</c>
@@ -33,7 +33,7 @@
 <l>* SceneFilename:= 'Coca-Cola bottle/im1.ply'</l>
 <l>read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
 <c>    </c>
-<c>* Fix to make the point cloud appear with colors</c>
+<c>* Fixing to make the point cloud appear with colors</c>
 <l>get_object_model_3d_params (ObjectModel3D_Scene, 'red', red)</l>
 <l>get_object_model_3d_params (ObjectModel3D_Scene, 'green', green)</l>
 <l>get_object_model_3d_params (ObjectModel3D_Scene, 'blue', blue)</l>
@@ -41,10 +41,10 @@
 <l>set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;green', 'points', green, ObjectModel3D_Scene)</l>
 <l>set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;blue', 'points', blue, ObjectModel3D_Scene)</l>
 <c>    </c>
-<c>* Generate X, Y, and Z image</c>
+<c>* Generating X, Y, and Z image</c>
 <l>object_model_3d_to_xyz( X, Y, Z, ObjectModel3D_Scene, 'from_xyz_map', [], [])  </l>
 <c>   </c>
-<c>* Generate R, G, B, and RGB image</c>
+<c>* Generating R, G, B, and RGB image</c>
 <l>get_image_size (X, Width, Height)</l>
 <l>gen_image_const (R, 'real', Width, Height)</l>
 <l>gen_image_const (G, 'real', Width, Height)</l>
@@ -60,50 +60,50 @@
 <l>dev_disp_text (['Position the mouse cursor on the edge of the object', 'Click and hold the left mouse button to begin drawing the ROI around the object', 'Release the left mouse button to end drawing the ROI', 'Click the right mouse button to continue running the program'], 'window', 'bottom', 'left', 'black', [], [])</l>
 <l>draw_region (RegionDraw, Window3D)</l>
 <c></c>
-<c>* Get min and max Z values encapsulated by the created region</c>
+<c>* Geting min and max Z values encapsulated by the created region</c>
 <l>min_max_gray (RegionDraw, Z, 0, MinZ, MaxZ, RangeZ)</l>
 <c></c>
-<c>* Segment the Z image with Z values encapsulated by the created region</c>
+<c>* Segmenting the Z image with Z values encapsulated by the created region</c>
 <l>threshold (Z, RegionZ, MinZ, MaxZ)</l>
 <l>reduce_domain (Z, RegionZ, Z)</l>
 <c></c>
-<c>* Segment the resulting Z image with the created region</c>
+<c>* Segmenting the resulting Z image with the created region</c>
 <l>reduce_domain (Z, RegionDraw, Z)</l>
 <c></c>
-<c>* Transform 3D points from X, Y, Z images to a HALCON 3D object model</c>
+<c>* Transforming 3D points from X, Y, Z images to a HALCON 3D object model</c>
 <l>xyz_to_object_model_3d (X, Y, Z, ObjectModel3D)</l>
 <c></c>
-<c>* Compute normals for the HALCON 3D object model</c>
+<c>* Computing normals for the HALCON 3D object model</c>
 <l>count_seconds (T0)</l>
 <l>sample_object_model_3d(ObjectModel3D,'fast_compute_normals', 1, [], [], ObjectModel3D)</l>
 <l>count_seconds (T1)</l>
 <l>TimeForSampling := (T1 - T0)</l>
 <c></c>
-<c>* Create a HALCON surface-based matching model</c>
+<c>* Creating a HALCON surface-based matching model</c>
 <l>count_seconds (T0)</l>
 <l>create_surface_model (ObjectModel3D, 0.01, [], [], SFM)</l>
 <l>count_seconds (T1)</l>
 <l>TimeForCreating := (T1 - T0)</l>
 <c></c>
-<c>* Save the HALCON 3D object model</c>
+<c>* Saving the HALCON 3D object model</c>
 <l>write_object_model_3d(ObjectModel3D, 'om3', 'ObjectModel3D', [], [] )</l>
 <c></c>
-<c>* Save the HALCON surface-based matching model</c>
+<c>* Saving the HALCON surface-based matching model</c>
 <l>write_surface_model(SFM,'SFM')</l>
 <c></c>
-<c>* Load the HALCON 3D object model</c>
+<c>* Loading the HALCON 3D object model</c>
 <l>read_object_model_3d( 'ObjectModel3D', 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
-<c>* Load the HALCON surface-based matching model</c>
+<c>* Loading the HALCON surface-based matching model</c>
 <l>read_surface_model('SFM', SFM)</l>
 <c></c>
-<c>* Display the 3D color point cloud, press the button to continue</c>
+<c>* Displaying the 3D color point cloud, press the button to continue</c>
 <l>Instructions[0] := 'Rotate: Left button'</l>
 <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
 <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
 <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], [], [], [], [], [], PoseOut)</l>
 <c></c>
-<c>* Close the graphics window</c>
+<c>* Closing the graphics window</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_close_window ()</l>
 </body>

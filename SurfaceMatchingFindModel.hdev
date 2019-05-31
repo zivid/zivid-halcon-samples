@@ -29,23 +29,23 @@
 <c>* Your own model created with the SurfaceMatchingCreateModel.hdev</c>
 <l>Filename := ''</l>
 <c></c>
-<c>* Connect to the Zivid camera</c>
+<c>* Connecting to the Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'default', 0, 0, AcqHandle)</l>
 <c></c>
-<c>* Configure 3D-settings</c>
+<c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
 <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
 <c></c>
-<c>* Set the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
+<c>* Seting the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
 <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
 <c></c>
-<c>* Switch to the HDR mode</c>
+<c>* Switching to the HDR mode</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
 <c></c>
-<c>* Reset any previous HDR settings</c>
+<c>* Reseting any previous HDR settings</c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
 <c></c>
-<c>* Configure HDR settings</c>
+<c>* Configuring HDR settings</c>
 <c>* Twinings tea box</c>
 <l>if (Filename = 'Twinings tea box')</l>
 <l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
@@ -85,15 +85,15 @@
 <l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
 <l>endif</l>
 <c></c>
-<c>* Load the HALCON model for surface-based 3D matching</c>
+<c>* Loading the HALCON model for surface-based 3D matching</c>
 <l>tuple_add(Filename,'/SFM', SFMFilename)</l>
 <l>read_surface_model (SFMFilename, SFM)</l>
 <c></c>
-<c>* Load the HALCON 3D object model (used for visualization purpose)</c>
+<c>* Loading the HALCON 3D object model (used for visualization purpose)</c>
 <l>tuple_add(Filename,'/ObjectModel3D', ObjectModel3DFilename)</l>
 <l>read_object_model_3d (ObjectModel3DFilename, 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
-<c>* Prepare the graphics window</c>
+<c>* Preparing the graphics window</c>
 <l>dev_close_window ()</l>
 <l>WinWidth := 1920</l>
 <l>WinHeight := 1200</l>
@@ -101,20 +101,20 @@
 <c></c>
 <l>for Index := 1 to 10 by 1</l>
 <c></c>
-<c>    * Grab the HDR image</c>
+<c>    * Grabing the HDR image</c>
 <l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D_Scene_Raw)</l>
 <c>    </c>
-<c>    * Extract the following images: X, Y, Z, Contrast, and RGB</c>
+<c>    * Extracting the following images: X, Y, Z, Contrast, and RGB</c>
 <l>    select_obj (Image, X, 1)</l>
 <l>    select_obj (Image, Y, 2)</l>
 <l>    select_obj (Image, Z, 3)</l>
 <l>    select_obj (Image, Confidence, 4)</l>
 <l>    select_obj (Image, RGBA, 5)</l>
 <c>    </c>
-<c>    * Convert the point cloud into the HALCON 3D object model</c>
+<c>    * Converting the point cloud into the HALCON 3D object model</c>
 <l>    xyz_to_object_model_3d (X, Y, Z, ObjectModel3D_Scene)</l>
 <c>    </c>
-<c>    * Compute 3D object model normals, which is necessary for surface-based 3D matching</c>
+<c>    * Computing 3D object model normals, which is necessary for surface-based 3D matching</c>
 <l>    count_seconds (T0)</l>
 <l>    sample_object_model_3d (ObjectModel3D_Scene,'fast_compute_normals', 1, [], [], ObjectModel3D_Scene)</l>
 <l>    count_seconds (T1)</l>
@@ -149,14 +149,14 @@
 <c>    </c>
 <l>    if (Score!=[])</l>
 <c></c>
-<c>        * Prepare the result(s)</c>
+<c>        * Preparing the result(s)</c>
 <l>        if (Score[0] &lt; MinScore)</l>
 <l>            continue</l>
 <l>        endif    </l>
 <l>        CPose := Pose[0:6]</l>
 <l>        rigid_trans_object_model_3d (ObjectModel3D, CPose, ObjectModel3D_Result)</l>
 <c></c>
-<c>        * Visualize matching scene and key points</c>
+<c>        * Visualizing matching scene and key points</c>
 <l>        Message := 'Original scene points (white)'</l>
 <l>        Message[1] := 'Sampled scene points (cyan)'</l>
 <l>        Message[2] := 'Key points (yellow)'</l>
@@ -169,7 +169,7 @@
 <l>        Message[6] := 'Move:   Ctrl  + left button'</l>
 <l>        visualize_object_model_3d (Window3D, [ObjectModel3D_Scene,SampledScene,KeyPoints], [], [], ['color_' + [0,1,2],'point_size_' + [0,1,2]], ['gray','cyan','yellow',1.0,3.0,5.0], Message, [], Message, PoseOut)</l>
 <c>         </c>
-<c>        * Visualize result(s)</c>
+<c>        * Visualizing result(s)</c>
 <l>        Message1 := 'Scene: ' + Index</l>
 <l>        Message1[1] := 'Found ' + |ObjectModel3D_Result| + ' object(s) in ' + TimeForMatching$'.3' + ' ms'</l>
 <l>        ScoreString := sum(Score$'.2f' + ' / ')</l>
@@ -196,10 +196,10 @@
 <c></c>
 <l>endfor</l>
 <c></c>
-<c>* Disconnect from the Zivid Camera</c>
+<c>* Disconnecting from the Zivid Camera</c>
 <l>close_framegrabber (AcqHandle)</l>
 <c></c>
-<c>* Close the graphics window</c>
+<c>* Closing the graphics window</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_close_window ()</l>
 </body>

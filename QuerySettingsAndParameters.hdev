@@ -14,7 +14,7 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>* </c>
 <c></c>
-<c>*Query information about the image acquisition interface</c>
+<c>*Querying information about the image acquisition interface</c>
 <l>info_framegrabber ('GenICamTL', 'general', Information_general, ValueList_general)</l>
 <l>info_framegrabber ('GenICamTL', 'defaults', Information_defaults, ValueList_defaults)</l>
 <l>info_framegrabber ('GenICamTL', 'info_boards', Information_info_boards, ValueList_info_boards)</l>
@@ -23,10 +23,10 @@
 <l>info_framegrabber ('GenICamTL', 'parameters_readonly', Information_parameters_readonly, ValueList_parameters_readonly)</l>
 <l>info_framegrabber ('GenICamTL', 'parameters_writeonly', Information_parameters_writeonly, ValueList_parameters_writeonly)</l>
 <c></c>
-<c>* Connect to the Zivid camera</c>
+<c>* Connecting to the Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', ValueList_info_boards[0], 0, 0, AcqHandle)</l>
 <c></c>
-<c>* Query information about specific parameters of the Zivid camera</c>
+<c>* Querying information about specific parameters of the Zivid camera</c>
 <l>get_framegrabber_param (AcqHandle, 'available_callback_types', Value_available_callback_types)</l>
 <l>get_framegrabber_param (AcqHandle, 'available_param_names', Value_available_param_names)</l>
 <c></c>

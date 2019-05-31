@@ -20,19 +20,19 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>*</c>
 <c></c>
-<c>* Connect to the Zivid camera</c>
+<c>* Connecting to the Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'default', 0, 0, AcqHandle)</l>
 <c></c>
-<c>* Switch to the single Frame mode</c>
+<c>* Switching to the single Frame mode</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
 <c></c>
-<c>* Query immediate update settings</c>
+<c>* Querying immediate update settings</c>
 <l>get_framegrabber_param (AcqHandle, 'ImmediateUpdateSettings', Output)</l>
 <c></c>
-<c>* Enable immediate update settings</c>
+<c>* Enabling immediate update settings</c>
 <l>set_framegrabber_param (AcqHandle, 'ImmediateUpdateSettings', 'On')</l>
 <c></c>
-<c>*Configure settings, proclaiming them default for this program</c>
+<c>*Configuring settings, proclaiming them default for this program</c>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
@@ -48,7 +48,7 @@
 <l>set_framegrabber_param (AcqHandle, 'BalanceRatio', 1.709)</l>
 <l>set_framegrabber_param (AcqHandle, 'Iris',10)</l>
 <c></c>
-<c>* Configure settings, updating them immediately</c>
+<c>* Configuring settings, updating them immediately</c>
 <l>count_seconds (startTime)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 20000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
@@ -67,7 +67,7 @@
 <l>count_seconds (stopTime)</l>
 <l>DurationImmediateUpdateSettingsOn := stopTime - startTime</l>
 <c></c>
-<c>* Reconfigure settings to default</c>
+<c>* Reconfiguring settings to default</c>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
@@ -83,10 +83,10 @@
 <l>set_framegrabber_param (AcqHandle, 'BalanceRatio', 1.709)</l>
 <l>set_framegrabber_param (AcqHandle, 'Iris',10)</l>
 <c></c>
-<c>* Disable immediate update settings</c>
+<c>* Disabling immediate update settings</c>
 <l>set_framegrabber_param (AcqHandle, 'ImmediateUpdateSettings', 'Off')</l>
 <c></c>
-<c>* Preconfigure settings and then execute the command to update them</c>
+<c>* Preconfiguring settings and then executing the command to update them</c>
 <l>count_seconds (startTime)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 20000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
@@ -106,7 +106,7 @@
 <l>count_seconds (stopTime)</l>
 <l>DurationImmediateUpdateSettingsOff := stopTime - startTime</l>
 <c></c>
-<c>* Calculate the exectuion time difference between two methods</c>
+<c>* Calculating the exectuion time difference between two methods</c>
 <l>TimeDifference := DurationImmediateUpdateSettingsOn - DurationImmediateUpdateSettingsOff</l>
 </body>
 <docu id="main">
