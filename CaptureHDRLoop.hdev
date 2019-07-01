@@ -43,7 +43,7 @@
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterEnabled',1.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterEnabled',1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGaussianFilterEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGaussianFilterSigma', 1.5)</l>
