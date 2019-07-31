@@ -25,7 +25,7 @@ Note: The version tested with Zivid cameras is 1.2.0.
 2. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
 Note: The versions tested with Zivid cameras are 18.11 Progress and 13.0.2 for Windows.
 
-3. Set [**System Variables**](https://help.zivid.com/setting-the-environment-variables-for). This allows accessing a Zivid camera with the HALCON GenICamTL interface.
+3. [**Set System Variables**](https://help.zivid.com/setting-the-environment-variables-for). This allows accessing a Zivid camera with the HALCON GenICamTL interface.
 
 4. Launch HALCON.
 
