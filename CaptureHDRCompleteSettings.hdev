@@ -89,7 +89,7 @@
 <c></c>
 <c>* Configuring HDR settings for the third image</c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',30)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 30000)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 33000)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain',1)</l>
 <c></c>
