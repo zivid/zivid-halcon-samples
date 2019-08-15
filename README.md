@@ -29,7 +29,7 @@ Note: The versions tested with Zivid cameras are 18.11 Progress and 13.0.2 for W
 
 4. Launch HALCON.
 
-5. Open and run one of the samples.
+5. Open and run one of the samples. Check out [how to run a HALCON sample](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/427841/How+to+run+a+HALCON+sample).
 
 ## Support
 If you need assistance with using Zivid cameras, visit our Knowledge Base at [https://help.zivid.com/](https://help.zivid.com/) or contact us at [customersuccess@zivid.com](mailto:customersuccess@zivid.com).
