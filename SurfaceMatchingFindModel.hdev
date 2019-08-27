@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<hdevelop file_version="1.2" halcon_version="19.05.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -86,11 +86,11 @@
 <l>endif</l>
 <c></c>
 <c>* Loading the HALCON model for surface-based 3D matching</c>
-<l>tuple_add(Filename,'/SFM', SFMFilename)</l>
+<l>tuple_add(Filename,'SFM', SFMFilename)</l>
 <l>read_surface_model (SFMFilename, SFM)</l>
 <c></c>
 <c>* Loading the HALCON 3D object model (used for visualization purpose)</c>
-<l>tuple_add(Filename,'/ObjectModel3D', ObjectModel3DFilename)</l>
+<l>tuple_add(Filename,'ObjectModel3D', ObjectModel3DFilename)</l>
 <l>read_object_model_3d (ObjectModel3DFilename, 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
 <c>* Preparing the graphics window</c>
