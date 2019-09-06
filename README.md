@@ -20,10 +20,10 @@ This repository contains code samples for the usage of a **Zivid** 3D camera in 
 ## Instructions
 
 1. [**Install Zivid Software**](https://www.zivid.com/downloads).
-Note: The version tested with Zivid cameras is 1.2.0.
+Note: The version tested with Zivid cameras is 1.5.0.
 
 2. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
-Note: The versions tested with Zivid cameras are 18.11 Progress and 13.0.2 for Windows.
+Note: The version tested with Zivid cameras is 19.05 Progress for Windows.
 
 3. [**Set System Variables**](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/427361/Setting+environment+variables+for+GenICam+HALCON). This allows accessing a Zivid camera with the HALCON GenICamTL interface.
 
