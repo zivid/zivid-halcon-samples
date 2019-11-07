@@ -19,7 +19,7 @@ This repository contains code samples for the usage of a **Zivid** 3D camera in 
 ## Instructions
 
 1. [**Install Zivid Software**](https://www.zivid.com/downloads).
-Note: The version tested with Zivid cameras is 1.5.0.
+Note: The version tested with Zivid cameras is 1.6.0.
 
 2. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
 Note: The version tested with Zivid cameras is 19.05 Progress for Windows.
