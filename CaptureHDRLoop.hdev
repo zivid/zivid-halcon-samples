@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<hdevelop file_version="1.2" halcon_version="19.05.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -36,47 +36,17 @@
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
 <c></c>
-<c>* Reseting any previous HDR settings</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
-<c></c>
-<c>* Configuring HDR setting that are not to be changed in the loop</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterEnabled',1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterThreshold', 5.0)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGaussianFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGaussianFilterSigma', 1.5)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterThreshold', 5.0)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
-<c></c>
 <l>for Index := 0 to 2 by 1</l>
 <c>    </c>
-<c>    * Reseting any previous settings</c>
+<c>    * Resetting any previous HDR settings</c>
 <l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
 <c>    </c>
-<c>    * Configuring HDR settings for the first image</c>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',10)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<c>        </c>
-<c>    * Configuring HDR settings for the second image</c>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 20000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',25)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<c>        </c>
-<c>    * Configuring HDR settings for the third image</c>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 30000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',30)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')        </l>
+<c>    * Configuring HDR settings for frames</c>
+<l>    for Frame := 1 to 3 by 1</l>
+<l>        set_hdr_frame (AcqHandle, 'settings/set'+(Index+1)+'_json/frame_0'+Frame+'.json')</l>
+<l>    endfor</l>
 <c></c>
-<c>    * Grabing the HDR image</c>
+<c>    * Grabbing the HDR image</c>
 <l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c>    </c>
 <c>    * Displaying the 3D color point cloud, press the button to continue</c>
@@ -96,6 +66,79 @@
 </body>
 <docu id="main">
 <parameters/>
+</docu>
+</procedure>
+<procedure name="set_hdr_frame">
+<interface>
+<ic>
+<par name="AcqHandle" base_type="ctrl" dimension="0"/>
+<par name="path" base_type="ctrl" dimension="0"/>
+</ic>
+</interface>
+<body>
+<c>    </c>
+<l>    read_dict(path, [], [], json_dict)</l>
+<c>    </c>
+<l>    get_dict_param(json_dict, 'keys', [], AllKeys)</l>
+<l>    get_dict_tuple(json_dict, 'Settings', settings)</l>
+<c>    </c>
+<l>    get_dict_tuple(settings, 'ExposureTime', exposure_time)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', exposure_time)</l>
+<c>    </c>
+<l>    get_dict_tuple(settings, 'Iris', iris)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', iris)</l>
+<c>    </c>
+<l>    get_dict_tuple(settings, 'Brightness', brightness)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', brightness)</l>
+<c>    </c>
+<l>    get_dict_tuple(settings, 'Gain', gain)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain', gain)</l>
+<c>    </c>
+<l>    get_dict_tuple(settings, 'Bidirectional', bidirectional)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', bidirectional)</l>
+<c>    </c>
+<l>    get_dict_tuple(settings, 'Filters', filters)</l>
+<c>    </c>
+<l>    get_dict_tuple(filters, 'Contrast', contrast)</l>
+<l>    get_dict_tuple(contrast, 'Enabled', enabled)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterEnabled', enabled)</l>
+<l>    get_dict_tuple(contrast, 'Threshold', threshold)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterThreshold', threshold)</l>
+<c>    </c>
+<l>    get_dict_tuple(filters, 'Gaussian', gaussian)</l>
+<l>    get_dict_tuple(gaussian, 'Enabled', enabled)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameGaussianFilterEnabled', enabled)</l>
+<l>    get_dict_tuple(gaussian, 'Sigma', sigma)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameGaussianFilterSigma', sigma)</l>
+<c>    </c>
+<l>    get_dict_tuple(filters, 'Outlier', outlier)</l>
+<l>    get_dict_tuple(outlier, 'Enabled', enabled)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterEnabled', enabled)</l>
+<l>    get_dict_tuple(outlier, 'Threshold', threshold)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameOutlierFilterThreshold', threshold)</l>
+<c>    </c>
+<l>    get_dict_tuple(filters, 'Reflection', reflection)</l>
+<l>    get_dict_tuple(reflection, 'Enabled', enabled)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', enabled)</l>
+<c>    </c>
+<l>    get_dict_tuple(filters, 'Saturated', saturated)</l>
+<l>    get_dict_tuple(saturated, 'Enabled', enabled)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', enabled)</l>
+<c>    </c>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
+<c></c>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<c>    </c>
+<l>return ()</l>
+</body>
+<docu id="set_hdr_frame">
+<parameters>
+<parameter id="AcqHandle"/>
+<parameter id="path"/>
+</parameters>
 </docu>
 </procedure>
 </hdevelop>
