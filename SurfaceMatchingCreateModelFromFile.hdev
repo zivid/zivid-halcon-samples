@@ -60,12 +60,12 @@
 <l>dev_disp_text (['Position the mouse cursor on the edge of the object', 'Click and hold the left mouse button to begin drawing the ROI around the object', 'Release the left mouse button to end drawing the ROI', 'Click the right mouse button to continue running the program'], 'window', 'bottom', 'left', 'black', [], [])</l>
 <l>draw_region (RegionDraw, Window3D)</l>
 <c></c>
-<c>* Geting min and max Z values encapsulated by the created region</c>
-<l>min_max_gray (RegionDraw, Z, 0, MinZ, MaxZ, RangeZ)</l>
+<c>* Geting min and max Z values encapsulated by the crezated region</c>
+<l>* min_max_gray (RegionDraw, Z, 0, MinZ, MaxZ, RangeZ)</l>
 <c></c>
 <c>* Segmenting the Z image with Z values encapsulated by the created region</c>
-<l>threshold (Z, RegionZ, MinZ, MaxZ)</l>
-<l>reduce_domain (Z, RegionZ, Z)</l>
+<l>* threshold (Z, RegionZ, MinZ, MaxZ)</l>
+<l>* reduce_domain (Z, RegionZ, Z)</l>
 <c></c>
 <c>* Segmenting the resulting Z image with the created region</c>
 <l>reduce_domain (Z, RegionDraw, Z)</l>
@@ -91,12 +91,6 @@
 <c>* Saving the HALCON surface-based matching model</c>
 <l>write_surface_model(SFM,'SFM')</l>
 <c></c>
-<c>* Loading the HALCON 3D object model</c>
-<l>read_object_model_3d( 'ObjectModel3D', 'm', [], [], ObjectModel3D, Status)</l>
-<c></c>
-<c>* Loading the HALCON surface-based matching model</c>
-<l>read_surface_model('SFM', SFM)</l>
-<c></c>
 <c>* Displaying the 3D color point cloud, press the button to continue</c>
 <l>Instructions[0] := 'Rotate: Left button'</l>
 <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
@@ -106,6 +100,13 @@
 <c>* Closing the graphics window</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_close_window ()</l>
+<c></c>
+<c>** For reference:</c>
+<c>* Loading the HALCON 3D object model</c>
+<l>read_object_model_3d( 'ObjectModel3D', 'm', [], [], ObjectModel3D, Status)</l>
+<c></c>
+<c>* Loading the HALCON surface-based matching model</c>
+<l>read_surface_model('SFM', SFM)</l>
 </body>
 <docu id="main">
 <parameters/>
