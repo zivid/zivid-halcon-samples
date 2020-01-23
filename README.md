@@ -13,6 +13,7 @@ There are two main categories of samples: **Camera** and **Applications**. The s
     - [**CaptureHDRCompleteSettings**][CaptureHDRCompleteSettings-url] - This example shows how to acquire an HDR image from the camera (with fully configured settings for each image) and use it to generate a HALCON ObjectModel3D which is then visualized.
     - [**CaptureHDRLoop**][CaptureHDRLoop-url] - This example shows how to acquire HDR images from the camera in a loop (while actively changing some HDR settings). Each HDR image is used to generate a HALCON ObjectModel3D which is then visualized. Settings are read from .json files. There are example settings available in /settings. However, you may also get settings from Zivid Studio. When you save settings they will be stored in .yaml format. Halcon only support reading JSON files, so in order to convert them to JSON use [**YAMLSettingsToJSON**][YAMLSettingsToJSON-url].
     - [**ConnectToSerialNumberCamera**][ConnectToSerialNumberCamera-url] - This example shows how to connect to a specific Zivid 3D camera based on its serial number.
+    - [**CaptureSavePLY**][CaptureSavePLY-url] - This example shows how to acquire a 3D color point cloud from the camera and save it to a .ply file format.
   - **InfoUtilOther**
     - [**QuerySettingsAndParameters**][QuerySettingsAndParameters-url] - This example shows how to query information about the image acquisition interface and selected specific parameters of Zivid camera.
 
@@ -47,6 +48,7 @@ Zivid Samples are distributed under the [BSD license](https://github.com/zivid/h
 
 [Capture-url]: source/Camera/Basic/Capture.hdev
 [CaptureHDR-url]: source/Camera/Basic/CaptureHDR.hdev
+[CaptureSavePLY-url]: source/Camera/Basic/CaptureSavePLY.hdev
 [CaptureHDRCompleteSettings-url]: source/Camera/Basic/CaptureHDRCompleteSettings.hdev
 [CaptureHDRLoop-url]: source/Camera/Basic/CaptureHDRLoop.hdev
 [YAMLSettingsToJSON-url]: source/Camera/Basic/YAMLSettingsToJSON.py
