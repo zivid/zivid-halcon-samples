@@ -21,8 +21,12 @@
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
 <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'black', Window2D)</l>
 <c></c>
+<c>*Get first available Zivid device</c>
+<l>info_framegrabber ('GenICamTL','info_boards', Information, ValueList)</l>
+<l>get_first_available_zivid_device (ValueList, Device)</l>
+<c></c>
 <c>* Connecting to the Zivid camera</c>
-<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'default', 0, 0, AcqHandle)</l>
+<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
@@ -81,6 +85,32 @@
 </body>
 <docu id="main">
 <parameters/>
+</docu>
+</procedure>
+<procedure name="get_first_available_zivid_device">
+<interface>
+<ic>
+<par name="ValueList" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="Device" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<l>for i := 0 to |ValueList| by 1</l>
+<l>    SplitValues := split(split(ValueList[i], '|'), ':')</l>
+<l>    if (SplitValues[2]{0:4} == 'Zivid')</l>
+<l>        Device := SplitValues[2]{0:strlen(SplitValues[2])-2}</l>
+<l>        break</l>
+<l>    endif</l>
+<l>endfor</l>
+<l>return ()</l>
+</body>
+<docu id="get_first_available_zivid_device">
+<parameters>
+<parameter id="Device"/>
+<parameter id="ValueList"/>
+</parameters>
 </docu>
 </procedure>
 </hdevelop>
