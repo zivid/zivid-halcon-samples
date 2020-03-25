@@ -3,17 +3,22 @@
 <procedure name="get_first_available_zivid_device">
 <interface>
 <ic>
-<par name="ValueList" base_type="ctrl" dimension="0"/>
+<par name="Devices" base_type="ctrl" dimension="0"/>
 </ic>
 <oc>
 <par name="Device" base_type="ctrl" dimension="0"/>
 </oc>
 </interface>
 <body>
-<l>for i := 0 to |ValueList| by 1</l>
-<l>    SplitValues := split(split(ValueList[i], '|'), ':')</l>
-<l>    if(SplitValues[2]{0:4} == 'Zivid')</l>
-<l>        Device := SplitValues[2]{0:strlen(SplitValues[2])-2}</l>
+<c>* This procedure returns the first Zivid device from the input</c>
+<c>* tuple of Devices. The input tuple Devices is typically returned</c>
+<c>* by info_framegrabber function as follows:</c>
+<c>* 'info_framegrabber ('GenICamTL','device', Information, Devices)'</c>
+<c></c>
+<l>for i := 0 to |Devices| by 1</l>
+<l>    SplitDevices := split(split(Devices[i], '|'), ':')</l>
+<l>    if(SplitDevices[2]{0:4} == 'Zivid')</l>
+<l>        Device := SplitDevices[2]{0:strlen(SplitDevices[2])-2}</l>
 <l>        break</l>
 <l>    endif</l>
 <l>endfor</l>
@@ -22,7 +27,7 @@
 <docu id="get_first_available_zivid_device">
 <parameters>
 <parameter id="Device"/>
-<parameter id="ValueList"/>
+<parameter id="Devices"/>
 </parameters>
 </docu>
 </procedure>
