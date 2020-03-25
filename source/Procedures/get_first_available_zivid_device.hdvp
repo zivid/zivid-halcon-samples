@@ -11,7 +11,7 @@
 </interface>
 <body>
 <c>* This procedure returns the first Zivid device from the input</c>
-<c>* tuple of Devices. The input tuple Devices is typically returned</c>
+<c>* tuple 'Devices'. The input tuple 'Devices' is typically returned</c>
 <c>* by info_framegrabber function as follows:</c>
 <c>* 'info_framegrabber ('GenICamTL','device', Information, Devices)'</c>
 <c></c>
