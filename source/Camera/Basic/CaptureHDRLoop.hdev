@@ -23,9 +23,9 @@
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
 <c></c>
 <c>*Get first available Zivid device</c>
-<l>info_framegrabber ('GenICamTL','info_boards', Information, ValueList)</l>
+<l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../Procedures'</l>
-<l>get_first_available_zivid_device (ValueList, Device)</l>
+<l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
 <c>* Connecting to the Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
