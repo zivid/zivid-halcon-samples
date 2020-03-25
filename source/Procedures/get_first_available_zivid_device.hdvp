@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<procedure name="get_first_available_zivid_device">
+<interface>
+<ic>
+<par name="ValueList" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="Device" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<l>for i := 0 to |ValueList| by 1</l>
+<l>    SplitValues := split(split(ValueList[i], '|'), ':')</l>
+<l>    if(SplitValues[2]{0:4} == 'Zivid')</l>
+<l>        Device := SplitValues[2]{0:strlen(SplitValues[2])-2}</l>
+<l>        break</l>
+<l>    endif</l>
+<l>endfor</l>
+<l>return ()</l>
+</body>
+<docu id="get_first_available_zivid_device">
+<parameters>
+<parameter id="Device"/>
+<parameter id="ValueList"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>
