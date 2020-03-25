@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<hdevelop file_version="1.2" halcon_version="19.05.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -18,6 +18,11 @@
 <c>* correctly set the environment variables. After this, you can</c>
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>* </c>
+<c></c>
+<c>*Get first available Zivid device</c>
+<l>info_framegrabber ('GenICamTL','info_boards', Information, ValueList)</l>
+<l>import './../../../Procedures'</l>
+<l>get_first_available_zivid_device (ValueList, Device)</l>
 <c></c>
 <c>* Connecting to the Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'default', 0, 0, AcqHandle)</l>
