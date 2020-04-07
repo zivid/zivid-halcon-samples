@@ -29,7 +29,7 @@ There are two main categories of samples: **Camera** and **Applications**. The s
       - [**SurfaceMatchingFindModel**][SurfaceMatchingFindModel-url] - This example shows surface-based 3D matching on data taken with the Zivid camera. The model used for matching is created from a reference view of the object. That model is then searched for in a newly acquired 3D point cloud. This example comes with two existing object models: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
 
 - **Procedures**
-  - [*get_first_available_zivid_device**][get_first_available_zivid_device-url] - This procedure returns the first Zivid device from the input tuple of devices. The input tuple 'Devices' is typically returned by info_framegrabber function as follows: 'info_framegrabber ('GenICamTL','device', Information, Devices)'
+  - [**get_first_available_zivid_device**][get_first_available_zivid_device-url] - This procedure returns the first Zivid device from the input tuple of devices. The input tuple 'Devices' is typically returned by info_framegrabber function as follows: 'info_framegrabber ('GenICamTL','device', Information, Devices)'
 
 ## Instructions
 
@@ -63,4 +63,4 @@ Zivid Samples are distributed under the [BSD license](https://github.com/zivid/h
 [SurfaceMatchingCreateModel-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModel.hdev
 [SurfaceMatchingFindModelFromFile-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev
 [SurfaceMatchingFindModel-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModel.hdev
-[get_first_available_zivid_device-url] source/Procedures/get_first_available_zivid_device.hdvp
+[get_first_available_zivid_device-url]: source/Procedures/get_first_available_zivid_device.hdvp
