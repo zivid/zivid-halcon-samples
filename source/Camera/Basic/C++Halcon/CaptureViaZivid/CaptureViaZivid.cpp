@@ -19,37 +19,50 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
 	const auto width = pointCloud.width();
 	const auto height = pointCloud.height();
 
-	std::vector<float> array1dX(width * height, 0.0);
-	std::vector<float> array1dY(width * height, 0.0);
-	std::vector<float> array1dZ(width * height, 0.0);
-	std::vector<float> array1dR(width * height, 0.0);
-	std::vector<float> array1dG(width * height, 0.0);
-	std::vector<float> array1dB(width * height, 0.0);
+	std::vector<float> pointsX(width * height);
+	std::vector<float> pointsY(width * height);
+	std::vector<float> pointsZ(width * height);
+	std::vector<float> colorsR(width * height);
+	std::vector<float> colorsG(width * height);
+	std::vector<float> colorsB(width * height);
+	std::vector<int> rowMapping(width*height);
+	std::vector<int> colMapping(width*height);
 
+	int numValidPoints = 0;
 	for (size_t i = 0; i < width*height; ++i)
 	{
 		const auto &point = pointCloud(i);
 		if (!isnan(point.x))
 		{
-			array1dX[i] = point.x;
-			array1dY[i] = point.y;
-			array1dZ[i] = point.z;
-			array1dR[i] = point.red();
-			array1dG[i] = point.green();
-			array1dB[i] = point.blue();
+			pointsX[numValidPoints] = point.x;
+			pointsY[numValidPoints] = point.y;
+			pointsZ[numValidPoints] = point.z;
+			colorsR[numValidPoints] = point.red();
+			colorsG[numValidPoints] = point.green();
+			colorsB[numValidPoints] = point.blue();
+			rowMapping[numValidPoints] = i / width;
+			colMapping[numValidPoints] = i % width;
+			numValidPoints++;
 		}
 	}
 
 	std::cout << "Constructing ObjectModel3D based on XYZ data" << std::endl;
-	const auto X = HalconCpp::HImage{ "real", static_cast<long>(width), static_cast<long>(height), array1dX.data() };
-	const auto Y = HalconCpp::HImage{ "real", static_cast<long>(width), static_cast<long>(height), array1dY.data() };
-	const auto Z = HalconCpp::HImage{ "real", static_cast<long>(width), static_cast<long>(height), array1dZ.data() };
-	HalconCpp::HObjectModel3D objectModel3D(X, Y, Z);
+	HalconCpp::HObjectModel3D objectModel3D(
+		HalconCpp::HTuple{ pointsX.data(), static_cast<long>(numValidPoints) },
+		HalconCpp::HTuple{ pointsY.data(), static_cast<long>(numValidPoints) },
+		HalconCpp::HTuple{ pointsZ.data(), static_cast<long>(numValidPoints) }
+	);
+
+	std::cout << "Mapping ObjectModel3D data" << std::endl;
+	std::vector<int> attribValues = { static_cast<int>(width), static_cast<int>(height) };
+	attribValues.insert(attribValues.end(), rowMapping.begin(), rowMapping.begin() + static_cast<int>(numValidPoints));
+	attribValues.insert(attribValues.end(), colMapping.begin(), colMapping.begin() + static_cast<int>(numValidPoints));
+	HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "xyz_mapping", "object", HalconCpp::HTuple{ attribValues.data(), static_cast<long>(attribValues.size()) });
 
 	std::cout << "Adding RGB to ObjectModel3D" << std::endl;
-	HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "red", "points", HalconCpp::HTuple{ array1dR.data(), static_cast<long>(width) * static_cast<long>(height) });
-	HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "green", "points", HalconCpp::HTuple{ array1dG.data(), static_cast<long>(width) * static_cast<long>(height) });
-	HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "blue", "points", HalconCpp::HTuple{ array1dB.data(), static_cast<long>(width) * static_cast<long>(height) });
+	HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "red", "points", HalconCpp::HTuple{ colorsR.data(), static_cast<long>(numValidPoints) });
+	HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "green", "points", HalconCpp::HTuple{ colorsG.data(), static_cast<long>(numValidPoints) });
+	HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "blue", "points", HalconCpp::HTuple{ colorsB.data(), static_cast<long>(numValidPoints) });
 
 	return objectModel3D;
 }
@@ -64,8 +77,8 @@ int main()
 		auto camera = zivid.connectCamera();
 
 		std::cout << "Configuring camera settings" << std::endl;
-		camera << Zivid::Settings::Iris{ 20 }
-			<< Zivid::Settings::ExposureTime{ std::chrono::microseconds{ 8333 } }
+		camera << Zivid::Settings::Iris{ 21 }
+			<< Zivid::Settings::ExposureTime{ std::chrono::microseconds{ 10000 } }
 			<< Zivid::Settings::Filters::Outlier::Enabled::yes
 			<< Zivid::Settings::Filters::Outlier::Threshold{ 5 };
 
