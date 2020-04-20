@@ -14,6 +14,9 @@ There are two main categories of samples: **Camera** and **Applications**. The s
     - [**CaptureHDRLoop**][CaptureHDRLoop-url] - This example shows how to acquire HDR images from the camera in a loop (while actively changing some HDR settings). Each HDR image is used to generate a HALCON ObjectModel3D which is then visualized. Settings are read from .json files. There are example settings available in /settings. However, you may also get settings from Zivid Studio. When you save settings they will be stored in .yaml format. Halcon only support reading JSON files, so in order to convert them to JSON use [**YAMLSettingsToJSON**][YAMLSettingsToJSON-url].
     - [**ConnectToSerialNumberCamera**][ConnectToSerialNumberCamera-url] - This example shows how to connect to a specific Zivid 3D camera based on its serial number.
     - [**CaptureSavePLY**][CaptureSavePLY-url] - This example shows how to acquire a 3D color point cloud from the camera and save it to a .ply file format.
+	- **C++Halcon**
+		- [**CaptureViaGenICam**][CaptureViaGenICam-url] - This example shows how to capture and save a point cloud using GenICam interface and Halcon C++ SDK.
+		- [**CaptureViaZivid**][CaptureViaZivid-url] - This example shows how to capture a point cloud using Zivid SDK, transform it to a Halcon point cloud and save it using Halcon C++ SDK.
   - **InfoUtilOther**
     - [**QuerySettingsAndParameters**][QuerySettingsAndParameters-url] - This example shows how to query information about the image acquisition interface and selected specific parameters of Zivid camera.
 
@@ -64,3 +67,5 @@ Zivid Samples are distributed under the [BSD license](https://github.com/zivid/h
 [SurfaceMatchingFindModelFromFile-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev
 [SurfaceMatchingFindModel-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModel.hdev
 [get_first_available_zivid_device-url]: source/Procedures/get_first_available_zivid_device.hdvp
+[CaptureViaGenICam-url]: source/Camera/Basic/C++Halcon/CaptureViaGenICam/CaptureViaGenICam.cpp
+[CaptureViaZivid-url]: source/Camera/Basic/C++Halcon/CaptureViaZivid/CaptureViaZivid.cpp
