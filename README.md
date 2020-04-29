@@ -8,31 +8,30 @@ There are two main categories of samples: **Camera** and **Applications**. The s
 
 - **Camera**
   - **Basic**
-    - [**Capture**][Capture-url] - This example shows how to acquire a 3D color point cloud from the camera and use it to generate a HALCON ObjectModel3D which is then visualized.
-    - [**CaptureHDR**][CaptureHDR-url] - This example shows how to acquire an HDR image from the camera and use it to generate a HALCON ObjectModel3D which is then visualized.
-    - [**CaptureHDRCompleteSettings**][CaptureHDRCompleteSettings-url] - This example shows how to acquire an HDR image from the camera (with fully configured settings for each image) and use it to generate a HALCON ObjectModel3D which is then visualized.
-    - [**CaptureHDRLoop**][CaptureHDRLoop-url] - This example shows how to acquire HDR images from the camera in a loop (while actively changing some HDR settings). Each HDR image is used to generate a HALCON ObjectModel3D which is then visualized. Settings are read from .json files. There are example settings available in /settings. However, you may also get settings from Zivid Studio. When you save settings they will be stored in .yaml format. Halcon only support reading JSON files, so in order to convert them to JSON use [**YAMLSettingsToJSON**][YAMLSettingsToJSON-url].
-    - [**ConnectToSerialNumberCamera**][ConnectToSerialNumberCamera-url] - This example shows how to connect to a specific Zivid 3D camera based on its serial number.
-    - [**CaptureSavePLY**][CaptureSavePLY-url] - This example shows how to acquire a 3D color point cloud from the camera and save it to a .ply file format.
-	- **C++Halcon**
-		- [**CaptureViaGenICam**][CaptureViaGenICam-url] - This example shows how to capture and save a point cloud using GenICam interface and Halcon C++ SDK.
-		- [**CaptureViaZivid**][CaptureViaZivid-url] - This example shows how to capture a point cloud using Zivid SDK, transform it to a Halcon point cloud and save it using Halcon C++ SDK.
+    - **Capture** ([**hdev**][hdev-capture-url]) - This example shows how to acquire a 3D color point cloud from the camera and use it to generate a HALCON ObjectModel3D which is then visualized.
+    - **CaptureHDR** ([**hdev**][hdev-captureHDR-url]) - This example shows how to acquire an HDR image from the camera and use it to generate a HALCON ObjectModel3D which is then visualized.
+    - **CaptureHDRCompleteSettings** ([**hdev**][hdev-captureHDRCompleteSettings-url]) - This example shows how to acquire an HDR image from the camera (with fully configured settings for each image) and use it to generate a HALCON ObjectModel3D which is then visualized.
+    - **CaptureHDRLoop** ([**hdev**][hdev-captureHDRLoop-url]) - This example shows how to acquire HDR images from the camera in a loop (while actively changing some HDR settings). Each HDR image is used to generate a HALCON ObjectModel3D which is then visualized. Settings are read from .json files. There are example settings available in /settings. However, you may also get settings from Zivid Studio. When you save settings they will be stored in .yaml format. Halcon only support reading JSON files, so in order to convert them to JSON use [**YAMLSettingsToJSON**][YAMLSettingsToJSON-url].
+    - **ConnectToSerialNumberCamera** ([**hdev**][hdev-connectToSerialNumberCamera-url]) - This example shows how to connect to a specific Zivid 3D camera based on its serial number.
+    - **CaptureSavePLY** ([**hdev**][hdev-captureSavePLY-url]) - This example shows how to acquire a 3D color point cloud from the camera and save it to a .ply file format.
+    - **CaptureViaGenICam** ([**cpp**][cpp-captureViaGenICam-url]) - This example shows how to capture and save a point cloud using GenICam interface and Halcon C++ SDK.
+    - **CaptureViaZivid** ([**cpp**][cpp-captureViaZivid-url]) - This example shows how to capture a point cloud using Zivid SDK, transform it to a Halcon point cloud and save it using Halcon C++ SDK.
   - **InfoUtilOther**
-    - [**QuerySettingsAndParameters**][QuerySettingsAndParameters-url] - This example shows how to query information about the image acquisition interface and selected specific parameters of Zivid camera.
+    - **QuerySettingsAndParameters** ([**hdev**][hdev-querySettingsAndParameters-url]) - This example shows how to query information about the image acquisition interface and selected specific parameters of Zivid camera.
 
 - **Applications**
   - **Basic**
     - **FileFormats**
-      - [**ReadPLY**][ReadPLY-url] - This example shows how to import and display a Zivid point cloud from a PLY file.
+      - **ReadPLY** ([**hdev**][hdev-readPLY-url]) - This example shows how to import and display a Zivid point cloud from a PLY file.
   - **Advanced**
-    - [**ObjectMatching**][ObjectMatching-url]
-      - [**SurfaceMatchingCreateModelFromFile**][SurfaceMatchingCreateModelFromFile-url] - This example shows how to create a model for surface-based matching algorithm integrated into HALCON. This example comes with two models created by this program: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
-      - [**SurfaceMatchingCreateModel**][SurfaceMatchingCreateModel-url] - This example shows how to create a model for surface-based matching algorithm integrated into HALCON. This example comes with two models created by this program: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
-      - [**SurfaceMatchingFindModelFromFile**][SurfaceMatchingFindModelFromFile-url] - This example shows surface-based 3D matching on data taken with the Zivid camera. The model used for matching is created from a reference view of the object. That model is then searched for in a newly acquired 3D point cloud. This example comes with two existing object models: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
-      - [**SurfaceMatchingFindModel**][SurfaceMatchingFindModel-url] - This example shows surface-based 3D matching on data taken with the Zivid camera. The model used for matching is created from a reference view of the object. That model is then searched for in a newly acquired 3D point cloud. This example comes with two existing object models: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
+    - **ObjectMatching** ([**hdev**][hdev-objectMatching-url])
+      - **SurfaceMatchingCreateModelFromFile** ([**hdev**][hdev-surfaceMatchingCreateModelFromFile-url]) - This example shows how to create a model for surface-based matching algorithm integrated into HALCON. This example comes with two models created by this program: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
+      - **SurfaceMatchingCreateModel** ([**hdev**][hdev-surfaceMatchingCreateModel-url]) - This example shows how to create a model for surface-based matching algorithm integrated into HALCON. This example comes with two models created by this program: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
+      - **SurfaceMatchingFindModelFromFile** ([**hdev**][hdev-surfaceMatchingFindModelFromFile-url]) - This example shows surface-based 3D matching on data taken with the Zivid camera. The model used for matching is created from a reference view of the object. That model is then searched for in a newly acquired 3D point cloud. This example comes with two existing object models: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
+      - **SurfaceMatchingFindModel** ([**hdev**][hdev-surfaceMatchingFindModel-url]) - This example shows surface-based 3D matching on data taken with the Zivid camera. The model used for matching is created from a reference view of the object. That model is then searched for in a newly acquired 3D point cloud. This example comes with two existing object models: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
 
 - **Procedures**
-  - [**get_first_available_zivid_device**][get_first_available_zivid_device-url] - This procedure returns the first Zivid device from the input tuple of devices. The input tuple 'Devices' is typically returned by info_framegrabber function as follows: 'info_framegrabber ('GenICamTL','device', Information, Devices)'
+  - **get_first_available_zivid_device** ([**hdev**][hdev-get_first_available_zivid_device-url]) - This procedure returns the first Zivid device from the input tuple of devices. The input tuple 'Devices' is typically returned by info_framegrabber function as follows: 'info_framegrabber ('GenICamTL','device', Information, Devices)'
 
 ## Instructions
 
@@ -52,20 +51,20 @@ If you need assistance with using Zivid cameras, visit our Knowledge Base at [ht
 ## Licence
 Zivid Samples are distributed under the [BSD license](https://github.com/zivid/halcon-samples/blob/master/LICENSE).
 
-[Capture-url]: source/Camera/Basic/Capture.hdev
-[CaptureHDR-url]: source/Camera/Basic/CaptureHDR.hdev
-[CaptureSavePLY-url]: source/Camera/Basic/CaptureSavePLY.hdev
-[CaptureHDRCompleteSettings-url]: source/Camera/Basic/CaptureHDRCompleteSettings.hdev
-[CaptureHDRLoop-url]: source/Camera/Basic/CaptureHDRLoop.hdev
-[YAMLSettingsToJSON-url]: source/Camera/Basic/YAMLSettingsToJSON.py
-[ConnectToSerialNumberCamera-url]: source/Camera/Basic/ConnectToSerialNumberCamera.hdev
-[QuerySettingsAndParameters-url]: source/Camera/InfoUtilOther/QuerySettingsAndParameters.hdev
-[ReadPLY-url]: source/Applications/Basic/FileFormats/ReadPLY.hdev
-[ObjectMatching-url]: source/Applications/Advanced/ObjectMatching
-[SurfaceMatchingCreateModelFromFile-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModelFromFile.hdev
-[SurfaceMatchingCreateModel-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModel.hdev
-[SurfaceMatchingFindModelFromFile-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev
-[SurfaceMatchingFindModel-url]: source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModel.hdev
-[get_first_available_zivid_device-url]: source/Procedures/get_first_available_zivid_device.hdvp
-[CaptureViaGenICam-url]: source/Camera/Basic/C++Halcon/CaptureViaGenICam/CaptureViaGenICam.cpp
-[CaptureViaZivid-url]: source/Camera/Basic/C++Halcon/CaptureViaZivid/CaptureViaZivid.cpp
+[hdev-capture-url]: source/hdev/Camera/Basic/Capture.hdev
+[hdev-captureHDR-url]: source/hdev/Camera/Basic/CaptureHDR.hdev
+[hdev-captureSavePLY-url]: source/hdev/Camera/Basic/CaptureSavePLY.hdev
+[hdev-captureHDRCompleteSettings-url]: source/hdev/Camera/Basic/CaptureHDRCompleteSettings.hdev
+[hdev-captureHDRLoop-url]: source/hdev/Camera/Basic/CaptureHDRLoop.hdev
+[YAMLSettingsToJSON-url]: source/hdev/Camera/Basic/YAMLSettingsToJSON.py
+[hdev-connectToSerialNumberCamera-url]: source/hdev/Camera/Basic/ConnectToSerialNumberCamera.hdev
+[hdev-querySettingsAndParameters-url]: source/hdev/Camera/InfoUtilOther/QuerySettingsAndParameters.hdev
+[hdev-readPLY-url]: source/hdev/Applications/Basic/FileFormats/ReadPLY.hdev
+[hdev-objectMatching-url]: source/hdev/Applications/Advanced/ObjectMatching
+[hdev-surfaceMatchingCreateModelFromFile-url]: source/hdev/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModelFromFile.hdev
+[hdev-surfaceMatchingCreateModel-url]: source/hdev/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModel.hdev
+[hdev-surfaceMatchingFindModelFromFile-url]: source/hdev/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev
+[hdev-surfaceMatchingFindModel-url]: source/hdev/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModel.hdev
+[hdev-get_first_available_zivid_device-url]: source/hdev/Procedures/get_first_available_zivid_device.hdvp
+[cpp-captureViaGenICam-url]: source/cpp/Camera/Basic/CaptureViaGenICam/CaptureViaGenICam.cpp
+[cpp-captureViaZivid-url]: source/cpp/Camera/Basic/CaptureViaZivid/CaptureViaZivid.cpp
