@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<hdevelop file_version="1.2" halcon_version="19.05.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -21,7 +21,7 @@
 <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'blue', Window3D)</l>
 <c></c>
 <c>* Reading a 3D object model. The "Zivid3D.ply" file has to be in the same folder as the "ReadPLY" file.</c>
-<l>Filename := 'Zivid3D.ply'</l>
+<l>Filename := environment('ZIVID_DATA') + '/' + 'Zivid3D.ply'</l>
 <l>read_object_model_3d (Filename, 'mm', ['xyz_map_width'], [1920], ObjectModel3D, Status)</l>
 <c></c>
 <c>* Fixing to make the point cloud appear with colors</c>
