@@ -41,38 +41,38 @@
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
 <c></c>
 <c>* Configuring HDR settings (Twinings tea box)</c>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',22)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',28)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 28)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <c></c>
 <c>* Configuring HDR settings (Pringles can)</c>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',26)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',48)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 26)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 48)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <c></c>
 <c>* Configuring HDR settings (Coca-Cola bottle)</c>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',20)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',32)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 20)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 32)</l>
+<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <c></c>
 <c>* Configuring HDR settings (Your own object)</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',14)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',22)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',40)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 14)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 40)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <c></c>
 <c>* Grabing the HDR image</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D_Scene)</l>

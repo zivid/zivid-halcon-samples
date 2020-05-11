@@ -39,7 +39,7 @@
 <c>* Configuring settings</c>
 <l>set_framegrabber_param (AcqHandle, 'Iris', 30)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
-<l>set_framegrabber_param (AcqHandle, 'Gain',1)</l>
+<l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <c></c>
 <c>* Grabbing the image</c>

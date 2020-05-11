@@ -40,7 +40,7 @@
 <c>* Configuring settings</c>
 <l>set_framegrabber_param (AcqHandle, 'Iris', 20)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
-<l>set_framegrabber_param (AcqHandle, 'Gain',1)</l>
+<l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'OutlierFilterEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'GaussianFilterEnabled', 1)</l>

@@ -53,41 +53,41 @@
 <c>* Configuring HDR settings</c>
 <c>* Twinings tea box</c>
 <l>if (Filename = 'TwiningsTeaBox')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',22)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',28)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 28)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <l>endif</l>
 <c>* Pringles can</c>
 <l>if (Filename = 'PringlesCan')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',26)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',48)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 26)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 48)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <l>endif</l>
 <c>* Coca-Cola bottle</c>
 <l>if (Filename = 'CocaColaBottle')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',20)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',32)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 20)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 32)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <l>endif</l>
 <c>* Your own model created with the SurfaceMatchingCreateModel.hdev</c>
 <l>if (Filename = '')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime',10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',12)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',22)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',40)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 12)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 40)</l>
+<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <l>endif</l>
 <c></c>
 <c>* Loading the HALCON model for surface-based 3D matching</c>

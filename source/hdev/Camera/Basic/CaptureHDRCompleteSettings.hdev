@@ -43,13 +43,13 @@
 <c></c>
 <c>* Reseting any previous HDR settings</c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
 <c></c>
 <c>* Configuring HDR settings for the first image</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',10)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 10)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain',1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain', 1)</l>
 <c></c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', 0)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameContrastFilterEnabled', 1)</l>
@@ -61,12 +61,12 @@
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', 1)</l>
 <c></c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector', 'Blue')</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector', 'Red')</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
 <c></c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
 <c></c>
 <c>* Configuring HDR settings for the second image</c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',20)</l>
@@ -84,19 +84,19 @@
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', 1)</l>
 <c></c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector', 'Blue')</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector', 'Red')</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
 <c></c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>
 <c></c>
 <c></c>
 <c>* Configuring HDR settings for the third image</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',30)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 30)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 33000)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBrightness', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain',1)</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameGain', 1)</l>
 <c></c>
 <c>* Exposure time must be &gt;= 33000 when using bidirectional patterns</c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBidirectional', 1)</l>
@@ -109,9 +109,9 @@
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReflectionFilterEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameSaturatedFilterEnabled', 1)</l>
 <c></c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Blue')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector', 'Blue')</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.081)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector','Red')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatioSelector', 'Red')</l>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameBalanceRatio', 1.709)</l>
 <c></c>
 <l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd','1')</l>

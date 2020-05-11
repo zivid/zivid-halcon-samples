@@ -39,7 +39,7 @@
 <c></c>
 <c>* Switching to the HDR mode</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
 <c></c>
 <l>for Index := 0 to 2 by 1</l>
 <c>    </c>
