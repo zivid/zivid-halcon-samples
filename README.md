@@ -36,7 +36,7 @@ There are two main categories of samples: **Camera** and **Applications**. The s
 ## Instructions
 
 1. [**Install Zivid Software**](https://www.zivid.com/downloads).
-Note: The version tested with Zivid cameras is 1.8.0.
+Note: The version tested with Zivid cameras is 1.8.1.
 
 2. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
 Note: The version tested with Zivid cameras is 19.05 Progress for Windows.
