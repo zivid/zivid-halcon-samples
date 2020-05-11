@@ -36,7 +36,7 @@ There are two main categories of samples: **Camera** and **Applications**. The s
 ## Instructions
 
 1. [**Install Zivid Software**](https://www.zivid.com/downloads).
-Note: The version tested with Zivid cameras is 1.8.0.
+Note: The version tested with Zivid cameras is 1.8.1.
 
 2. [**Download Zivid Sample Data**](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/450363393/Sample+Data).
 
