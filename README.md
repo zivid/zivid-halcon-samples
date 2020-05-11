@@ -38,12 +38,14 @@ There are two main categories of samples: **Camera** and **Applications**. The s
 1. [**Install Zivid Software**](https://www.zivid.com/downloads).
 Note: The version tested with Zivid cameras is 1.8.0.
 
-2. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
+2. [**Download Zivid Sample Data**](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/450363393/Sample+Data).
+
+3. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
 Note: The version tested with Zivid cameras is 19.05 Progress for Windows.
 
-3. Launch HALCON.
+4. Launch HALCON.
 
-4. Open and run one of the samples. Check out [how to run a HALCON sample](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/427841/How+to+run+a+HALCON+sample).
+5. Open and run one of the samples. Check out [how to run a HALCON sample](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/427841/How+to+run+a+HALCON+sample).
 
 ## Support
 If you need assistance with using Zivid cameras, visit our Knowledge Base at [https://help.zivid.com/](https://help.zivid.com/) or contact us at [customersuccess@zivid.com](mailto:customersuccess@zivid.com).

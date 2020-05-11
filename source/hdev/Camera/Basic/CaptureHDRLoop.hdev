@@ -39,7 +39,7 @@
 <c></c>
 <c>* Switching to the HDR mode</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode','HDR')</l>
+<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
 <c></c>
 <l>for Index := 0 to 2 by 1</l>
 <c>    </c>
@@ -48,7 +48,7 @@
 <c>    </c>
 <c>    * Configuring HDR settings for frames</c>
 <l>    for Frame := 1 to 3 by 1</l>
-<l>        set_hdr_frame (AcqHandle, 'settings/set'+(Index+1)+'_json/frame_0'+Frame+'.json')</l>
+<l>        set_hdr_frame (AcqHandle, environment('ZIVID_DATA')+'/SettingsJson/Set'+(Index+1)+'/Frame0'+Frame+'.json')</l>
 <l>    endfor</l>
 <c></c>
 <c>    * Grabbing the HDR image</c>

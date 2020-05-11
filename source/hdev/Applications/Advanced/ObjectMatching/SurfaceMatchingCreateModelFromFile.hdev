@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<hdevelop file_version="1.2" halcon_version="19.05.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -26,12 +26,13 @@
 <c></c>
 <c>* Reading a 3D point cloud of the scene</c>
 <c>* Twinings tea box</c>
-<l>SceneFilename:= 'Twinings tea box/im1.ply'</l>
+<l>SceneFilename:= 'TwiningsTeaBox/Im1.ply'</l>
 <c>* Pringles can</c>
-<l>* SceneFilename:= 'Pringles can/im1.ply'</l>
+<l>* SceneFilename:= 'PringlesCan/Im1.ply'</l>
 <c>* Coca-Cola bottle</c>
-<l>* SceneFilename:= 'Coca-Cola bottle/im1.ply'</l>
-<l>read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
+<l>* SceneFilename:= 'CocaColaBottle/Im1.ply'</l>
+<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + SceneFilename</l>
+<l>read_object_model_3d (ScenePath, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
 <c>    </c>
 <c>* Fixing to make the point cloud appear with colors</c>
 <l>get_object_model_3d_params (ObjectModel3D_Scene, 'red', red)</l>
