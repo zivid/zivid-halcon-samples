@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -30,9 +30,9 @@
 <l>Filename := 'TwiningsTeaBox'</l>
 <c>* Existing Pringles can model</c>
 <l>* Filename := 'PringlesCan'</l>
-<c>* Existing CocaColaBottle model</c>
-<l>* Filename := 'Coca-Cola bottle'</l>
-<l>FilePath := environment('ZIVID_DATA') + '/ObjectMatching/' + Filename</l>
+<c>* Existing Coca-Cola bottle model</c>
+<l>* Filename := 'CocaColaBottle'</l>
+<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + Filename</l>
 <c></c>
 <c>* Specify whether you want to use your own model created with the SurfaceMatchingCreateModelFromFile.hdev</c>
 <l>MyModel := false</l>
@@ -42,7 +42,7 @@
 <l>if (MyModel)</l>
 <l>    SFMFilename := 'SFM'</l>
 <l>else</l>
-<l>    tuple_add(FilePath,'/SFM', SFMFilename)</l>
+<l>    tuple_add(ScenePath,'/SFM', SFMFilename)</l>
 <l>endif</l>
 <l>read_surface_model (SFMFilename, SFM)</l>
 <c></c>
@@ -50,13 +50,13 @@
 <l>if (MyModel)</l>
 <l>    ObjectModel3DFilename := 'ObjectModel3D'</l>
 <l>else</l>
-<l>    tuple_add(FilePath,'/ObjectModel3D', ObjectModel3DFilename)</l>
+<l>    tuple_add(ScenePath,'/ObjectModel3D', ObjectModel3DFilename)</l>
 <l>endif</l>
 <l>read_object_model_3d (ObjectModel3DFilename, 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
 <l>for Index := 1 to 5 by 1</l>
 <c>    </c>
-<l>    tuple_add(FilePath,'/Im', SceneFilename)</l>
+<l>    tuple_add(ScenePath,'/Im', SceneFilename)</l>
 <l>    tuple_add(SceneFilename,Index, SceneFilename)</l>
 <l>    tuple_add(SceneFilename,'.ply', SceneFilename)    </l>
 <l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
