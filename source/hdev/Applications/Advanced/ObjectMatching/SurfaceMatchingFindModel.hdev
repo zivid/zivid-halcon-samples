@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -19,15 +19,20 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>*</c>
 <c></c>
+<c>* Specify whether you want to use your own model or not</c>
+<l>MyModel := false</l>
+<l>* MyModel := true</l>
+<c></c>
 <c>* Specify the HALCON model for surface-based 3D matching</c>
 <c>* Existing Twinings tea box model</c>
-<l>* Filename := 'TwiningsTeaBox'</l>
+<l>Filename := 'TwiningsTeaBox'</l>
 <c>* Existing Pringles can model</c>
 <l>* Filename := 'PringlesCan'</l>
 <c>* Existing Coca-Cola bottle model</c>
 <l>* Filename := 'CocaColaBottle'</l>
 <c>* Your own model created with the SurfaceMatchingCreateModel.hdev</c>
-<l>Filename := ''</l>
+<l>* Filename := ''</l>
+<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + Filename</l>
 <c></c>
 <c>*Get first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
@@ -91,11 +96,19 @@
 <l>endif</l>
 <c></c>
 <c>* Loading the HALCON model for surface-based 3D matching</c>
-<l>tuple_add(Filename,'SFM', SFMFilename)</l>
+<l>if (MyModel)</l>
+<l>    SFMFilename := 'SFM'</l>
+<l>else</l>
+<l>    tuple_add(ScenePath,'/SFM', SFMFilename)</l>
+<l>endif</l>
 <l>read_surface_model (SFMFilename, SFM)</l>
 <c></c>
 <c>* Loading the HALCON 3D object model (used for visualization purpose)</c>
-<l>tuple_add(Filename,'ObjectModel3D', ObjectModel3DFilename)</l>
+<l>if (MyModel)</l>
+<l>    ObjectModel3DFilename := 'ObjectModel3D'</l>
+<l>else</l>
+<l>    tuple_add(ScenePath,'/ObjectModel3D', ObjectModel3DFilename)</l>
+<l>endif</l>
 <l>read_object_model_3d (ObjectModel3DFilename, 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
 <c>* Preparing the graphics window</c>
@@ -129,15 +142,15 @@
 <l>    count_seconds (T0)</l>
 <c>    * RelSamplingDistance - point cloud downsampling (0 = no downsampling)</c>
 <c>    * Twinings tea box</c>
-<l>    if (Filename = 'Twinings tea box')</l>
+<l>    if (Filename = 'TwiningsTeaBox')</l>
 <l>        RelSamplingDistance := 0.01</l>
 <l>    endif</l>
 <c>    * Pringles can</c>
-<l>    if (Filename = 'Pringles can')</l>
+<l>    if (Filename = 'PringlesCan')</l>
 <l>        RelSamplingDistance := 0.03</l>
 <l>    endif</l>
 <c>    * Coca-Cola bottle</c>
-<l>    if (Filename = 'Coca-Cola bottle')</l>
+<l>    if (Filename = 'CocaColaBottle')</l>
 <l>        RelSamplingDistance := 0.003</l>
 <l>    endif</l>
 <c>    * Your own model created with the SurfaceMatchingCreateModel.hdev</c>
