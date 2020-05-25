@@ -49,18 +49,18 @@
 <l>set_grayval (B, Rows, Columns, blue)</l>
 <l>compose3 (R, G, B, RGB)</l>
 <c></c>
-<c>* Displaying the RGB image</c>
+<c>* Displaying RGB image</c>
 <l>dev_set_window (Window2D)</l>
 <l>dev_display (RGB)</l>
 <c></c>
-<c>* Visualizing the current 3D object model</c>
+<c>* Visualizing current 3D object model</c>
 <l>dev_set_window (Window3D)</l>
 <l>Instructions[0] := 'Rotate: Left button'</l>
 <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
 <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
 <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], ['red_channel_attrib','green_channel_attrib','blue_channel_attrib'], ['&amp;red','&amp;green','&amp;blue'], Instructions, [], '', PoseOut)</l>
 <c></c>
-<c>* Clearing the 3D object model from memory</c>
+<c>* Clearing 3D object model from memory</c>
 <l>clear_object_model_3d (ObjectModel3D)</l>
 <c></c>
 <c>* Closing graphics windows</c>

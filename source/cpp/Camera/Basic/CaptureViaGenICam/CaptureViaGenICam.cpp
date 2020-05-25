@@ -70,12 +70,11 @@ int main()
                                     0,
                                     &framegrabber);
 
-        std::cout << "Configuring 3D-settings" << std::endl;
+        std::cout << "Configuring settings" << std::endl;
         HalconCpp::SetFramegrabberParam(framegrabber, "create_objectmodel3d", "enable");
         HalconCpp::SetFramegrabberParam(framegrabber, "add_objectmodel3d_overlay_attrib", "enable");
         HalconCpp::SetFramegrabberParam(framegrabber, "AcquisitionMode", "SingleFrame");
 
-        std::cout << "Configuring camera settings" << std::endl;
         HalconCpp::SetFramegrabberParam(framegrabber, "Aperture", 5.66);
         HalconCpp::SetFramegrabberParam(framegrabber, "ExposureTime", 8333);
         HalconCpp::SetFramegrabberParam(framegrabber, "Gain", 2);
@@ -110,9 +109,9 @@ int main()
         std::cout << "Adding RGB to ObjectModel3D" << std::endl;
         setColorsInObjectModel3D(objectModel3D, rgb, zReduced);
 
-        const auto fileName = "Zivid3D.ply";
-        std::cout << "Saving point cloud to: " << fileName << std::endl;
-        savePointCloud(objectModel3D, fileName);
+        const auto pointCloudFile = "Zivid3D.ply";
+        std::cout << "Saving point cloud to file: " << pointCloudFile << std::endl;
+        savePointCloud(objectModel3D, pointCloudFile);
     }
     catch(const std::exception &e)
     {

@@ -18,12 +18,12 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     const auto width = pointCloud.width();
     const auto height = pointCloud.height();
 
-    auto pointCloudData = pointCloud.copyData<Zivid::PointXYZColorRGBA>();
+    const auto pointsXYZ = pointCloud.copyPointsXYZ();
+    const auto colorsRGBA = pointCloud.copyColorsRGBA();
 
-    int numberOfValidPoints =
-        std::count_if(pointCloudData.data(),
-                      pointCloudData.data() + pointCloudData.size(),
-                      [](const Zivid::PointXYZColorRGBA &point) { return (!point.point.isNaN()); });
+    int numberOfValidPoints = std::count_if(pointsXYZ.data(),
+                                            pointsXYZ.data() + pointsXYZ.size(),
+                                            [](const Zivid::PointXYZ &point) { return (!point.isNaN()); });
 
     // Initializing HTuples which are later filled with data from the Zivid point cloud.
     // tupleXYZMapping is of shape [width, height, rows[], cols[]], and is used for creating xyz mapping.
@@ -42,7 +42,6 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     tupleXYZMapping[1] = (Hlong)height;
 
     int validPointIndex = 0;
-    size_t idx = 0;
 
     for(size_t i = 0; i < height; ++i)
     {
@@ -88,26 +87,26 @@ int main()
         Zivid::Application zivid;
         auto camera = zivid.connectCamera();
 
-        std::cout << "Configuring camera settings" << std::endl;
+        std::cout << "Configuring settings" << std::endl;
         const auto settings =
-            Zivid::Settings{ Zivid::Settings::Frames{ Zivid::Settings::Frame{
-                                 Zivid::Settings::Frame::Aperture{ 5.66 },
-                                 Zivid::Settings::Frame::ExposureTime{ std::chrono::microseconds{ 8333 } } } },
+            Zivid::Settings{ Zivid::Settings::Acquisitions{ Zivid::Settings::Acquisition{
+                                 Zivid::Settings::Acquisition::Aperture{ 5.66 },
+                                 Zivid::Settings::Acquisition::ExposureTime{ std::chrono::microseconds{ 8333 } } } },
                              Zivid::Settings::Processing::Filters::Outlier::Removal::Enabled::yes,
                              Zivid::Settings::Processing::Filters::Outlier::Removal::Threshold{ 5 },
                              Zivid::Settings::Processing::Filters::Smoothing::Gaussian::Enabled::yes,
                              Zivid::Settings::Processing::Filters::Smoothing::Gaussian::Sigma{ 1.5 } };
 
-        std::cout << "Capture a frame" << std::endl;
+        std::cout << "Capturing frame" << std::endl;
         const auto frame = camera.capture(settings);
         const auto zividPointCloud = frame.pointCloud();
 
         std::cout << "Converting to Halcon point cloud" << std::endl;
         const auto halconPointCloud = zividToHalconPointCloud(zividPointCloud);
 
-        const auto fileName = "Zivid3D.ply";
-        std::cout << "Saving point cloud to: " << fileName << std::endl;
-        savePointCloud(halconPointCloud, fileName);
+        const auto pointCloudFile = "Zivid3D.ply";
+        std::cout << "Saving point cloud to file: " << pointCloudFile << std::endl;
+        savePointCloud(halconPointCloud, pointCloudFile);
     }
 
     catch(const std::exception &e)

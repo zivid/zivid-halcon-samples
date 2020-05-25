@@ -22,12 +22,12 @@
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
 <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'black', Window2D)</l>
 <c></c>
-<c>*Get first available Zivid device</c>
+<c>*Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
-<c>* Connecting to the Zivid camera</c>
+<c>* Connecting to Zivid camera</c>
 <l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
@@ -37,7 +37,7 @@
 <c>* Seting the timeout for aborting a pending grab to infinity</c>
 <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
 <c></c>
-<c>* Switching to the HDR mode</c>
+<c>* Switching to the HDR mode (multiple acquisitions)</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
 <c>* Reseting any previous HDR settings</c>
@@ -51,7 +51,7 @@
 <l>set_framegrabber_param (AcqHandle, 'Aperture', 2.83)</l>
 <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
-<c>* Grabing the HDR image</c>
+<c>* Capturing frame (HDR)</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c></c>
 <c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
@@ -61,11 +61,11 @@
 <l>select_obj (Image, Confidence, 4)</l>
 <l>select_obj (Image, RGBA, 5)</l>
 <c></c>
-<c>* Displaying the 2D color image</c>
+<c>* Displaying 2D color image</c>
 <l>dev_set_window (Window2D)</l>
 <l>dev_display (RGBA)</l>
 <c></c>
-<c>* Displaying the 3D color point cloud, press the button to continue</c>
+<c>* Displaying 3D color point cloud, press the button to continue</c>
 <l>Instructions[0] := 'Rotate: Left button'</l>
 <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
 <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>

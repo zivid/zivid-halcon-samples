@@ -21,19 +21,19 @@
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
 <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'black', Window2D)</l>
 <c></c>
-<c>*Get first available Zivid device</c>
+<c>*Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
-<c>* Connecting to the Zivid camera</c>
+<c>* Connecting to Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
 <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
 <c></c>
-<c>* Switching to the single Frame mode</c>
+<c>* Switching to single acquisition mode</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
 <c></c>
 <c>* Configuring settings</c>
@@ -42,7 +42,7 @@
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <c></c>
-<c>* Grabbing the image</c>
+<c>* Capturing frame</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c></c>
 <c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
@@ -73,7 +73,7 @@
 <l>get_grayval (B, Rows, Columns, GrayvalB)</l>
 <l>set_object_model_3d_attrib_mod (ObjectModel3D, 'blue', 'points', GrayvalB)</l>
 <c></c>
-<c>* Displaying the 3D color point cloud, press the button to continue</c>
+<c>* Displaying 3D color point cloud, press the button to continue</c>
 <l>dev_set_window (Window3D)</l>
 <l>Instructions[0] := 'Rotate: Left button'</l>
 <l>Instructions[1] := 'Zoom:   Shift + left button'</l>

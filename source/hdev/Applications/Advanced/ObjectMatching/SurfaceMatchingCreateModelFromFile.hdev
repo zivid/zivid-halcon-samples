@@ -26,9 +26,9 @@
 <c></c>
 <c>* Reading a 3D point cloud of the scene</c>
 <c>* Twinings tea box</c>
-<l>Filename:= 'TwiningsTeaBox'</l>
+<l>SurfaceModelFile:= 'TwiningsTeaBox'</l>
 <c>* Pringles can</c>
-<l>* Filename:= 'PringlesCan'</l>
+<l>* SurfaceModelFile:= 'PringlesCan'</l>
 <c>* Coca-Cola bottle</c>
 <l>* SurfaceModelFile:= 'CocaColaBottle'</l>
 <c></c>
@@ -63,7 +63,7 @@
 <l>dev_disp_text (['Position the mouse cursor on the edge of the object', 'Click and hold the left mouse button to begin drawing the ROI around the object', 'Release the left mouse button to end drawing the ROI', 'Click the right mouse button to continue running the program'], 'window', 'bottom', 'left', 'black', [], [])</l>
 <l>draw_region (RegionDraw, Window3D)</l>
 <c></c>
-<c>* Geting min and max Z values encapsulated by the created region</c>
+<c>* Getting min and max Z values encapsulated by the created region</c>
 <l>min_max_gray (RegionDraw, Z, 0, MinZ, MaxZ, RangeZ)</l>
 <c></c>
 <c>* Segmenting the Z image with Z values encapsulated by the created region</c>
