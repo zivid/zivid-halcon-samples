@@ -6,7 +6,7 @@
 <c>* </c>
 <c>* Example for the usage of a Zivid 3D camera in HALCON</c>
 <c>* </c>
-<c>* This example shows how to acquire HDR images from the camera</c>
+<c>* This example shows how to capture HDR images from the camera</c>
 <c>* in a loop (while actively changing some HDR settings). Each</c>
 <c>* HDR image is used to generate a HALCON ObjectModel3D</c>
 <c>* which is then visualized.</c>
@@ -22,13 +22,13 @@
 <l>WinHeight := 800</l>
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
 <c></c>
-<c>*Get first available Zivid device</c>
+<c>*Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <l>get_zivid_sample_data_dir(ZividDataDir)</l>
 <c></c>
-<c>* Connecting to the Zivid camera</c>
+<c>* Connecting to Zivid camera</c>
 <l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
@@ -38,7 +38,7 @@
 <c>* Seting the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
 <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
 <c></c>
-<c>* Switching to the HDR mode</c>
+<c>* Switching to HDR mode (multiple acquisitions)</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
 <l>for Index := 0 to 2 by 1</l>
@@ -52,7 +52,7 @@
 <c>    * Capturing frame (HDR)</c>
 <l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c>    </c>
-<c>    * Displaying the 3D color point cloud, press the button to continue</c>
+<c>    * Displaying 3D color point cloud, press the button to continue</c>
 <l>    Instructions[0] := 'Rotate: Left button'</l>
 <l>    Instructions[1] := 'Zoom:   Shift + left button'</l>
 <l>    Instructions[2] := 'Move:   Ctrl  + left button'</l>
@@ -60,10 +60,10 @@
 <c></c>
 <l>endfor</l>
 <c></c>
-<c>* Disconnecting from the Zivid Camera</c>
+<c>* Disconnecting from Zivid Camera</c>
 <l>close_framegrabber (AcqHandle)</l>
 <c></c>
-<c>* Closing the graphics window</c>
+<c>* Closing graphics window</c>
 <l>dev_close_window ()</l>
 <c></c>
 </body>
@@ -79,63 +79,73 @@
 </ic>
 </interface>
 <body>
-<c>    </c>
 <l>    read_dict(path, [], [], json_dict)</l>
 <c>    </c>
 <l>    get_dict_param (json_dict, 'keys', [], AllKeys)</l>
 <l>    get_dict_tuple (json_dict, 'Settings', settings)</l>
-<l>    get_dict_tuple (settings, 'Frames', frames)</l>
+<l>    get_dict_tuple (settings, 'Acquisitions', acquisitions)</l>
 <c>    </c>
-<c>    * Get settings for first frame</c>
-<l>    get_dict_tuple (frames, 0, firstFrame)</l>
-<l>    get_dict_tuple (firstFrame, 'Frame', frame)</l>
-<l>    get_dict_tuple (frame, 'ExposureTime', exposure_time)</l>
+<c>    </c>
+<c>    * Getting settings for first acqusition</c>
+<l>    get_dict_tuple (acquisitions, 0, firstAcquisition)</l>
+<l>    get_dict_tuple (firstAcquisition, 'Acquisition', acquisition)</l>
+<l>    get_dict_tuple (acquisition, 'ExposureTime', exposure_time)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', exposure_time)</l>
-<l>    get_dict_tuple (frame, 'Aperture', aperture)</l>
+<l>    get_dict_tuple (acquisition, 'Aperture', aperture)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Aperture', aperture)</l>
-<l>    get_dict_tuple (frame, 'Brightness', brightness)</l>
+<l>    get_dict_tuple (acquisition, 'Brightness', brightness)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Brightness', brightness)</l>
-<l>    get_dict_tuple (frame, 'Gain', gain)</l>
+<l>    get_dict_tuple (acquisition, 'Gain', gain)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Gain', gain)</l>
-<l>    get_dict_tuple (frame, 'Bidirectional', bidirectional)</l>
+<c>    </c>
+<l>    get_dict_tuple (acquisition, 'Patterns', patterns)</l>
+<l>    get_dict_tuple (patterns, 'Sine', sine)</l>
+<l>    get_dict_tuple (sine, 'Bidirectional', bidirectional)</l>
 <l>    set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', bidirectional)</l>
 <c>    </c>
 <c>    </c>
-<c>    * Get settigns for second frame</c>
-<l>    get_dict_tuple (frames, 1, secondFrame)</l>
-<l>    get_dict_tuple (secondFrame, 'Frame', frame)</l>
-<l>    get_dict_tuple (frame, 'ExposureTime', exposure_time)</l>
+<c>    * Getting settigns for second acqusition</c>
+<l>    get_dict_tuple (acquisitions, 1, secondAcquisition)</l>
+<l>    get_dict_tuple (secondAcquisition, 'Acquisition', acquisition)</l>
+<l>    get_dict_tuple (acquisition, 'ExposureTime', exposure_time)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', exposure_time)</l>
-<l>    get_dict_tuple (frame, 'Aperture', aperture)</l>
+<l>    get_dict_tuple (acquisition, 'Aperture', aperture)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Aperture', aperture)</l>
-<l>    get_dict_tuple (frame, 'Brightness', brightness)</l>
+<l>    get_dict_tuple (acquisition, 'Brightness', brightness)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Brightness', brightness)</l>
-<l>    get_dict_tuple (frame, 'Gain', gain)</l>
+<l>    get_dict_tuple (acquisition, 'Gain', gain)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Gain', gain)</l>
-<l>    get_dict_tuple (frame, 'Bidirectional', bidirectional)</l>
+<c>    </c>
+<l>    get_dict_tuple (acquisition, 'Patterns', patterns)</l>
+<l>    get_dict_tuple (patterns, 'Sine', sine)</l>
+<l>    get_dict_tuple (sine, 'Bidirectional', bidirectional)</l>
 <l>    set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', bidirectional)</l>
 <c>    </c>
 <c>    </c>
-<c>    * Get settings for third frame</c>
-<l>    get_dict_tuple (frames, 2, thirdFrame)</l>
-<l>    get_dict_tuple (thirdFrame, 'Frame', frame)</l>
-<l>    get_dict_tuple (frame, 'ExposureTime', exposure_time)</l>
+<c>    * Getting settings for third acqusition</c>
+<l>    get_dict_tuple (acquisitions, 2, thirdAcquisition)</l>
+<l>    get_dict_tuple (thirdAcquisition, 'Acquisition', acquisition)</l>
+<l>    get_dict_tuple (acquisition, 'ExposureTime', exposure_time)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', exposure_time)</l>
-<l>    get_dict_tuple (frame, 'Aperture', aperture)</l>
+<l>    get_dict_tuple (acquisition, 'Aperture', aperture)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Aperture', aperture)</l>
-<l>    get_dict_tuple (frame, 'Brightness', brightness)</l>
+<l>    get_dict_tuple (acquisition, 'Brightness', brightness)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Brightness', brightness)</l>
-<l>    get_dict_tuple (frame, 'Gain', gain)</l>
+<l>    get_dict_tuple (acquisition, 'Gain', gain)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Gain', gain)</l>
-<l>    get_dict_tuple (frame, 'Bidirectional', bidirectional)</l>
+<c>    </c>
+<l>    get_dict_tuple (acquisition, 'Patterns', patterns)</l>
+<l>    get_dict_tuple (patterns, 'Sine', sine)</l>
+<l>    get_dict_tuple (sine, 'Bidirectional', bidirectional)</l>
 <l>    set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', bidirectional)</l>
 <c>    </c>
-<c>    * Get filter settings</c>
-<l>    get_dict_tuple (settings, 'Processing', globalSettings)</l>
-<l>    get_dict_tuple (globalSettings, 'Filters', filters)</l>
 <c>    </c>
-<l>    get_dict_tuple (filters, 'Contrast', contrast)</l>
-<l>    get_dict_tuple (contrast, 'Removal', removal)</l>
+<c>    * Getting filter settings</c>
+<l>    get_dict_tuple (settings, 'Processing', processing)</l>
+<l>    get_dict_tuple (processing, 'Filters', filters)</l>
+<c>    </c>
+<l>    get_dict_tuple (filters, 'Noise', noise)</l>
+<l>    get_dict_tuple (noise, 'Removal', removal)</l>
 <l>    get_dict_tuple (removal, 'Enabled', enabled)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', enabled)</l>
 <l>    get_dict_tuple (removal, 'Threshold', threshold)</l>
@@ -160,14 +170,15 @@
 <l>    get_dict_tuple (removal, 'Enabled', enabled)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', enabled)</l>
 <c>    </c>
-<c>    * Get color balance settings</c>
-<l>    get_dict_tuple (globalSettings, 'Color', color)</l>
-<l>    get_dict_tuple (color, 'Balance', colorbalance)</l>
-<l>    get_dict_tuple (colorbalance, 'Blue', blue)</l>
+<c>    </c>
+<c>    * Getting color balance settings</c>
+<l>    get_dict_tuple (processing, 'Color', color)</l>
+<l>    get_dict_tuple (color, 'Balance', balance)</l>
+<l>    get_dict_tuple (balance, 'Blue', blue)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', blue)</l>
-<l>    get_dict_tuple (colorbalance, 'Green', green)</l>
+<l>    get_dict_tuple (balance, 'Green', green)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', green)</l>
-<l>    get_dict_tuple (colorbalance, 'Red', red)</l>
+<l>    get_dict_tuple (balance, 'Red', red)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', red)</l>
 <c></c>
 <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>

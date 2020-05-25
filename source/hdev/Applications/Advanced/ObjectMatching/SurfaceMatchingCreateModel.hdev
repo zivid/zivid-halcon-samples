@@ -19,25 +19,25 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>* </c>
 <c></c>
-<c>*Get first available Zivid device</c>
+<c>* Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
-<c>* Connecting to the Zivid camera</c>
+<c>* Connecting to Zivid camera</c>
 <l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
 <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
 <c></c>
-<c>* Seting the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
+<c>* Setting timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
 <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
 <c></c>
-<c>* Switching to the HDR mode</c>
+<c>* Switching to HDR mode (multiple acquisitions)</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
-<c>* Reseting any previous HDR settings</c>
+<c>* Resetting any previous HDR settings</c>
 <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
 <c></c>
 <c>* Configuring HDR settings (Twinings tea box)</c>
@@ -70,7 +70,7 @@
 <l>set_framegrabber_param (AcqHandle, 'Aperture', 2.37)</l>
 <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
-<c>* Grabing the HDR image</c>
+<c>* Capturing frame (HDR)</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D_Scene)</l>
 <c></c>
 <c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
@@ -80,13 +80,13 @@
 <l>select_obj (Image, Confidence, 4)</l>
 <l>select_obj (Image, RGBA, 5)</l>
 <c></c>
-<c>* Preparing the graphics window</c>
+<c>* Preparing graphics window</c>
 <l>dev_close_window ()</l>
 <l>WinWidth := 1920</l>
 <l>WinHeight := 1200</l>
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'black', Window3D)</l>
 <c></c>
-<c>* Displaying the RGB image</c>
+<c>* Displaying RGB image</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_display (RGBA)</l>
 <c></c>
@@ -97,11 +97,11 @@
 <c>* Geting min and max Z values encapsulated by the created region</c>
 <l>min_max_gray (RegionDraw, Z, 0, MinZ, MaxZ, RangeZ)</l>
 <c></c>
-<c>* Segmenting the Z image with Z values encapsulated by the created region</c>
+<c>* Segmenting Z image with Z values encapsulated by the created region</c>
 <l>threshold (Z, RegionZ, MinZ, MaxZ)</l>
 <l>reduce_domain (Z, RegionZ, Z)</l>
 <c></c>
-<c>* Segmenting the resulting Z image with the created region</c>
+<c>* Segmenting resulting Z image with the created region</c>
 <l>reduce_domain (Z, RegionDraw, Z)</l>
 <c></c>
 <c>* Transforming 3D points from X, Y, Z images to a HALCON 3D object model</c>
@@ -119,7 +119,7 @@
 <l>count_seconds (T1)</l>
 <l>TimeForCreating := (T1 - T0)</l>
 <c></c>
-<c>* Disconnecting from the Zivid Camera</c>
+<c>* Disconnecting from Zivid Camera</c>
 <l>close_framegrabber (AcqHandle)</l>
 <c></c>
 <c>* Saving the HALCON 3D object model</c>
@@ -140,7 +140,7 @@
 <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
 <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], [], [], [], [], [], PoseOut)</l>
 <c></c>
-<c>* Closing the graphics window</c>
+<c>* Closing graphics window</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_close_window ()</l>
 </body>
