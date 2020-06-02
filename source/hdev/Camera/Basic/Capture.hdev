@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -38,19 +38,19 @@
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
 <c></c>
 <c>* Configuring settings</c>
-<l>set_framegrabber_param (AcqHandle, 'Iris', 20)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 5.66)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'OutlierFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'GaussianFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'GaussianFilterSigma', 1.5)</l>
-<l>set_framegrabber_param (AcqHandle, 'OutlierFilterThreshold', 5)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 1.5)</l>
 <c></c>
 <c>* Grabing the image</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c></c>
-<c>* Extracting the following images: X, Y, Z, Contrast, and RGB</c>
+<c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
 <l>select_obj (Image, X, 1)</l>
 <l>select_obj (Image, Y, 2)</l>
 <l>select_obj (Image, Z, 3)</l>

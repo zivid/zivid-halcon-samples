@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -25,7 +25,7 @@
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
 <c>* Connecting to the Zivid camera</c>
-<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'default', 0, 0, AcqHandle)</l>
+<l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
@@ -35,49 +35,45 @@
 <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
 <c></c>
 <c>* Switching to the HDR mode</c>
-<l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
+<l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
 <c>* Reseting any previous HDR settings</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
 <c></c>
 <c>* Configuring HDR settings (Twinings tea box)</c>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 28)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>*set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>*set_framegrabber_param (AcqHandle, 'Aperture', 5.65)</l>
+<l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>*set_framegrabber_param (AcqHandle, 'Aperture', 4.0)</l>
+<l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Configuring HDR settings (Pringles can)</c>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 26)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 48)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>*set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>*set_framegrabber_param (AcqHandle, 'Aperture', 4.36)</l>
+<l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>*set_framegrabber_param (AcqHandle, 'Aperture', 2.0)</l>
+<l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Configuring HDR settings (Coca-Cola bottle)</c>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 20)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 32)</l>
-<l>* set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>*set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>*set_framegrabber_param (AcqHandle, 'Aperture', 6.16)</l>
+<l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>*set_framegrabber_param (AcqHandle, 'Aperture', 3.08)</l>
+<l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Configuring HDR settings (Your own object)</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 14)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 40)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 10.37)</l>
+<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 5.50)</l>
+<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 2.37)</l>
+<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Grabing the HDR image</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D_Scene)</l>
 <c></c>
-<c>* Extracting the following images: X, Y, Z, Contrast, and RGB</c>
+<c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
 <l>select_obj (Image, X, 1)</l>
 <l>select_obj (Image, Y, 2)</l>
 <l>select_obj (Image, Z, 3)</l>
@@ -113,7 +109,7 @@
 <c></c>
 <c>* Computing normals for the HALCON 3D object model</c>
 <l>count_seconds (T0)</l>
-<l>sample_object_model_3d(ObjectModel3D,'fast_compute_normals', 1, [], [], ObjectModel3D)</l>
+<l>sample_object_model_3d (ObjectModel3D, 'fast_compute_normals', 1, [], [], ObjectModel3D)</l>
 <l>count_seconds (T1)</l>
 <l>TimeForSampling := (T1 - T0)</l>
 <c></c>
@@ -127,16 +123,16 @@
 <l>close_framegrabber (AcqHandle)</l>
 <c></c>
 <c>* Saving the HALCON 3D object model</c>
-<l>write_object_model_3d(ObjectModel3D, 'om3', 'ObjectModel3D', [], [] )</l>
+<l>write_object_model_3d (ObjectModel3D, 'om3', 'ObjectModel3D', [], [] )</l>
 <c></c>
 <c>* Saving the HALCON surface-based matching model</c>
-<l>write_surface_model(SFM,'SFM')</l>
+<l>write_surface_model (SFM,'SFM')</l>
 <c></c>
 <c>* Loading the HALCON 3D object model</c>
-<l>read_object_model_3d( 'ObjectModel3D', 'm', [], [], ObjectModel3D, Status)</l>
+<l>read_object_model_3d ('ObjectModel3D', 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
 <c>* Loading the HALCON surface-based matching model</c>
-<l>read_surface_model('SFM', SFM)</l>
+<l>read_surface_model ('SFM', SFM)</l>
 <c></c>
 <c>* Displaying the 3D color point cloud, press the button to continue</c>
 <l>Instructions[0] := 'Rotate: Left button'</l>

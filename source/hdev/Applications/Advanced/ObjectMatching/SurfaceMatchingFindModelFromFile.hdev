@@ -31,8 +31,10 @@
 <c>* Existing Pringles can model</c>
 <l>* Filename := 'PringlesCan'</l>
 <c>* Existing Coca-Cola bottle model</c>
-<l>* Filename := 'CocaColaBottle'</l>
-<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + Filename</l>
+<l>* SurfaceModelFile := 'CocaColaBottle'</l>
+<c></c>
+<l>get_zivid_sample_data_dir(ZividDataDir)</l>
+<l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile</l>
 <c></c>
 <c>* Specify whether you want to use your own model created with the SurfaceMatchingCreateModelFromFile.hdev</c>
 <l>MyModel := false</l>
@@ -42,7 +44,7 @@
 <l>if (MyModel)</l>
 <l>    SFMFilename := 'SFM'</l>
 <l>else</l>
-<l>    tuple_add(ScenePath,'/SFM', SFMFilename)</l>
+<l>    tuple_add (ScenePath, '/SFM', SFMFilename)</l>
 <l>endif</l>
 <l>read_surface_model (SFMFilename, SFM)</l>
 <c></c>
@@ -50,15 +52,15 @@
 <l>if (MyModel)</l>
 <l>    ObjectModel3DFilename := 'ObjectModel3D'</l>
 <l>else</l>
-<l>    tuple_add(ScenePath,'/ObjectModel3D', ObjectModel3DFilename)</l>
+<l>    tuple_add (ScenePath, '/ObjectModel3D', ObjectModel3DFilename)</l>
 <l>endif</l>
 <l>read_object_model_3d (ObjectModel3DFilename, 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
 <l>for Index := 1 to 5 by 1</l>
 <c>    </c>
-<l>    tuple_add(ScenePath,'/Im', SceneFilename)</l>
-<l>    tuple_add(SceneFilename,Index, SceneFilename)</l>
-<l>    tuple_add(SceneFilename,'.ply', SceneFilename)    </l>
+<l>    tuple_add (ScenePath, '/im', SceneFilename)</l>
+<l>    tuple_add (SceneFilename, Index, SceneFilename)</l>
+<l>    tuple_add (SceneFilename, '.ply', SceneFilename)    </l>
 <l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
 <c>    </c>
 <c>    * Fixing to make the point cloud appear with colors</c>
@@ -70,7 +72,7 @@
 <l>    set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;blue', 'points', blue, ObjectModel3D_Scene)</l>
 <c>    </c>
 <c>    * Generating X, Y, and Z image</c>
-<l>    object_model_3d_to_xyz( X, Y, Z, ObjectModel3D_Scene, 'from_xyz_map', [], [])  </l>
+<l>    object_model_3d_to_xyz ( X, Y, Z, ObjectModel3D_Scene, 'from_xyz_map', [], [])  </l>
 <c>    </c>
 <c>    * Generating R, G, B, and RGB image</c>
 <l>    get_image_size (X, Width, Height)</l>
@@ -82,11 +84,11 @@
 <l>    set_grayval (R, Rows, Columns, red)</l>
 <l>    set_grayval (G, Rows, Columns, green)</l>
 <l>    set_grayval (B, Rows, Columns, blue)</l>
-<l>    compose3(R,G,B,RGB)</l>
+<l>    compose3 (R, G, B, RGB)</l>
 <c>    </c>
 <c>    * Computing 3D object model normals, which is necessary for surface-based 3D matching</c>
 <l>    count_seconds (T0)</l>
-<l>    sample_object_model_3d (ObjectModel3D_Scene,'fast_compute_normals', 1, [], [], ObjectModel3D_Scene)</l>
+<l>    sample_object_model_3d (ObjectModel3D_Scene, 'fast_compute_normals', 1, [], [], ObjectModel3D_Scene)</l>
 <l>    count_seconds (T1)</l>
 <l>    TimeForSampling := (T1 - T0)     </l>
 <c>    </c>
