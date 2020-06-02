@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
+<procedure name="get_zivid_sample_data_dir">
+<interface>
+<oc>
+<par name="ZIVID_SAMPLE_DATA_DIR" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c>* This procedure returns the path of ZIVID DATA depending on your operating system.</c>
+<c>* This is used to get data, e.g. camera settings, for some halcon samples. </c>
+<c>*</c>
+<c></c>
+<l>get_system ('operating_system', OSName)</l>
+<c></c>
+<l>if (OSName{0:2} == 'Win')</l>
+<l>    ZIVID_SAMPLE_DATA_DIR := environment('ProgramData') + '/Zivid'</l>
+<l>else</l>
+<l>    ZIVID_SAMPLE_DATA_DIR := '/usr/share/Zivid/data'</l>
+<l>endif    </l>
+<l>return ()</l>
+<c></c>
+<c></c>
+<c></c>
+</body>
+<docu id="get_zivid_sample_data_dir">
+<parameters>
+<parameter id="ZIVID_SAMPLE_DATA_DIR"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

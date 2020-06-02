@@ -1,6 +1,7 @@
 #include <Zivid/Zivid.h>
 #include <halconcpp/HalconCpp.h>
 
+#include <algorithm>
 #include <chrono>
 #include <iostream>
 
@@ -17,9 +18,12 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     const auto width = pointCloud.width();
     const auto height = pointCloud.height();
 
-    int numberOfValidPoints = std::count_if(pointCloud.dataPtr(),
-                                            pointCloud.dataPtr() + pointCloud.size(),
-                                            [](const Zivid::Point &point) { return (!point.isNaN()); });
+    const auto pointsXYZ = pointCloud.copyPointsXYZ();
+    const auto colorsRGBA = pointCloud.copyColorsRGBA();
+
+    int numberOfValidPoints = std::count_if(pointsXYZ.data(),
+                                            pointsXYZ.data() + pointsXYZ.size(),
+                                            [](const Zivid::PointXYZ &point) { return (!point.isNaN()); });
 
     // Initializing HTuples which are later filled with data from the Zivid point cloud.
     // tupleXYZMapping is of shape [width, height, rows[], cols[]], and is used for creating xyz mapping.
@@ -37,33 +41,25 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     tupleXYZMapping[0] = (Hlong)width;
     tupleXYZMapping[1] = (Hlong)height;
 
-    double *arrayX = tupleX.DArr();
-    double *arrayY = tupleY.DArr();
-    double *arrayZ = tupleZ.DArr();
-    Hlong *arrayR = tupleR.LArr();
-    Hlong *arrayG = tupleG.LArr();
-    Hlong *arrayB = tupleB.LArr();
-    Hlong *arrayXYZMapping = tupleXYZMapping.LArr();
-
     int validPointIndex = 0;
     size_t idx = 0;
-    const auto *pointCloudData = pointCloud.dataPtr();
 
-    for(size_t i = 0; i < width; ++i)
+    for(size_t i = 0; i < height; ++i)
     {
-        for(size_t j = 0; j < height; ++j)
+        for(size_t j = 0; j < width; ++j)
         {
-            idx = width * j + i;
-            if(!isnan(pointCloudData[idx].x))
+            const auto &point = pointsXYZ(i, j);
+            const auto &color = colorsRGBA(i, j);
+            if(!isnan(point.x))
             {
-                arrayX[validPointIndex] = pointCloudData[idx].x;
-                arrayY[validPointIndex] = pointCloudData[idx].y;
-                arrayZ[validPointIndex] = pointCloudData[idx].z;
-                arrayR[validPointIndex] = pointCloudData[idx].red();
-                arrayG[validPointIndex] = pointCloudData[idx].green();
-                arrayB[validPointIndex] = pointCloudData[idx].blue();
-                arrayXYZMapping[2 + validPointIndex] = j;
-                arrayXYZMapping[2 + numberOfValidPoints + validPointIndex] = i;
+                tupleX.DArr()[validPointIndex] = point.x;
+                tupleY.DArr()[validPointIndex] = point.y;
+                tupleZ.DArr()[validPointIndex] = point.z;
+                tupleR.LArr()[validPointIndex] = color.r;
+                tupleG.LArr()[validPointIndex] = color.g;
+                tupleB.LArr()[validPointIndex] = color.b;
+                tupleXYZMapping.LArr()[2 + validPointIndex] = i;
+                tupleXYZMapping.LArr()[2 + numberOfValidPoints + validPointIndex] = j;
 
                 validPointIndex++;
             }
@@ -93,12 +89,18 @@ int main()
         auto camera = zivid.connectCamera();
 
         std::cout << "Configuring camera settings" << std::endl;
-        camera << Zivid::Settings::Iris{ 21 } << Zivid::Settings::ExposureTime{ std::chrono::microseconds{ 10000 } }
-               << Zivid::Settings::Filters::Outlier::Enabled::yes << Zivid::Settings::Filters::Outlier::Threshold{ 5 };
+        const auto settings =
+            Zivid::Settings{ Zivid::Settings::Acquisitions{ Zivid::Settings::Acquisition{
+                                 Zivid::Settings::Acquisition::Aperture{ 5.66 },
+                                 Zivid::Settings::Acquisition::ExposureTime{ std::chrono::microseconds{ 8333 } } } },
+                             Zivid::Settings::Processing::Filters::Outlier::Removal::Enabled::yes,
+                             Zivid::Settings::Processing::Filters::Outlier::Removal::Threshold{ 5 },
+                             Zivid::Settings::Processing::Filters::Smoothing::Gaussian::Enabled::yes,
+                             Zivid::Settings::Processing::Filters::Smoothing::Gaussian::Sigma{ 1.5 } };
 
-        std::cout << "Capturing frame" << std::endl;
-        auto frame = camera.capture();
-        const auto zividPointCloud = frame.getPointCloud();
+        std::cout << "Capture a frame" << std::endl;
+        const auto frame = camera.capture(settings);
+        const auto zividPointCloud = frame.pointCloud();
 
         std::cout << "Converting to Halcon point cloud" << std::endl;
         const auto halconPointCloud = zividToHalconPointCloud(zividPointCloud);

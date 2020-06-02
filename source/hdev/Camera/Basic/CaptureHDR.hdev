@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -28,7 +28,7 @@
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
 <c>* Connecting to the Zivid camera</c>
-<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
+<l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
@@ -38,24 +38,23 @@
 <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
 <c></c>
 <c>* Switching to the HDR mode</c>
-<l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
+<l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
 <c>* Reseting any previous HDR settings</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
 <c></c>
 <c>* Configuring HDR settings</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 16)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 20)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris',50)</l>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 11.31)</l>
+<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 5.66)</l>
+<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 2.83)</l>
+<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Grabing the HDR image</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c></c>
-<c>* Extracting the following images: X, Y, Z, Contrast, and RGB</c>
+<c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
 <l>select_obj (Image, X, 1)</l>
 <l>select_obj (Image, Y, 2)</l>
 <l>select_obj (Image, Z, 3)</l>

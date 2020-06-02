@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -37,7 +37,7 @@
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
 <c></c>
 <c>* Configuring settings</c>
-<l>set_framegrabber_param (AcqHandle, 'Iris', 30)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 3.36)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
@@ -45,7 +45,7 @@
 <c>* Grabbing the image</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c></c>
-<c>* Extracting the following images: X, Y, Z, Contrast, and RGB</c>
+<c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
 <l>select_obj (Image, X, 1)</l>
 <l>select_obj (Image, Y, 2)</l>
 <l>select_obj (Image, Z, 3)</l>
@@ -56,7 +56,7 @@
 <l>xyz_to_object_model_3d (X, Y, Z, ObjectModel3D)</l>
 <c></c>
 <c>* Adding RGB data to the 3D point cloud</c>
-<l>decompose3(RGB, R, G, B)</l>
+<l>decompose3 (RGB, R, G, B)</l>
 <c></c>
 <l>get_domain (R, Domain)</l>
 <l>get_region_points (Domain, Rows, Columns)</l>
@@ -81,7 +81,7 @@
 <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], ['red_channel_attrib','green_channel_attrib','blue_channel_attrib'], ['red','green','blue'], '', [], '', PoseOut)</l>
 <c></c>
 <c>* Writing a 3D object model in a PLY file format</c>
-<l>write_object_model_3d(ObjectModel3D, 'ply', 'Zivid3DPLY.ply', ['invert_normals'], ['true'])</l>
+<l>write_object_model_3d (ObjectModel3D, 'ply', 'Zivid3DPLY.ply', ['invert_normals'], ['true'])</l>
 <c></c>
 </body>
 <docu id="main">
