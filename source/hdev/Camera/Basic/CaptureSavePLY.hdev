@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
 <c>* </c>
 <c>* Example for the usage of a Zivid 3D camera in HALCON</c>
 <c>* </c>
-<c>* This example shows how to acquire a 3D color point cloud</c>
+<c>* This example shows how to capture a 3D color point cloud</c>
 <c>* from the camera and save it to a PLY file format.</c>
 <c>* </c>
 <c>* Please note that you first need to install Zivid Software and</c>
@@ -21,31 +21,31 @@
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
 <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'black', Window2D)</l>
 <c></c>
-<c>*Get first available Zivid device</c>
+<c>*Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
-<c>* Connecting to the Zivid camera</c>
+<c>* Connecting to Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
 <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
 <c></c>
-<c>* Switching to the single Frame mode</c>
+<c>* Switching to single acquisition mode</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
 <c></c>
 <c>* Configuring settings</c>
-<l>set_framegrabber_param (AcqHandle, 'Iris', 30)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 3.36)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <c></c>
-<c>* Grabbing the image</c>
+<c>* Capturing frame</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c></c>
-<c>* Extracting the following images: X, Y, Z, Contrast, and RGB</c>
+<c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
 <l>select_obj (Image, X, 1)</l>
 <l>select_obj (Image, Y, 2)</l>
 <l>select_obj (Image, Z, 3)</l>
@@ -56,7 +56,7 @@
 <l>xyz_to_object_model_3d (X, Y, Z, ObjectModel3D)</l>
 <c></c>
 <c>* Adding RGB data to the 3D point cloud</c>
-<l>decompose3(RGB, R, G, B)</l>
+<l>decompose3 (RGB, R, G, B)</l>
 <c></c>
 <l>get_domain (R, Domain)</l>
 <l>get_region_points (Domain, Rows, Columns)</l>
@@ -73,7 +73,7 @@
 <l>get_grayval (B, Rows, Columns, GrayvalB)</l>
 <l>set_object_model_3d_attrib_mod (ObjectModel3D, 'blue', 'points', GrayvalB)</l>
 <c></c>
-<c>* Displaying the 3D color point cloud, press the button to continue</c>
+<c>* Displaying 3D color point cloud, press the button to continue</c>
 <l>dev_set_window (Window3D)</l>
 <l>Instructions[0] := 'Rotate: Left button'</l>
 <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
@@ -81,7 +81,7 @@
 <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], ['red_channel_attrib','green_channel_attrib','blue_channel_attrib'], ['red','green','blue'], '', [], '', PoseOut)</l>
 <c></c>
 <c>* Writing a 3D object model in a PLY file format</c>
-<l>write_object_model_3d(ObjectModel3D, 'ply', 'Zivid3DPLY.ply', ['invert_normals'], ['true'])</l>
+<l>write_object_model_3d (ObjectModel3D, 'ply', 'Zivid3DPLY.ply', ['invert_normals'], ['true'])</l>
 <c></c>
 </body>
 <docu id="main">

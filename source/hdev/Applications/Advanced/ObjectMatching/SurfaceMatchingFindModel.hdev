@@ -10,7 +10,7 @@
 <c>* a Zivid camera. The model used for matching is created from a</c>
 <c>* reference view of the object, see SurfaceMatchingCreateModel.hdev</c>
 <c>* or SurfaceMatchingCreateModel.hdevFromFile. The model is then</c>
-<c>* searched for in a newly acquired 3D point cloud. This example comes with</c>
+<c>* searched for in a newly captured 3D point cloud. This example comes with</c>
 <c>* models for the three following objects: a Twinings tea box, a Pringles</c>
 <c>* can (190 g), and a plastic Coca-Cola bottle (0.5 l).</c>
 <c>* </c>
@@ -20,27 +20,27 @@
 <c>*</c>
 <c></c>
 <c>* Specify whether you want to use your own model or not</c>
-<l>MyModel := false</l>
-<l>* MyModel := true</l>
+<l>MySurfaceModelFile := false</l>
+<l>* MySurfaceModelFile := true</l>
 <c></c>
 <c>* Specify the HALCON model for surface-based 3D matching</c>
 <c>* Existing Twinings tea box model</c>
-<l>Filename := 'TwiningsTeaBox'</l>
+<l>SurfaceModelFile := 'TwiningsTeaBox'</l>
 <c>* Existing Pringles can model</c>
-<l>* Filename := 'PringlesCan'</l>
+<l>* SurfaceModelFile := 'PringlesCan'</l>
 <c>* Existing Coca-Cola bottle model</c>
-<l>* Filename := 'CocaColaBottle'</l>
+<l>* SurfaceModelFile := 'CocaColaBottle'</l>
 <c>* Your own model created with the SurfaceMatchingCreateModel.hdev</c>
-<l>* Filename := ''</l>
-<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + Filename</l>
+<l>* SurfaceModelFile := ''</l>
+<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + SurfaceModelFile</l>
 <c></c>
-<c>*Get first available Zivid device</c>
+<c>* Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
-<c>* Connecting to the Zivid camera</c>
-<l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', 'default', 0, 0, AcqHandle)</l>
+<c>* Connecting to Zivid camera</c>
+<l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
@@ -49,54 +49,50 @@
 <c>* Seting the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
 <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
 <c></c>
-<c>* Switching to the HDR mode</c>
-<l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MergedMultiFrame')</l>
+<c>* Switching to HDR mode (multiple acquisitions)</c>
+<l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
 <c>* Reseting any previous HDR settings</c>
-<l>set_framegrabber_param (AcqHandle, 'MergedMultiFrameReset', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
 <c></c>
 <c>* Configuring HDR settings</c>
 <c>* Twinings tea box</c>
-<l>if (Filename = 'TwiningsTeaBox')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 28)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>if (SurfaceModelFile = 'Twinings tea box')</l>
+<l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 5.50)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 4.00)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <l>endif</l>
 <c>* Pringles can</c>
-<l>if (Filename = 'PringlesCan')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 26)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 48)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>if (SurfaceModelFile = 'Pringles can')</l>
+<l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 4.36)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 2.00)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <l>endif</l>
 <c>* Coca-Cola bottle</c>
-<l>if (Filename = 'CocaColaBottle')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 20)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 32)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>if (SurfaceModelFile = 'Coca-Cola bottle')</l>
+<l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 6.16)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 3.08)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <l>endif</l>
 <c>* Your own model created with the SurfaceMatchingCreateModel.hdev</c>
-<l>if (Filename = '')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameMode', 'HDR')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameExposureTime', 10000)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 12)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 22)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameIris', 40)</l>
-<l>    set_framegrabber_param (AcqHandle, 'MergedMultiFrameAdd', '1')</l>
+<l>if (SurfaceModelFile = '')</l>
+<l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 16.00)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 5.50)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<l>    set_framegrabber_param (AcqHandle, 'Aperture', 2.37)</l>
+<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <l>endif</l>
 <c></c>
 <c>* Loading the HALCON model for surface-based 3D matching</c>
-<l>if (MyModel)</l>
+<l>if (MySurfaceModelFile)</l>
 <l>    SFMFilename := 'SFM'</l>
 <l>else</l>
 <l>    tuple_add(ScenePath,'/SFM', SFMFilename)</l>
@@ -104,12 +100,13 @@
 <l>read_surface_model (SFMFilename, SFM)</l>
 <c></c>
 <c>* Loading the HALCON 3D object model (used for visualization purpose)</c>
-<l>if (MyModel)</l>
+<l>if (MySurfaceModelFile)</l>
 <l>    ObjectModel3DFilename := 'ObjectModel3D'</l>
 <l>else</l>
 <l>    tuple_add(ScenePath,'/ObjectModel3D', ObjectModel3DFilename)</l>
 <l>endif</l>
 <l>read_object_model_3d (ObjectModel3DFilename, 'm', [], [], ObjectModel3D, Status)</l>
+<c></c>
 <c></c>
 <c>* Preparing the graphics window</c>
 <l>dev_close_window ()</l>
@@ -119,22 +116,22 @@
 <c></c>
 <l>for Index := 1 to 10 by 1</l>
 <c></c>
-<c>    * Grabing the HDR image</c>
-<l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D_Scene_Raw)</l>
+<c>    * Capturing frame (HDR)</c>
+<l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3DSceneRaw)</l>
 <c>    </c>
-<c>    * Extracting the following images: X, Y, Z, Contrast, and RGB</c>
+<c>    * Extracting the following images: X, Y, Z, SNR, and RGB</c>
 <l>    select_obj (Image, X, 1)</l>
 <l>    select_obj (Image, Y, 2)</l>
 <l>    select_obj (Image, Z, 3)</l>
 <l>    select_obj (Image, Confidence, 4)</l>
 <l>    select_obj (Image, RGBA, 5)</l>
 <c>    </c>
-<c>    * Converting the point cloud into the HALCON 3D object model</c>
-<l>    xyz_to_object_model_3d (X, Y, Z, ObjectModel3D_Scene)</l>
+<c>    * Converting to HALCON 3D object model</c>
+<l>    xyz_to_object_model_3d (X, Y, Z, ObjectModel3DScene)</l>
 <c>    </c>
 <c>    * Computing 3D object model normals, which is necessary for surface-based 3D matching</c>
 <l>    count_seconds (T0)</l>
-<l>    sample_object_model_3d (ObjectModel3D_Scene,'fast_compute_normals', 1, [], [], ObjectModel3D_Scene)</l>
+<l>    sample_object_model_3d (ObjectModel3DScene, 'fast_compute_normals', 1, [], [], ObjectModel3DScene)</l>
 <l>    count_seconds (T1)</l>
 <l>    TimeForSampling := (T1 - T0)     </l>
 <c>    </c>
@@ -142,37 +139,37 @@
 <l>    count_seconds (T0)</l>
 <c>    * RelSamplingDistance - point cloud downsampling (0 = no downsampling)</c>
 <c>    * Twinings tea box</c>
-<l>    if (Filename = 'TwiningsTeaBox')</l>
+<l>    if (SurfaceModelFile = 'TwiningsTeaBox')</l>
 <l>        RelSamplingDistance := 0.01</l>
 <l>    endif</l>
 <c>    * Pringles can</c>
-<l>    if (Filename = 'PringlesCan')</l>
+<l>    if (SurfaceModelFile = 'PringlesCan')</l>
 <l>        RelSamplingDistance := 0.03</l>
 <l>    endif</l>
 <c>    * Coca-Cola bottle</c>
-<l>    if (Filename = 'CocaColaBottle')</l>
+<l>    if (SurfaceModelFile = 'CocaColaBottle')</l>
 <l>        RelSamplingDistance := 0.003</l>
 <l>    endif</l>
 <c>    * Your own model created with the SurfaceMatchingCreateModel.hdev</c>
-<l>    if (Filename = '')</l>
+<l>    if (SurfaceModelFile = '')</l>
 <l>        RelSamplingDistance := 0.01</l>
 <l>    endif</l>
 <c>    * KeyPointFraction - additional downsampling for the detection (1 = all points used)</c>
 <l>    KeyPointFraction := 1</l>
 <c>    * MinScore - minimum score for the detection</c>
 <l>    MinScore := 0.4</l>
-<l>    find_surface_model (SFM, ObjectModel3D_Scene, RelSamplingDistance, KeyPointFraction, MinScore, 'true', ['num_matches', 'scene_normal_computation'], [10, 'mls'], Pose,  Score, SurfaceMatchingResultID)</l>
+<l>    find_surface_model (SFM, ObjectModel3DScene, RelSamplingDistance, KeyPointFraction, MinScore, 'true', ['num_matches', 'scene_normal_computation'], [10, 'mls'], Pose,  Score, SurfaceMatchingResultID)</l>
 <l>    count_seconds (T1)</l>
 <l>    TimeForMatching := (T1 - T0)</l>
 <c>    </c>
 <l>    if (Score!=[])</l>
 <c></c>
-<c>        * Preparing the result(s)</c>
+<c>        * Preparing result(s)</c>
 <l>        if (Score[0] &lt; MinScore)</l>
 <l>            continue</l>
 <l>        endif    </l>
 <l>        CPose := Pose[0:6]</l>
-<l>        rigid_trans_object_model_3d (ObjectModel3D, CPose, ObjectModel3D_Result)</l>
+<l>        rigid_trans_object_model_3d (ObjectModel3D, CPose, ObjectModel3DResult)</l>
 <c></c>
 <c>        * Visualizing matching scene and key points</c>
 <l>        Message := 'Original scene points (white)'</l>
@@ -185,14 +182,14 @@
 <l>        Message[4] := 'Rotate: Left button'</l>
 <l>        Message[5] := 'Zoom:   Shift + left button'</l>
 <l>        Message[6] := 'Move:   Ctrl  + left button'</l>
-<l>        visualize_object_model_3d (Window3D, [ObjectModel3D_Scene,SampledScene,KeyPoints], [], [], ['color_' + [0,1,2],'point_size_' + [0,1,2]], ['gray','cyan','yellow',1.0,3.0,5.0], Message, [], Message, PoseOut)</l>
+<l>        visualize_object_model_3d (Window3D, [ObjectModel3DScene,SampledScene,KeyPoints], [], [], ['color_' + [0,1,2],'point_size_' + [0,1,2]], ['gray','cyan','yellow',1.0,3.0,5.0], Message, [], Message, PoseOut)</l>
 <c>         </c>
 <c>        * Visualizing result(s)</c>
 <l>        Message1 := 'Scene: ' + Index</l>
-<l>        Message1[1] := 'Found ' + |ObjectModel3D_Result| + ' object(s) in ' + TimeForMatching$'.3' + ' ms'</l>
+<l>        Message1[1] := 'Found ' + |ObjectModel3DResult| + ' object(s) in ' + TimeForMatching$'.3' + ' ms'</l>
 <l>        ScoreString := sum(Score$'.2f' + ' / ')</l>
 <l>        Message1[2] := 'Score(s): ' + ScoreString{0:strlen(ScoreString) - 4}</l>
-<l>        NumResult := |ObjectModel3D_Result|</l>
+<l>        NumResult := |ObjectModel3DResult|</l>
 <l>        tuple_gen_const (NumResult, 'green', Colors)</l>
 <l>        tuple_gen_const (NumResult, 'circle', Shapes)</l>
 <l>        tuple_gen_const (NumResult, 3, Radii)</l>
@@ -201,11 +198,11 @@
 <l>        Instructions[0] := 'Rotate: Left button'</l>
 <l>        Instructions[1] := 'Zoom:   Shift + left button'</l>
 <l>        Instructions[2] := 'Move:   Ctrl  + left button'</l>
-<l>        visualize_object_model_3d (Window3D, [ObjectModel3D_Scene,ObjectModel3D_Result], [], [], ['color_' + [0,Indices],'point_size_0'], ['gray',Colors,1.0], Message1, [], Instructions, PoseOut)</l>
+<l>        visualize_object_model_3d (Window3D, [ObjectModel3DScene,ObjectModel3DResult], [], [], ['color_' + [0,Indices],'point_size_0'], ['gray',Colors,1.0], Message1, [], Instructions, PoseOut)</l>
 <c>        </c>
 <c>        * Clear: Free result(s)</c>
-<l>        clear_object_model_3d (ObjectModel3D_Scene)</l>
-<l>        clear_object_model_3d (ObjectModel3D_Result)</l>
+<l>        clear_object_model_3d (ObjectModel3DScene)</l>
+<l>        clear_object_model_3d (ObjectModel3DResult)</l>
 <l>        clear_object_model_3d (SampledScene)</l>
 <l>        clear_object_model_3d (KeyPoints)</l>
 <l>        clear_surface_matching_result (SurfaceMatchingResultID)</l>
@@ -214,10 +211,10 @@
 <c></c>
 <l>endfor</l>
 <c></c>
-<c>* Disconnecting from the Zivid Camera</c>
+<c>* Disconnecting from Zivid Camera</c>
 <l>close_framegrabber (AcqHandle)</l>
 <c></c>
-<c>* Closing the graphics window</c>
+<c>* Closing graphics window</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_close_window ()</l>
 </body>

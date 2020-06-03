@@ -10,7 +10,7 @@
 <c>* with a Zivid camera. The model used for matching is created from a</c>
 <c>* reference view of the object, see</c>
 <c>* SurfaceMatchingCreateModelFromFile.hdev. The model is then</c>
-<c>* searched for in a newly acquired 3D point cloud. This example comes</c>
+<c>* searched for in a newly captured 3D point cloud. This example comes</c>
 <c>* with models for the three following objects: a Twinings tea box,</c>
 <c>* a Pringles can (190 g), and a plastic Coca-Cola bottle (0.5 l).</c>
 <c>* </c>
@@ -19,7 +19,7 @@
 <c>* access the camera with the HALCON GenICamTL interface.</c>
 <c>*</c>
 <c></c>
-<c>* Preparing the graphics window</c>
+<c>* Preparing graphics window</c>
 <l>dev_close_window ()</l>
 <l>WinWidth := 1920</l>
 <l>WinHeight := 1200</l>
@@ -27,50 +27,52 @@
 <c></c>
 <c>* Specify the object for surface-based 3D matching</c>
 <c>* Existing Twinings tea box model</c>
-<l>Filename := 'TwiningsTeaBox'</l>
+<l>SurfaceModelFile := 'TwiningsTeaBox'</l>
 <c>* Existing Pringles can model</c>
-<l>* Filename := 'PringlesCan'</l>
+<l>* SurfaceModelFile := 'PringlesCan'</l>
 <c>* Existing Coca-Cola bottle model</c>
-<l>* Filename := 'CocaColaBottle'</l>
-<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + Filename</l>
+<l>* SurfaceModelFile := 'CocaColaBottle'</l>
+<c></c>
+<l>get_zivid_sample_data_dir(ZividDataDir)</l>
+<l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile</l>
 <c></c>
 <c>* Specify whether you want to use your own model created with the SurfaceMatchingCreateModelFromFile.hdev</c>
-<l>MyModel := false</l>
-<l>* MyModel := true</l>
+<l>MySurfaceModelFile := false</l>
+<l>* MySurfaceModelFile := true</l>
 <c></c>
 <c>* Loading the HALCON model for surface-based 3D matching</c>
-<l>if (MyModel)</l>
-<l>    SFMFilename := 'SFM'</l>
+<l>if (MySurfaceModelFile)</l>
+<l>    SFMFileName := 'SFM'</l>
 <l>else</l>
-<l>    tuple_add(ScenePath,'/SFM', SFMFilename)</l>
+<l>    tuple_add (ScenePath, '/SFM', SFMFileName)</l>
 <l>endif</l>
-<l>read_surface_model (SFMFilename, SFM)</l>
+<l>read_surface_model (SFMFileName, SFM)</l>
 <c></c>
 <c>* Loading the HALCON 3D object model (used for visualization purpose)</c>
-<l>if (MyModel)</l>
-<l>    ObjectModel3DFilename := 'ObjectModel3D'</l>
+<l>if (MySurfaceModelFile)</l>
+<l>    ObjectModel3DFile := 'ObjectModel3D'</l>
 <l>else</l>
-<l>    tuple_add(ScenePath,'/ObjectModel3D', ObjectModel3DFilename)</l>
+<l>    tuple_add (ScenePath, '/ObjectModel3D', ObjectModel3DFile)</l>
 <l>endif</l>
-<l>read_object_model_3d (ObjectModel3DFilename, 'm', [], [], ObjectModel3D, Status)</l>
+<l>read_object_model_3d (ObjectModel3DFile, 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
 <l>for Index := 1 to 5 by 1</l>
 <c>    </c>
-<l>    tuple_add(ScenePath,'/Im', SceneFilename)</l>
-<l>    tuple_add(SceneFilename,Index, SceneFilename)</l>
-<l>    tuple_add(SceneFilename,'.ply', SceneFilename)    </l>
-<l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
+<l>    tuple_add (ScenePath, '/im', SceneFilename)</l>
+<l>    tuple_add (SceneFilename, Index, SceneFilename)</l>
+<l>    tuple_add (SceneFilename, '.ply', SceneFilename)    </l>
+<l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3DScene, Status)</l>
 <c>    </c>
 <c>    * Fixing to make the point cloud appear with colors</c>
-<l>    get_object_model_3d_params (ObjectModel3D_Scene, 'red', red)</l>
-<l>    get_object_model_3d_params (ObjectModel3D_Scene, 'green', green)</l>
-<l>    get_object_model_3d_params (ObjectModel3D_Scene, 'blue', blue)</l>
-<l>    set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;red', 'points', red, ObjectModel3D_Scene)</l>
-<l>    set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;green', 'points', green, ObjectModel3D_Scene)</l>
-<l>    set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;blue', 'points', blue, ObjectModel3D_Scene)</l>
+<l>    get_object_model_3d_params (ObjectModel3DScene, 'red', red)</l>
+<l>    get_object_model_3d_params (ObjectModel3DScene, 'green', green)</l>
+<l>    get_object_model_3d_params (ObjectModel3DScene, 'blue', blue)</l>
+<l>    set_object_model_3d_attrib (ObjectModel3DScene, '&amp;red', 'points', red, ObjectModel3DScene)</l>
+<l>    set_object_model_3d_attrib (ObjectModel3DScene, '&amp;green', 'points', green, ObjectModel3DScene)</l>
+<l>    set_object_model_3d_attrib (ObjectModel3DScene, '&amp;blue', 'points', blue, ObjectModel3DScene)</l>
 <c>    </c>
 <c>    * Generating X, Y, and Z image</c>
-<l>    object_model_3d_to_xyz( X, Y, Z, ObjectModel3D_Scene, 'from_xyz_map', [], [])  </l>
+<l>    object_model_3d_to_xyz ( X, Y, Z, ObjectModel3DScene, 'from_xyz_map', [], [])  </l>
 <c>    </c>
 <c>    * Generating R, G, B, and RGB image</c>
 <l>    get_image_size (X, Width, Height)</l>
@@ -82,11 +84,11 @@
 <l>    set_grayval (R, Rows, Columns, red)</l>
 <l>    set_grayval (G, Rows, Columns, green)</l>
 <l>    set_grayval (B, Rows, Columns, blue)</l>
-<l>    compose3(R,G,B,RGB)</l>
+<l>    compose3 (R, G, B, RGB)</l>
 <c>    </c>
 <c>    * Computing 3D object model normals, which is necessary for surface-based 3D matching</c>
 <l>    count_seconds (T0)</l>
-<l>    sample_object_model_3d (ObjectModel3D_Scene,'fast_compute_normals', 1, [], [], ObjectModel3D_Scene)</l>
+<l>    sample_object_model_3d (ObjectModel3DScene, 'fast_compute_normals', 1, [], [], ObjectModel3DScene)</l>
 <l>    count_seconds (T1)</l>
 <l>    TimeForSampling := (T1 - T0)     </l>
 <c>    </c>
@@ -94,33 +96,33 @@
 <l>    count_seconds (T0)</l>
 <c>    * RelSamplingDistance - point cloud downsampling (0 = no downsampling)</c>
 <c>    * Twinings tea box</c>
-<l>    if (Filename = 'TwiningsTeaBox')</l>
+<l>    if (SurfaceModelFile = 'TwiningsTeaBox')</l>
 <l>        RelSamplingDistance := 0.01</l>
 <l>    endif</l>
 <c>    * Pringles can</c>
-<l>    if (Filename = 'PringlesCan')</l>
+<l>    if (SurfaceModelFile = 'PringlesCan')</l>
 <l>        RelSamplingDistance := 0.03</l>
 <l>    endif</l>
 <c>    * Coca-Cola bottle</c>
-<l>    if (Filename = 'CocaColaBottle')</l>
+<l>    if (SurfaceModelFile = 'CocaColaBottle')</l>
 <l>        RelSamplingDistance := 0.003</l>
 <l>    endif</l>
 <c>    * KeyPointFraction - additional downsampling for the detection (1 = all points used)</c>
 <l>    KeyPointFraction := 1</l>
 <c>    * MinScore - minimum score for the detection</c>
 <l>    MinScore := 0.4</l>
-<l>    find_surface_model (SFM, ObjectModel3D_Scene, RelSamplingDistance, KeyPointFraction, MinScore, 'true', ['num_matches', 'scene_normal_computation'], [10, 'mls'], Pose,  Score, SurfaceMatchingResultID)</l>
+<l>    find_surface_model (SFM, ObjectModel3DScene, RelSamplingDistance, KeyPointFraction, MinScore, 'true', ['num_matches', 'scene_normal_computation'], [10, 'mls'], Pose,  Score, SurfaceMatchingResultID)</l>
 <l>    count_seconds (T1)</l>
 <l>    TimeForMatching := (T1 - T0)</l>
 <c>    </c>
 <l>    if (Score!=[])</l>
 <c></c>
-<c>        * Preparing the result(s)</c>
+<c>        * Preparing result(s)</c>
 <l>        if (Score[0] &lt; MinScore)</l>
 <l>            continue</l>
 <l>        endif    </l>
 <l>        CPose := Pose[0:6]</l>
-<l>        rigid_trans_object_model_3d (ObjectModel3D, CPose, ObjectModel3D_Result)</l>
+<l>        rigid_trans_object_model_3d (ObjectModel3D, CPose, ObjectModel3DResult)</l>
 <c></c>
 <c>        * Visualizing matching scene and key points</c>
 <l>        Message := 'Original scene points (white)'</l>
@@ -133,14 +135,14 @@
 <l>        Message[4] := 'Rotate: Left button'</l>
 <l>        Message[5] := 'Zoom:   Shift + left button'</l>
 <l>        Message[6] := 'Move:   Ctrl  + left button'</l>
-<l>        visualize_object_model_3d (Window3D, [ObjectModel3D_Scene,SampledScene,KeyPoints], [], [], ['color_' + [0,1,2],'point_size_' + [0,1,2]], ['gray','cyan','yellow',1.0,3.0,5.0], Message, [], Message, PoseOut)</l>
+<l>        visualize_object_model_3d (Window3D, [ObjectModel3DScene,SampledScene,KeyPoints], [], [], ['color_' + [0,1,2],'point_size_' + [0,1,2]], ['gray','cyan','yellow',1.0,3.0,5.0], Message, [], Message, PoseOut)</l>
 <c>         </c>
 <c>        * Visualizing result(s)</c>
 <l>        Message1 := 'Scene: ' + Index</l>
-<l>        Message1[1] := 'Found ' + |ObjectModel3D_Result| + ' object(s) in ' + TimeForMatching$'.3' + ' ms'</l>
+<l>        Message1[1] := 'Found ' + |ObjectModel3DResult| + ' object(s) in ' + TimeForMatching$'.3' + ' ms'</l>
 <l>        ScoreString := sum(Score$'.2f' + ' / ')</l>
 <l>        Message1[2] := 'Score(s): ' + ScoreString{0:strlen(ScoreString) - 4}</l>
-<l>        NumResult := |ObjectModel3D_Result|</l>
+<l>        NumResult := |ObjectModel3DResult|</l>
 <l>        tuple_gen_const (NumResult, 'green', Colors)</l>
 <l>        tuple_gen_const (NumResult, 'circle', Shapes)</l>
 <l>        tuple_gen_const (NumResult, 3, Radii)</l>
@@ -149,11 +151,11 @@
 <l>        Instructions[0] := 'Rotate: Left button'</l>
 <l>        Instructions[1] := 'Zoom:   Shift + left button'</l>
 <l>        Instructions[2] := 'Move:   Ctrl  + left button'</l>
-<l>        visualize_object_model_3d (Window3D, [ObjectModel3D_Scene,ObjectModel3D_Result], [], [], ['color_' + [0,Indices],'point_size_0'], ['gray',Colors,1.0], Message1, [], Instructions, PoseOut)</l>
+<l>        visualize_object_model_3d (Window3D, [ObjectModel3DScene,ObjectModel3DResult], [], [], ['color_' + [0,Indices],'point_size_0'], ['gray',Colors,1.0], Message1, [], Instructions, PoseOut)</l>
 <c>        </c>
 <c>        * Clear: Free result(s)</c>
-<l>        clear_object_model_3d (ObjectModel3D_Scene)</l>
-<l>        clear_object_model_3d (ObjectModel3D_Result)</l>
+<l>        clear_object_model_3d (ObjectModel3DScene)</l>
+<l>        clear_object_model_3d (ObjectModel3DResult)</l>
 <l>        clear_object_model_3d (SampledScene)</l>
 <l>        clear_object_model_3d (KeyPoints)</l>
 <l>        clear_surface_matching_result (SurfaceMatchingResultID)</l>
@@ -162,7 +164,7 @@
 <c></c>
 <l>endfor</l>
 <c></c>
-<c>* Closing the graphics window</c>
+<c>* Closing graphics window</c>
 <l>dev_set_window (Window3D)</l>
 <l>dev_close_window ()</l>
 </body>

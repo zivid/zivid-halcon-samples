@@ -1,3 +1,7 @@
+/*
+This example shows how to capture and save a point cloud, with colors, using GenICam interface and Halcon C++ SDK.
+*/
+
 #include <Zivid/Zivid.h>
 #include <halconcpp/HalconCpp.h>
 
@@ -70,20 +74,19 @@ int main()
                                     0,
                                     &framegrabber);
 
-        std::cout << "Configuring 3D-settings" << std::endl;
+        std::cout << "Configuring settings" << std::endl;
         HalconCpp::SetFramegrabberParam(framegrabber, "create_objectmodel3d", "enable");
         HalconCpp::SetFramegrabberParam(framegrabber, "add_objectmodel3d_overlay_attrib", "enable");
         HalconCpp::SetFramegrabberParam(framegrabber, "AcquisitionMode", "SingleFrame");
 
-        std::cout << "Configuring camera settings" << std::endl;
-        HalconCpp::SetFramegrabberParam(framegrabber, "Iris", 20);
+        HalconCpp::SetFramegrabberParam(framegrabber, "Aperture", 5.66);
         HalconCpp::SetFramegrabberParam(framegrabber, "ExposureTime", 8333);
         HalconCpp::SetFramegrabberParam(framegrabber, "Gain", 2);
         HalconCpp::SetFramegrabberParam(framegrabber, "Brightness", 1.0);
-        HalconCpp::SetFramegrabberParam(framegrabber, "OutlierFilterEnabled", 1);
-        HalconCpp::SetFramegrabberParam(framegrabber, "GaussianFilterEnabled", 1);
-        HalconCpp::SetFramegrabberParam(framegrabber, "GaussianFilterSigma", 1.5);
-        HalconCpp::SetFramegrabberParam(framegrabber, "OutlierFilterThreshold", 5);
+        HalconCpp::SetFramegrabberParam(framegrabber, "ProcessingFiltersOutlierRemovalEnabled", 1);
+        HalconCpp::SetFramegrabberParam(framegrabber, "ProcessingFiltersOutlierRemovalThreshold", 5);
+        HalconCpp::SetFramegrabberParam(framegrabber, "ProcessingFiltersSmoothingGaussianEnabled", 1);
+        HalconCpp::SetFramegrabberParam(framegrabber, "ProcessingFiltersSmoothingGaussianSigma", 1.5);
 
         std::cout << "Capturing frame" << std::endl;
         auto region = HalconCpp::HRegion();
@@ -95,7 +98,7 @@ int main()
         const auto x = frame.SelectObj(1);
         const auto y = frame.SelectObj(2);
         const auto z = frame.SelectObj(3);
-        const auto contrast = frame.SelectObj(4);
+        const auto snr = frame.SelectObj(4);
         const auto rgb = frame.SelectObj(5);
 
         std::cout << "Removing invalid 3D points (zeroes)" << std::endl;
@@ -110,9 +113,9 @@ int main()
         std::cout << "Adding RGB to ObjectModel3D" << std::endl;
         setColorsInObjectModel3D(objectModel3D, rgb, zReduced);
 
-        const auto fileName = "Zivid3D.ply";
-        std::cout << "Saving point cloud to: " << fileName << std::endl;
-        savePointCloud(objectModel3D, fileName);
+        const auto pointCloudFile = "Zivid3D.ply";
+        std::cout << "Saving point cloud to file: " << pointCloudFile << std::endl;
+        savePointCloud(objectModel3D, pointCloudFile);
     }
     catch(const std::exception &e)
     {

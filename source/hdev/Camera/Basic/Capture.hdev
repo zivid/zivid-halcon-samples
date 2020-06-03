@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<hdevelop file_version="1.2" halcon_version="19.11.0.0">
 <procedure name="main">
 <interface/>
 <body>
 <c>* </c>
 <c>* Example for the usage of a Zivid 3D camera in HALCON</c>
 <c>* </c>
-<c>* This example shows how to acquire a 3D color point cloud</c>
+<c>* This example shows how to capture a 3D color point cloud</c>
 <c>* from the camera and use it to generate a HALCON ObjectModel3D</c>
 <c>* which is then visualized.</c>
 <c>* </c>
@@ -22,52 +22,52 @@
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
 <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'black', Window2D)</l>
 <c></c>
-<c>*Get first available Zivid device</c>
+<c>*Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
 <l>import './../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
-<c>* Connecting to the Zivid camera</c>
+<c>* Connecting to Zivid camera</c>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
 <c></c>
 <c>* Configuring 3D-settings</c>
 <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
 <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
 <c></c>
-<c>* Switching to the single Frame mode</c>
+<c>* Switching to single Frame mode</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
 <c></c>
 <c>* Configuring settings</c>
-<l>set_framegrabber_param (AcqHandle, 'Iris', 20)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 5.66)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'OutlierFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'GaussianFilterEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'GaussianFilterSigma', 1.5)</l>
-<l>set_framegrabber_param (AcqHandle, 'OutlierFilterThreshold', 5)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 1.5)</l>
 <c></c>
-<c>* Grabing the image</c>
+<c>* Capturing frame</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
 <c></c>
-<c>* Extracting the following images: X, Y, Z, Contrast, and RGB</c>
+<c>* Extracting the following images: X, Y, Z, SNR, and RGB</c>
 <l>select_obj (Image, X, 1)</l>
 <l>select_obj (Image, Y, 2)</l>
 <l>select_obj (Image, Z, 3)</l>
 <l>select_obj (Image, Confidence, 4)</l>
 <l>select_obj (Image, RGBA, 5)</l>
 <c></c>
-<c>* Displaying the 2D color image</c>
+<c>* Displaying 2D color image</c>
 <l>dev_set_window (Window2D)</l>
 <l>dev_display (RGBA)</l>
 <c></c>
-<c>* Displaying the 3D color point cloud, press the button to continue</c>
+<c>* Displaying 3D color point cloud, press the button to continue</c>
 <l>Instructions[0] := 'Rotate: Left button'</l>
 <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
 <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
 <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], ['red_channel_attrib','green_channel_attrib','blue_channel_attrib'], ['&amp;overlay_red','&amp;overlay_green','&amp;overlay_blue'], [], [], [Instructions], PoseOut)</l>
 <c></c>
-<c>* Disconnecting from the Zivid Camera</c>
+<c>* Disconnecting from Zivid Camera</c>
 <l>close_framegrabber (AcqHandle)</l>
 <c></c>
 <c>* Closing graphics windows</c>

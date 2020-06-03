@@ -26,12 +26,14 @@
 <c></c>
 <c>* Reading a 3D point cloud of the scene</c>
 <c>* Twinings tea box</c>
-<l>Filename:= 'TwiningsTeaBox'</l>
+<l>SurfaceModelFile:= 'TwiningsTeaBox'</l>
 <c>* Pringles can</c>
-<l>* Filename:= 'PringlesCan'</l>
+<l>* SurfaceModelFile:= 'PringlesCan'</l>
 <c>* Coca-Cola bottle</c>
-<l>* Filename:= 'CocaColaBottle'</l>
-<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + Filename + '/Im1.ply'</l>
+<l>* SurfaceModelFile:= 'CocaColaBottle'</l>
+<c></c>
+<l>get_zivid_sample_data_dir(ZividDataDir)</l>
+<l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile + '/Im1.ply'</l>
 <l>read_object_model_3d (ScenePath, 'm', ['xyz_map_width'], [1920], ObjectModel3D_Scene, Status)</l>
 <c>    </c>
 <c>* Fixing to make the point cloud appear with colors</c>
@@ -43,7 +45,7 @@
 <l>set_object_model_3d_attrib (ObjectModel3D_Scene, '&amp;blue', 'points', blue, ObjectModel3D_Scene)</l>
 <c>    </c>
 <c>* Generating X, Y, and Z image</c>
-<l>object_model_3d_to_xyz( X, Y, Z, ObjectModel3D_Scene, 'from_xyz_map', [], [])  </l>
+<l>object_model_3d_to_xyz (X, Y, Z, ObjectModel3D_Scene, 'from_xyz_map', [], [])  </l>
 <c>   </c>
 <c>* Generating R, G, B, and RGB image</c>
 <l>get_image_size (X, Width, Height)</l>
@@ -55,13 +57,13 @@
 <l>set_grayval (R, Rows, Columns, red)</l>
 <l>set_grayval (G, Rows, Columns, green)</l>
 <l>set_grayval (B, Rows, Columns, blue)</l>
-<l>compose3(R,G,B,RGB)</l>
+<l>compose3 (R, G, B, RGB)</l>
 <c>    </c>
 <c>* Use the mouse cursor to draw a region around the object</c>
 <l>dev_disp_text (['Position the mouse cursor on the edge of the object', 'Click and hold the left mouse button to begin drawing the ROI around the object', 'Release the left mouse button to end drawing the ROI', 'Click the right mouse button to continue running the program'], 'window', 'bottom', 'left', 'black', [], [])</l>
 <l>draw_region (RegionDraw, Window3D)</l>
 <c></c>
-<c>* Geting min and max Z values encapsulated by the created region</c>
+<c>* Getting min and max Z values encapsulated by the created region</c>
 <l>min_max_gray (RegionDraw, Z, 0, MinZ, MaxZ, RangeZ)</l>
 <c></c>
 <c>* Segmenting the Z image with Z values encapsulated by the created region</c>
@@ -76,7 +78,7 @@
 <c></c>
 <c>* Computing normals for the HALCON 3D object model</c>
 <l>count_seconds (T0)</l>
-<l>sample_object_model_3d(ObjectModel3D,'fast_compute_normals', 1, [], [], ObjectModel3D)</l>
+<l>sample_object_model_3d (ObjectModel3D, 'fast_compute_normals', 1, [], [], ObjectModel3D)</l>
 <l>count_seconds (T1)</l>
 <l>TimeForSampling := (T1 - T0)</l>
 <c></c>
@@ -87,16 +89,16 @@
 <l>TimeForCreating := (T1 - T0)</l>
 <c></c>
 <c>* Saving the HALCON 3D object model</c>
-<l>write_object_model_3d(ObjectModel3D, 'om3', 'ObjectModel3D', [], [] )</l>
+<l>write_object_model_3d (ObjectModel3D, 'om3', 'ObjectModel3D', [], [] )</l>
 <c></c>
 <c>* Saving the HALCON surface-based matching model</c>
-<l>write_surface_model(SFM,'SFM')</l>
+<l>write_surface_model (SFM, 'SFM')</l>
 <c></c>
 <c>* Loading the HALCON 3D object model</c>
-<l>read_object_model_3d( 'ObjectModel3D', 'm', [], [], ObjectModel3D, Status)</l>
+<l>read_object_model_3d ('ObjectModel3D', 'm', [], [], ObjectModel3D, Status)</l>
 <c></c>
 <c>* Loading the HALCON surface-based matching model</c>
-<l>read_surface_model('SFM', SFM)</l>
+<l>read_surface_model ('SFM', SFM)</l>
 <c></c>
 <c>* Displaying the 3D color point cloud, press the button to continue</c>
 <l>Instructions[0] := 'Rotate: Left button'</l>
