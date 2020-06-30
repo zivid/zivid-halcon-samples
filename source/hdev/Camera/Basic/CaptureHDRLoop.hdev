@@ -98,12 +98,6 @@
 <l>    get_dict_tuple (acquisition, 'Gain', gain)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Gain', gain)</l>
 <c>    </c>
-<l>    get_dict_tuple (acquisition, 'Patterns', patterns)</l>
-<l>    get_dict_tuple (patterns, 'Sine', sine)</l>
-<l>    get_dict_tuple (sine, 'Bidirectional', bidirectional)</l>
-<l>    set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', bidirectional)</l>
-<c>    </c>
-<c>    </c>
 <c>    * Getting settigns for second acqusition</c>
 <l>    get_dict_tuple (acquisitions, 1, secondAcquisition)</l>
 <l>    get_dict_tuple (secondAcquisition, 'Acquisition', acquisition)</l>
@@ -116,12 +110,6 @@
 <l>    get_dict_tuple (acquisition, 'Gain', gain)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Gain', gain)</l>
 <c>    </c>
-<l>    get_dict_tuple (acquisition, 'Patterns', patterns)</l>
-<l>    get_dict_tuple (patterns, 'Sine', sine)</l>
-<l>    get_dict_tuple (sine, 'Bidirectional', bidirectional)</l>
-<l>    set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', bidirectional)</l>
-<c>    </c>
-<c>    </c>
 <c>    * Getting settings for third acqusition</c>
 <l>    get_dict_tuple (acquisitions, 2, thirdAcquisition)</l>
 <l>    get_dict_tuple (thirdAcquisition, 'Acquisition', acquisition)</l>
@@ -133,11 +121,6 @@
 <l>    set_framegrabber_param (AcqHandle, 'Brightness', brightness)</l>
 <l>    get_dict_tuple (acquisition, 'Gain', gain)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Gain', gain)</l>
-<c>    </c>
-<l>    get_dict_tuple (acquisition, 'Patterns', patterns)</l>
-<l>    get_dict_tuple (patterns, 'Sine', sine)</l>
-<l>    get_dict_tuple (sine, 'Bidirectional', bidirectional)</l>
-<l>    set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', bidirectional)</l>
 <c>    </c>
 <c>    </c>
 <c>    * Getting filter settings</c>
