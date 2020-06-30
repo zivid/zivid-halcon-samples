@@ -50,7 +50,6 @@
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <c></c>
-<l>set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', 0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
@@ -65,7 +64,6 @@
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 0.5)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 2)</l>
 <c></c>
-<l>set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', 0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
@@ -80,8 +78,6 @@
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <c></c>
-<c>* Exposure time must be &gt;= 33000 when using bidirectional patterns</c>
-<l>set_framegrabber_param (AcqHandle, 'PatternsSineBidirectional', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
