@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.11.0.0">
+<hdevelop file_version="1.2" halcon_version="20.05.0.0">
 <procedure name="main">
 <interface/>
 <body>
@@ -7,7 +7,8 @@
 <c>* Example for the usage of a Zivid 3D camera in HALCON</c>
 <c>* </c>
 <c>* This example shows how to connect to a specific Zivid 3D</c>
-<c>* camera based on its serial number.</c>
+<c>* camera based on its serial number. Verify that the serial </c>
+<c>* number set is the serial number of the camera you are using.</c>
 <c>* </c>
 <c>* Please note that you first need to install Zivid Software and</c>
 <c>* correctly set the environment variables. After this, you can</c>
@@ -15,7 +16,7 @@
 <c>* </c>
 <c></c>
 <c>* Connecting to Zivid camera with the following serial number</c>
-<l>CameraSerial := 'Zivid_DEV_19176A22'</l>
+<l>CameraSerial := 'Zivid_DEV_19242553'</l>
 <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', CameraSerial, 0, 0, AcqHandle)</l>
 <c>    </c>
 <c>* Disconnecting from Zivid Camera</c>
