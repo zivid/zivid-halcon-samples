@@ -21,7 +21,7 @@
 <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'blue', Window3D)</l>
 <c></c>
 <c>* Reading PCD point cloud from file</c>
-<l>import './../../Procedures'</l>
+<l>import './../../../Procedures'</l>
 <l>get_zivid_sample_data_dir(ZividDataDir)</l>
 <l>PointCloudFile := ZividDataDir + '/Zivid3D.ply'</l>
 <l>read_object_model_3d (PointCloudFile, 'mm', ['xyz_map_width'], [1920], ObjectModel3D, Status)</l>
