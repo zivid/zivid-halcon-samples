@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.11.0.0">
+<hdevelop file_version="1.2" halcon_version="20.05.0.1">
 <procedure name="main">
 <interface/>
 <body>
@@ -45,13 +45,13 @@
 <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
 <c></c>
 <c>* Configuring HDR settings for the first image</c>
-<l>set_framegrabber_param (AcqHandle, 'Aperture', 5.66)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 8)</l>
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <c></c>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 7.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
@@ -59,13 +59,13 @@
 <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Configuring HDR settings for the second image</c>
-<l>set_framegrabber_param (AcqHandle, 'Aperture', 5.66)</l>
-<l>set_framegrabber_param (AcqHandle, 'ExposureTime', 20000)</l>
-<l>set_framegrabber_param (AcqHandle, 'Brightness', 0.5)</l>
-<l>set_framegrabber_param (AcqHandle, 'Gain', 2)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 4.00)</l>
+<l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+<l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <c></c>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 7.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
@@ -73,13 +73,13 @@
 <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Configuring HDR settings for the third image</c>
-<l>set_framegrabber_param (AcqHandle, 'Aperture', 3.36)</l>
-<l>set_framegrabber_param (AcqHandle, 'ExposureTime', 33000)</l>
+<l>set_framegrabber_param (AcqHandle, 'Aperture', 4.00)</l>
+<l>set_framegrabber_param (AcqHandle, 'ExposureTime', 40000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <c></c>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 5.0)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 7.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
