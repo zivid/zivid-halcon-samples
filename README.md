@@ -44,7 +44,7 @@ Note: The version tested with Zivid cameras is 2.1.0.
 2. [**Download Zivid Sample Data**](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/450363393/Sample+Data).
 
 3. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
-Note: The version tested with Zivid cameras is 19.05 Progress for Windows.
+Note: The version tested with Zivid cameras is 20.05 Progress for Windows.
 
 4. Launch HALCON.
 
