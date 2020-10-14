@@ -19,7 +19,6 @@
 <l>WinWidth := 960</l>
 <l>WinHeight := 800</l>
 <l>dev_open_window (0, 0, WinWidth, WinHeight, 'blue', Window3D)</l>
-<l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'black', Window2D)</l>
 <c></c>
 <c>*Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
