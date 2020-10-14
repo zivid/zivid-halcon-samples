@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="19.11.0.0">
+<hdevelop file_version="1.2" halcon_version="20.05.0.1">
 <procedure name="main">
 <interface/>
 <body>
@@ -32,7 +32,8 @@
 <l>* SurfaceModelFile := 'CocaColaBottle'</l>
 <c>* Your own model created with the SurfaceMatchingCreateModel.hdev</c>
 <l>* SurfaceModelFile := ''</l>
-<l>ScenePath := environment('ZIVID_DATA') + '/ObjectMatching/' + SurfaceModelFile</l>
+<l>get_zivid_sample_data_dir(ZividDataDir)</l>
+<l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile</l>
 <c></c>
 <c>* Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
@@ -57,7 +58,7 @@
 <c></c>
 <c>* Configuring HDR settings</c>
 <c>* Twinings tea box</c>
-<l>if (SurfaceModelFile = 'Twinings tea box')</l>
+<l>if (SurfaceModelFile = 'TwiningsTeaBox')</l>
 <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Aperture', 5.50)</l>
 <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
@@ -65,7 +66,7 @@
 <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <l>endif</l>
 <c>* Pringles can</c>
-<l>if (SurfaceModelFile = 'Pringles can')</l>
+<l>if (SurfaceModelFile = 'PringlesCan')</l>
 <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Aperture', 4.36)</l>
 <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
@@ -73,7 +74,7 @@
 <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <l>endif</l>
 <c>* Coca-Cola bottle</c>
-<l>if (SurfaceModelFile = 'Coca-Cola bottle')</l>
+<l>if (SurfaceModelFile = 'CocaColaBottle')</l>
 <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>    set_framegrabber_param (AcqHandle, 'Aperture', 6.16)</l>
 <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>

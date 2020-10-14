@@ -27,10 +27,10 @@ Samples indicated by **(cpp)** are written in C++, samples indiced by **(csharp)
       - **ReadPLY** ([**hdev**][hdev-readPLY-url]) - Read point cloud from PLY file and visualize it.
   - **Advanced**
     - **ObjectMatching** ([**hdev**][hdev-objectMatching-url])
-      - **SurfaceMatchingCreateModelFromFile** ([**hdev**][hdev-surfaceMatchingCreateModelFromFile-url]) - Load a model from file for surface-based matching algorithm integrated into HALCON. This example comes with two models created by this program: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
-      - **SurfaceMatchingCreateModel** ([**hdev**][hdev-surfaceMatchingCreateModel-url]) - Create your own model for surface-based matching algorithm integrated into HALCON. This example comes with two models created by this program: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
-      - **SurfaceMatchingFindModelFromFile** ([**hdev**][hdev-surfaceMatchingFindModelFromFile-url]) - Run surface-based 3D matching algorithm using a model from file. The model used for matching is created from a reference view of the object. That model is then searched for in a newly captured 3D point cloud. This example comes with two existing object models: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
-      - **SurfaceMatchingFindModel** ([**hdev**][hdev-surfaceMatchingFindModel-url]) - Run surface-based 3D matching algorithm on data taken with the Zivid camera. The model used for matching is created from a reference view of the object. That model is then searched for in a newly captured 3D point cloud. This example comes with two existing object models: a Pringles can (190 g) and a plastic Coca-Cola bottle (0.5 l).
+      - **SurfaceMatchingCreateModelFromFile** ([**hdev**][hdev-surfaceMatchingCreateModelFromFile-url]) - Load a model from file for surface-based matching algorithm integrated into HALCON. This example comes with three models created by this program: a Pringles can (190 g), a plastic Coca-Cola bottle (0.5 l) and a Twinings tea box (~15cm x 7cm x 8cm).
+      - **SurfaceMatchingCreateModel** ([**hdev**][hdev-surfaceMatchingCreateModel-url]) - Create your own model for surface-based matching algorithm integrated into HALCON. This example comes with three models created by this program: a Pringles can (190 g), a plastic Coca-Cola bottle (0.5 l) and a Twinings tea box (~15cm x 7cm x 8cm).
+      - **SurfaceMatchingFindModelFromFile** ([**hdev**][hdev-surfaceMatchingFindModelFromFile-url]) - Run surface-based 3D matching algorithm using a model from file. The model used for matching is created from a reference view of the object. That model is then searched for in a newly captured 3D point cloud. This example comes with three existing object models: a Pringles can (190 g), a plastic Coca-Cola bottle (0.5 l) and a Twinings tea box (~15cm x 7cm x 8cm).
+      - **SurfaceMatchingFindModel** ([**hdev**][hdev-surfaceMatchingFindModel-url]) - Run surface-based 3D matching algorithm on data taken with the Zivid camera. The model used for matching is created from a reference view of the object. That model is then searched for in a newly captured 3D point cloud. This example comes with two existing object models: a Pringles can (190 g), a plastic Coca-Cola bottle (0.5 l) and a Twinings tea box (~15cm x 7cm x 8cm).
 
 - **Procedures**
   - **get_first_available_zivid_device** ([**hdev**][hdev-get_first_available_zivid_device-url]) - This procedure returns the first Zivid device from the input tuple of devices. The input tuple 'Devices' is typically returned by info_framegrabber function as follows: 'info_framegrabber ('GenICamTL','device', Information, Devices)'
@@ -39,12 +39,12 @@ Samples indicated by **(cpp)** are written in C++, samples indiced by **(csharp)
 ## Instructions
 
 1. [**Install Zivid Software**](https://www.zivid.com/downloads).
-Note: The version tested with Zivid cameras is 2.0.0.
+Note: The version tested with Zivid cameras is 2.1.0.
 
 2. [**Download Zivid Sample Data**](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/450363393/Sample+Data).
 
 3. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
-Note: The version tested with Zivid cameras is 19.05 Progress for Windows.
+Note: The version tested with Zivid cameras is 20.05 Progress for Windows.
 
 4. Launch HALCON.
 
