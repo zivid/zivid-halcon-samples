@@ -82,6 +82,9 @@
 <c>* Writing a 3D object model in a PLY file format</c>
 <l>write_object_model_3d (ObjectModel3D, 'ply', 'Zivid3DPLY.ply', ['invert_normals'], ['true'])</l>
 <c></c>
+<c>* Disconnecting from Zivid Camera</c>
+<l>close_framegrabber (AcqHandle)</l>
+<c></c>
 </body>
 <docu id="main">
 <parameters/>
