@@ -23,7 +23,7 @@ def _main():
             out_name = f"{outdirpath}\\{x.stem}.json"
             with open(x, "r") as yaml_in, open(out_name, "w") as json_out:
                 yaml_object = yaml.safe_load(yaml_in)
-                json.dump(yaml_object, json_out)
+                json.dump(yaml_object, json_out, indent=2)
 
     else:
         print(f"{outdirpath} is not a directory")
