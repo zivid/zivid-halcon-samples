@@ -99,6 +99,7 @@
 <l>        set_framegrabber_param (AcqHandle, 'Brightness', Brightness)</l>
 <l>        get_dict_tuple (Acquisition, 'Gain', Gain)</l>
 <l>        set_framegrabber_param (AcqHandle, 'Gain', Gain)</l>
+<l>        set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <l>    endfor</l>
 <c>    </c>
@@ -143,7 +144,6 @@
 <l>    get_dict_tuple (Balance, 'Red', Red)</l>
 <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', Red)</l>
 <c></c>
-<l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c>    </c>
 <l>return ()</l>
 </body>
