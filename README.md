@@ -50,35 +50,39 @@ Samples indicated by **(cpp)** are written in C++, samples indiced by **(csharp)
 
 ## Instructions
 
-1. [**Install Zivid Software**](https://www.zivid.com/downloads).
+1. [**Install Zivid Software**][zivid-software-installation-url].
 Note: The samples require Zivid SDK v2 (minor version 2.1 or newer).
 
-2. [**Download Zivid Sample Data**](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/450363393/Sample+Data).
+2. [**Download Zivid Sample Data**][zivid-sample-data-url].
 
-3. [**Install HALCON Software**](https://www.mvtec.com/products/halcon/).
+3. [**Install HALCON Software**][halcon-url].
 Note: The version tested with Zivid cameras is 20.05 Progress for Windows.
 
 4. Launch HALCON.
 
-5. Open and run one of the samples. Check out [how to run a HALCON sample](https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/427841/How+to+run+a+HALCON+sample).
+5. Open and run one of the samples. Check out [how to run a HALCON sample][how-to-run-a-halcon-sample-url].
 
 ## Support
-If you need assistance with using Zivid cameras, visit our Knowledge Base at [https://help.zivid.com/](https://help.zivid.com/) or contact us at [customersuccess@zivid.com](mailto:customersuccess@zivid.com).
+If you need assistance with using Zivid cameras, visit our [**Knowledge Base**][knowladge-base-url] or contact us at [customersuccess@zivid.com](mailto:customersuccess@zivid.com).
 
 ## Licence
-Zivid Samples are distributed under the [BSD license](https://github.com/zivid/halcon-samples/blob/master/LICENSE).
+Zivid Samples are distributed under the [BSD license][halcon-samples-licence-url].
 
 [header-image]: https://www.zivid.com/hubfs/softwarefiles/images/zivid-generic-github-header.png
+
 [hdev-capture-url]: source/hdev/Camera/Basic/Capture.hdev
 [hdev-captureHDR-url]: source/hdev/Camera/Basic/CaptureHDR.hdev
-[hdev-captureSavePLY-url]: source/hdev/Camera/Basic/CaptureSavePLY.hdev
 [hdev-captureHDRCompleteSettings-url]: source/hdev/Camera/Basic/CaptureHDRCompleteSettings.hdev
 [hdev-captureHDRLoop-url]: source/hdev/Camera/Basic/CaptureHDRLoop.hdev
-[zivid-sample-data-url]: https://zivid.atlassian.net/wiki/spaces/ZividKB/pages/450363393/Sample+Data
-[hdev-get_zivid_sample_data_dir-url]: source/hdev/Procedures/get_zivid_sample_data_dir.hdvp
 [YAMLSettingsToJSON-url]: source/hdev/Camera/Basic/YAMLSettingsToJSON.py
 [hdev-connectToSerialNumberCamera-url]: source/hdev/Camera/Basic/ConnectToSerialNumberCamera.hdev
+[hdev-captureSavePLY-url]: source/hdev/Camera/Basic/CaptureSavePLY.hdev
+[cpp-captureViaGenICam-url]: source/cpp/Camera/Basic/CaptureViaGenICam/CaptureViaGenICam.cpp
+[cpp-captureViaZivid-url]: source/cpp/Camera/Basic/CaptureViaZivid/CaptureViaZivid.cpp
+[csharp-captureViaGenICam-url]: source/csharp/Camera/Basic/CaptureViaGenICam
+[csharp-captureViaZivid-url]: source/csharp/Camera/Basic/CaptureViaZivid
 [hdev-querySettingsAndParameters-url]: source/hdev/Camera/InfoUtilOther/QuerySettingsAndParameters.hdev
+
 [hdev-readPLY-url]: source/hdev/Applications/Basic/FileFormats/ReadPLY.hdev
 [hdev-objectMatching-url]: source/hdev/Applications/Advanced/ObjectMatching
 [hdev-surfaceMatchingCreateModelFromFile-url]: source/hdev/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModelFromFile.hdev
@@ -86,7 +90,17 @@ Zivid Samples are distributed under the [BSD license](https://github.com/zivid/h
 [hdev-surfaceMatchingFindModelFromFile-url]: source/hdev/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev
 [hdev-surfaceMatchingFindModel-url]: source/hdev/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModel.hdev
 [hdev-get_first_available_zivid_device-url]: source/hdev/Procedures/get_first_available_zivid_device.hdvp
-[cpp-captureViaGenICam-url]: source/cpp/Camera/Basic/CaptureViaGenICam/CaptureViaGenICam.cpp
-[cpp-captureViaZivid-url]: source/cpp/Camera/Basic/CaptureViaZivid/CaptureViaZivid.cpp
-[csharp-captureViaGenICam-url]: source/csharp/Camera/Basic/CaptureViaGenICam
-[csharp-captureViaZivid-url]: source/csharp/Camera/Basic/CaptureViaZivid
+[hdev-get_zivid_sample_data_dir-url]: source/hdev/Procedures/get_zivid_sample_data_dir.hdvp
+
+
+[halcon-url]: https://www.mvtec.com/products/halcon/
+
+[knowladge-base-url]: https://support.zivid.com/
+[zivid-software-installation-url]: https://support.zivid.com/latest/academy/getting-started/zivid-software-installation.html
+[zivid-sample-data-url]: https://support.zivid.com/latest/academy/samples/sample-data.html
+
+[how-to-run-a-halcon-sample-url]: https://support.zivid.com/latest/academy/samples/halcon/how-to-run-a-halcon-sample.html
+[halcon-samples-licence-url]: https://github.com/zivid/halcon-samples/blob/master/LICENSE
+
+
+
