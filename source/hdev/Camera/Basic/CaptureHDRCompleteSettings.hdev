@@ -41,7 +41,7 @@
 <c>* Switching to HDR mode (multiple acquisitions)</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
-<c>* Reseting any previous HDR settings</c>
+<c>* Resetting any previous HDR settings</c>
 <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
 <c></c>
 <c>* Configuring HDR settings for the first image</c>
@@ -49,12 +49,6 @@
 <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
-<c></c>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 7.0)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
 <c></c>
 <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
@@ -64,12 +58,6 @@
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <c></c>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 7.0)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
-<c></c>
 <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Configuring HDR settings for the third image</c>
@@ -78,24 +66,25 @@
 <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
 <c></c>
+<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+<c></c>
+<c>* Setting global settings</c>
+<l>set_framegrabber_param (AcqHandle, 'ExperimentalEngine', 'phase')</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 1.5)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 7.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
-<c></c>
-<l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
-<c></c>
-<c>* Setting global settings</c>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 1.5)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', 1)</l>
-<l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength', 0.4)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold', 0.5)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingColorExperimentalToneMappingEnabled', 'always')</l>
 <c></c>
 <c>* Capturing frame (HDR)</c>
 <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
