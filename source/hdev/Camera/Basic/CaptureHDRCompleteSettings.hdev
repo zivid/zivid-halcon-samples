@@ -41,7 +41,7 @@
 <c>* Switching to HDR mode (multiple acquisitions)</c>
 <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
 <c></c>
-<c>* Reseting any previous HDR settings</c>
+<c>* Resetting any previous HDR settings</c>
 <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
 <c></c>
 <c>* Configuring HDR settings for the first image</c>
@@ -87,11 +87,13 @@
 <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
 <c></c>
 <c>* Setting global settings</c>
+<l>set_framegrabber_param (AcqHandle, 'ExperimentalEngine', 'phase')</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 1.5)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', 1)</l>
+<l>set_framegrabber_param (AcqHandle, 'ProcessingColorExperimentalToneMappingEnabled', 'always')</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled', 1)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength', 0.4)</l>
 <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', 1)</l>
