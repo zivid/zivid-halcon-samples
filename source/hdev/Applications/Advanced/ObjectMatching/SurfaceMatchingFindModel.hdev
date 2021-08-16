@@ -32,12 +32,13 @@
 <l>* SurfaceModelFile := 'CocaColaBottle'</l>
 <c>* Your own model created with the SurfaceMatchingCreateModel.hdev</c>
 <l>* SurfaceModelFile := ''</l>
+<c></c>
+<l>import './../../../Procedures'</l>
 <l>get_zivid_sample_data_dir(ZividDataDir)</l>
 <l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile</l>
 <c></c>
 <c>* Getting first available Zivid device</c>
 <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
-<l>import './../../../Procedures'</l>
 <l>get_first_available_zivid_device (Devices, Device)</l>
 <c></c>
 <c>* Connecting to Zivid camera</c>

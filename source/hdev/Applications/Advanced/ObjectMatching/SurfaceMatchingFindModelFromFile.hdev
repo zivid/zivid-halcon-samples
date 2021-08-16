@@ -33,6 +33,7 @@
 <c>* Existing Coca-Cola bottle model</c>
 <l>* SurfaceModelFile := 'CocaColaBottle'</l>
 <c></c>
+<l>import './../../../Procedures'</l>
 <l>get_zivid_sample_data_dir(ZividDataDir)</l>
 <l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile</l>
 <c></c>
