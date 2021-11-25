@@ -24,6 +24,7 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
 
     const auto pointsXYZ = pointCloud.copyPointsXYZ();
     const auto colorsRGBA = pointCloud.copyColorsRGBA();
+    const auto normalsXYZ = pointCloud.copyNormalsXYZ();
 
     int numberOfValidPoints = std::count_if(pointsXYZ.data(),
                                             pointsXYZ.data() + pointsXYZ.size(),
@@ -33,13 +34,18 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     // tupleXYZMapping is of shape [width, height, rows[], cols[]], and is used for creating xyz mapping.
     // See more at: https://www.mvtec.com/doc/halcon/13/en/set_object_model_3d_attrib.html
 
-    HalconCpp::HTuple tupleX, tupleY, tupleZ, tupleR, tupleB, tupleG, tupleRow, tupleCol, tupleXYZMapping;
-    tupleX[numberOfValidPoints - 1] = (float)0.0;
-    tupleY[numberOfValidPoints - 1] = (float)0.0;
-    tupleZ[numberOfValidPoints - 1] = (float)0.0;
-    tupleR[numberOfValidPoints - 1] = (Hlong)0;
-    tupleG[numberOfValidPoints - 1] = (Hlong)0;
-    tupleB[numberOfValidPoints - 1] = (Hlong)0;
+    HalconCpp::HTuple tuplePointsX, tuplePointsY, tuplePointsZ, tupleNormalsX, tupleNormalsY, tupleNormalsZ, tupleColorsR,
+        tupleColorsB, tupleColorsG, tupleRow, tupleCol, tupleXYZMapping;
+
+    tuplePointsX[numberOfValidPoints - 1] = (float)0.0;
+    tuplePointsY[numberOfValidPoints - 1] = (float)0.0;
+    tuplePointsZ[numberOfValidPoints - 1] = (float)0.0;
+    tupleNormalsX[numberOfValidPoints - 1] = (float)0.0;
+    tupleNormalsY[numberOfValidPoints - 1] = (float)0.0;
+    tupleNormalsZ[numberOfValidPoints - 1] = (float)0.0;
+    tupleColorsR[numberOfValidPoints - 1] = (Hlong)0;
+    tupleColorsG[numberOfValidPoints - 1] = (Hlong)0;
+    tupleColorsB[numberOfValidPoints - 1] = (Hlong)0;
 
     tupleXYZMapping[2 * numberOfValidPoints + 2 - 1] = (Hlong)0;
     tupleXYZMapping[0] = (Hlong)width;
@@ -52,17 +58,26 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
         for(size_t j = 0; j < width; ++j)
         {
             const auto &point = pointsXYZ(i, j);
+            const auto &normal = normalsXYZ(i, j);
             const auto &color = colorsRGBA(i, j);
+
             if(!isnan(point.x))
             {
-                tupleX.DArr()[validPointIndex] = point.x;
-                tupleY.DArr()[validPointIndex] = point.y;
-                tupleZ.DArr()[validPointIndex] = point.z;
-                tupleR.LArr()[validPointIndex] = color.r;
-                tupleG.LArr()[validPointIndex] = color.g;
-                tupleB.LArr()[validPointIndex] = color.b;
+                tuplePointsX.DArr()[validPointIndex] = point.x;
+                tuplePointsY.DArr()[validPointIndex] = point.y;
+                tuplePointsZ.DArr()[validPointIndex] = point.z;
+                tupleColorsR.LArr()[validPointIndex] = color.r;
+                tupleColorsG.LArr()[validPointIndex] = color.g;
+                tupleColorsB.LArr()[validPointIndex] = color.b;
                 tupleXYZMapping.LArr()[2 + validPointIndex] = i;
                 tupleXYZMapping.LArr()[2 + numberOfValidPoints + validPointIndex] = j;
+
+                if(!isnan(normal.x))
+                {
+                    tupleNormalsX.DArr()[validPointIndex] = normal.x;
+                    tupleNormalsY.DArr()[validPointIndex] = normal.y;
+                    tupleNormalsZ.DArr()[validPointIndex] = normal.z;
+                }
 
                 validPointIndex++;
             }
@@ -70,15 +85,27 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     }
 
     std::cout << "Constructing ObjectModel3D based on XYZ data" << std::endl;
-    HalconCpp::HObjectModel3D objectModel3D(tupleX, tupleY, tupleZ);
+    HalconCpp::HObjectModel3D objectModel3D(tuplePointsX, tuplePointsY, tuplePointsZ);
 
     std::cout << "Mapping ObjectModel3D data" << std::endl;
     HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "xyz_mapping", "object", tupleXYZMapping);
 
+    std::cout << "Adding normals to ObjectModel3D" << std::endl;
+    HalconCpp::HTuple normalsAttribNames, normalsAttribValues;
+    normalsAttribNames.Append("point_normal_x");
+    normalsAttribNames.Append("point_normal_y");
+    normalsAttribNames.Append("point_normal_z");
+
+    normalsAttribValues.Append(tupleNormalsX);
+    normalsAttribValues.Append(tupleNormalsY);
+    normalsAttribValues.Append(tupleNormalsZ);
+
+    HalconCpp::SetObjectModel3dAttribMod(objectModel3D, normalsAttribNames, "points", normalsAttribValues);
+
     std::cout << "Adding RGB to ObjectModel3D" << std::endl;
-    HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "red", "points", tupleR);
-    HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "green", "points", tupleG);
-    HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "blue", "points", tupleB);
+    HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "red", "points", tupleColorsR);
+    HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "green", "points", tupleColorsG);
+    HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "blue", "points", tupleColorsB);
 
     return objectModel3D;
 }
@@ -111,6 +138,12 @@ int main()
         const auto pointCloudFile = "Zivid3D.ply";
         std::cout << "Saving point cloud to file: " << pointCloudFile << std::endl;
         savePointCloud(halconPointCloud, pointCloudFile);
+    }
+
+    catch(HalconCpp::HException &except)
+    {
+        std::cerr << "Error: " << except.ErrorMessage() << std::endl;
+        return EXIT_FAILURE;
     }
 
     catch(const std::exception &e)
