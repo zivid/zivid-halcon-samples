@@ -96,10 +96,10 @@ Zivid Samples are distributed under the [BSD license][halcon-samples-licence-url
 [halcon-url]: https://www.mvtec.com/products/halcon/
 
 [knowladge-base-url]: https://support.zivid.com/
-[zivid-software-installation-url]: https://support.zivid.com/latest/academy/getting-started/zivid-software-installation.html
-[zivid-sample-data-url]: https://support.zivid.com/latest/academy/samples/sample-data.html
+[zivid-software-installation-url]: https://support.zivid.com/latest/getting-started/software-installation.html
+[zivid-sample-data-url]: https://support.zivid.com/latest/api-reference/samples/sample-data.html
 
-[how-to-run-a-halcon-sample-url]: https://support.zivid.com/latest/academy/samples/halcon/how-to-run-a-halcon-sample.html
+[how-to-run-a-halcon-sample-url]: https://support.zivid.com/latest/api-reference/samples/halcon.html
 [halcon-samples-licence-url]: https://github.com/zivid/halcon-samples/blob/master/LICENSE
 
 
