@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+    <procedure name="main">
+        <interface/>
+        <body>
+            <c>*</c>
+            <c>* Connect to a specific Zivid 3D camera based on its serial number.</c>
+            <c>*</c>
+            <c>* Note: Verify that the serial number set is the serial number of the camera you are using.</c>
+            <c>*</c>
+            <c>* Please note that you first need to install Zivid Software and correctly set the environment</c>
+            <c>* variables. After this, you can access the camera with the HALCON GenICamTL interface.</c>
+            <c>*</c>
+            <c/>
+            <c>* Connecting to Zivid camera with the following serial number</c>
+            <l>CameraSerial := 'Zivid_DEV_19242553'</l>
+            <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', CameraSerial, 0, 0, AcqHandle)</l>
+            <c/>
+            <c>* Disconnecting from Zivid Camera</c>
+            <l>close_framegrabber (AcqHandle)</l>
+            <c/>
+            <c>* Querying information about the connected image acquisition devices to find your device serial number</c>
+            <l>info_framegrabber ('GenICamTL', 'device', Information, Device)</l>
+            <c/>
+            <c>* Extracting serial number from your device</c>
+            <l>tuple_split (Device[0], '|' , Substrings)</l>
+            <l>tuple_strlen (Substrings[2], StrLength)</l>
+            <l>tuple_substr (Substrings[2],13,StrLength-2,CameraSerial)</l>
+        </body>
+        <docu id="main">
+            <parameters/>
+        </docu>
+    </procedure>
+</hdevelop>
