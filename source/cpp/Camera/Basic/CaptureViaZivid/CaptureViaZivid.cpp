@@ -6,8 +6,14 @@ This example shows how to capture a point cloud, with colors, using Zivid SDK, t
 #include <halconcpp/HalconCpp.h>
 
 #include <algorithm>
+#include <cassert>
 #include <chrono>
 #include <iostream>
+#include <numeric>
+
+#include "omp.h"
+
+using namespace std::chrono;
 
 void savePointCloud(const HalconCpp::HObjectModel3D &model, const std::string &fileName)
 {
@@ -15,6 +21,39 @@ void savePointCloud(const HalconCpp::HObjectModel3D &model, const std::string &f
                              HalconCpp::HString{ fileName.c_str() },
                              HalconCpp::HString{ "invert_normals" },
                              HalconCpp::HString{ "false" });
+}
+
+std::vector<size_t> getRowOffsets(const Zivid::Array2D<Zivid::PointXYZ> &pointsXYZ,
+                                  size_t width,
+                                  size_t height,
+                                  size_t &numberOfValidPoints)
+{
+    std::vector<size_t> numberOfValidPointsInRow(height, 0);
+
+#pragma omp parallel for
+    for(size_t i = 0; i < height; ++i)
+    {
+        size_t validInRow = 0;
+        for(size_t j = 0; j < width; ++j)
+        {
+            if(!pointsXYZ(i, j).isNaN())
+            {
+                ++validInRow;
+            }
+        }
+        numberOfValidPointsInRow[i] = validInRow;
+    }
+
+    numberOfValidPoints = std::accumulate(numberOfValidPointsInRow.begin(), numberOfValidPointsInRow.end(), 0);
+
+    std::vector<size_t> pointOffset(height, 0);
+
+    for(size_t i = 1; i < height; ++i)
+    {
+        pointOffset[i] = pointOffset[i - 1] + numberOfValidPointsInRow[i - 1];
+    }
+
+    return pointOffset;
 }
 
 HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &pointCloud)
@@ -26,16 +65,26 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     const auto colorsRGBA = pointCloud.copyColorsRGBA();
     const auto normalsXYZ = pointCloud.copyNormalsXYZ();
 
-    int numberOfValidPoints = std::count_if(pointsXYZ.data(),
-                                            pointsXYZ.data() + pointsXYZ.size(),
-                                            [](const Zivid::PointXYZ &point) { return (!point.isNaN()); });
+    auto t1 = steady_clock::now();
+
+    size_t numberOfValidPoints;
+
+    std::vector<size_t> pointOffset = getRowOffsets(pointsXYZ, width, height, numberOfValidPoints);
+
+    // int numberOfValidPoints = std::count_if(pointsXYZ.data(),
+    //                                         pointsXYZ.data() + pointsXYZ.size(),
+    //                                         [](const Zivid::PointXYZ &point) { return (!point.isNaN()); });
+
+    std::cout << "Valid points: " << numberOfValidPoints << std::endl;
+
+    auto t2 = steady_clock::now();
 
     // Initializing HTuples which are later filled with data from the Zivid point cloud.
     // tupleXYZMapping is of shape [width, height, rows[], cols[]], and is used for creating xyz mapping.
     // See more at: https://www.mvtec.com/doc/halcon/13/en/set_object_model_3d_attrib.html
 
-    HalconCpp::HTuple tuplePointsX, tuplePointsY, tuplePointsZ, tupleNormalsX, tupleNormalsY, tupleNormalsZ, tupleColorsR,
-        tupleColorsB, tupleColorsG, tupleRow, tupleCol, tupleXYZMapping;
+    HalconCpp::HTuple tuplePointsX, tuplePointsY, tuplePointsZ, tupleNormalsX, tupleNormalsY, tupleNormalsZ,
+        tupleColorsR, tupleColorsB, tupleColorsG, tupleRow, tupleCol, tupleXYZMapping;
 
     tuplePointsX[numberOfValidPoints - 1] = (float)0.0;
     tuplePointsY[numberOfValidPoints - 1] = (float)0.0;
@@ -51,10 +100,12 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     tupleXYZMapping[0] = (Hlong)width;
     tupleXYZMapping[1] = (Hlong)height;
 
-    int validPointIndex = 0;
+    auto t3 = steady_clock::now();
 
+#pragma omp parallel for
     for(size_t i = 0; i < height; ++i)
     {
+        int validPointIndex = pointOffset[i];
         for(size_t j = 0; j < width; ++j)
         {
             const auto &point = pointsXYZ(i, j);
@@ -84,6 +135,12 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
         }
     }
 
+    auto t4 = steady_clock::now();
+
+    std::cout << "Counting Nans: " << duration_cast<milliseconds>(t2 - t1).count() << "ms" << std::endl;
+    std::cout << "Init Halcon mem: " << duration_cast<milliseconds>(t3 - t2).count() << "ms" << std::endl;
+    std::cout << "Filter nans: " << duration_cast<milliseconds>(t4 - t3).count() << "ms" << std::endl;
+
     std::cout << "Constructing ObjectModel3D based on XYZ data" << std::endl;
     HalconCpp::HObjectModel3D objectModel3D(tuplePointsX, tuplePointsY, tuplePointsZ);
 
@@ -107,6 +164,10 @@ HalconCpp::HObjectModel3D zividToHalconPointCloud(const Zivid::PointCloud &point
     HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "green", "points", tupleColorsG);
     HalconCpp::SetObjectModel3dAttribMod(objectModel3D, "blue", "points", tupleColorsB);
 
+    auto t5 = steady_clock::now();
+
+    std::cout << "Finalize Halcon: " << duration_cast<milliseconds>(t5 - t4).count() << "ms" << std::endl;
+
     return objectModel3D;
 }
 
@@ -116,20 +177,10 @@ int main()
     {
         std::cout << "Connecting to camera" << std::endl;
         Zivid::Application zivid;
-        auto camera = zivid.connectCamera();
+        const auto dataFile = "/home/frontier/Zivid3D.zdf";
 
-        std::cout << "Configuring settings" << std::endl;
-        const auto settings =
-            Zivid::Settings{ Zivid::Settings::Acquisitions{ Zivid::Settings::Acquisition{
-                                 Zivid::Settings::Acquisition::Aperture{ 5.66 },
-                                 Zivid::Settings::Acquisition::ExposureTime{ std::chrono::microseconds{ 8333 } } } },
-                             Zivid::Settings::Processing::Filters::Outlier::Removal::Enabled::yes,
-                             Zivid::Settings::Processing::Filters::Outlier::Removal::Threshold{ 5 },
-                             Zivid::Settings::Processing::Filters::Smoothing::Gaussian::Enabled::yes,
-                             Zivid::Settings::Processing::Filters::Smoothing::Gaussian::Sigma{ 1.5 } };
-
-        std::cout << "Capturing frame" << std::endl;
-        const auto frame = camera.capture(settings);
+        std::cout << "Reading ZDF frame from file: " << dataFile << std::endl;
+        const auto frame = Zivid::Frame(dataFile);
         const auto zividPointCloud = frame.pointCloud();
 
         std::cout << "Converting to Halcon point cloud" << std::endl;

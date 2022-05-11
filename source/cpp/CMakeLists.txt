@@ -12,6 +12,7 @@ set(SAMPLES
 	Camera/Basic/CaptureViaZivid)
 
 set(Halcon_DEPENDING CaptureViaGenICam CaptureViaZivid)
+set(OpenMP_DEPENDING CaptureViaZivid)
 
 if(DEFINED ENV{HALCONROOT} AND NOT $ENV{HALCONROOT} STREQUAL "")
   message("Using HALCONROOT " $ENV{HALCONROOT})
@@ -21,6 +22,7 @@ endif()
 find_package(Halcon)
 find_package(HDevEngine)
 find_package(Zivid ${ZIVID_VERSION} COMPONENTS Core REQUIRED)
+find_package(OpenMP)
 
 message(STATUS "All samples: ${SAMPLES}")
 
@@ -43,5 +45,9 @@ foreach(SAMPLE ${SAMPLES})
 			${HDEVENGINE_INC_DIRS}
 			include
 		)
+    endif()
+	
+    if(${SAMPLE_NAME} IN_LIST OpenMP_DEPENDING)
+    	target_link_libraries(${SAMPLE_NAME} OpenMP::OpenMP_CXX)
     endif()
 endforeach()
