@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+    <procedure name="get_first_available_zivid_device">
+        <interface>
+            <ic>
+                <par name="Devices" base_type="ctrl" dimension="0"/>
+            </ic>
+            <oc>
+                <par name="Device" base_type="ctrl" dimension="0"/>
+            </oc>
+        </interface>
+        <body>
+            <c>*</c>
+            <c>* Get the first Zivid device from the input tuple of devices.</c>
+            <c>*</c>
+            <c>* The input tuple 'Devices' is typically returned by info_framegrabber function as follows:</c>
+            <c>* 'info_framegrabber ('GenICamTL','device', Information, Devices)'</c>
+            <c>*</c>
+            <c/>
+            <l>for i := 0 to |Devices| by 1</l>
+            <l>    SplitDevices := split(split(Devices[i], '|'), ':')</l>
+            <l>    if(SplitDevices[2]{0:4} == 'Zivid')</l>
+            <l>        Device := SplitDevices[2]{0:strlen(SplitDevices[2])-2}</l>
+            <l>        break</l>
+            <l>    endif</l>
+            <l>endfor</l>
+            <l>return ()</l>
+        </body>
+        <docu id="get_first_available_zivid_device">
+            <parameters>
+                <parameter id="Device"/>
+                <parameter id="Devices"/>
+            </parameters>
+        </docu>
+    </procedure>
+</hdevelop>
