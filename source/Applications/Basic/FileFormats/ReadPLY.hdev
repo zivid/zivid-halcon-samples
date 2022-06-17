@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+    <procedure name="main">
+        <interface/>
+        <body>
+            <c>*</c>
+            <c>* Import and display a Zivid point cloud from a PLY file.</c>
+            <c>*</c>
+            <c>* Please note that you first need to install Zivid Software and correctly set the environment variables.</c>
+            <c>*</c>
+            <c/>
+            <c>* Preparing graphics windows</c>
+            <l>dev_close_window ()</l>
+            <l>WinWidth := 960</l>
+            <l>WinHeight := 800</l>
+            <l>dev_open_window (0, 0, WinWidth, WinHeight, 'black', Window2D)</l>
+            <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'blue', Window3D)</l>
+            <c/>
+            <c>* Reading PCD point cloud from file</c>
+            <l>import './../../../Procedures'</l>
+            <l>get_zivid_sample_data_dir(ZividDataDir)</l>
+            <l>PointCloudFile := ZividDataDir + '/Zivid3D.ply'</l>
+            <l>read_object_model_3d (PointCloudFile, 'mm', ['xyz_map_width'], [1920], ObjectModel3D, Status)</l>
+            <c/>
+            <c>* Fixing to make the point cloud appear with colors</c>
+            <l>get_object_model_3d_params (ObjectModel3D, 'red', red)</l>
+            <l>get_object_model_3d_params (ObjectModel3D, 'green', green)</l>
+            <l>get_object_model_3d_params (ObjectModel3D, 'blue', blue)</l>
+            <l>set_object_model_3d_attrib (ObjectModel3D, '&amp;red', 'points', red, ObjectModel3D)</l>
+            <l>set_object_model_3d_attrib (ObjectModel3D, '&amp;green', 'points', green, ObjectModel3D)</l>
+            <l>set_object_model_3d_attrib (ObjectModel3D, '&amp;blue', 'points', blue, ObjectModel3D)</l>
+            <c/>
+            <c>* Generating X, Y, and Z image</c>
+            <l>object_model_3d_to_xyz (X, Y, Z, ObjectModel3D, 'from_xyz_map', [], [])  </l>
+            <c/>
+            <c>* Generating R, G, B, and RGB image</c>
+            <l>get_image_size (X, Width, Height)</l>
+            <l>gen_image_const (R, 'real', Width, Height)</l>
+            <l>gen_image_const (G, 'real', Width, Height)</l>
+            <l>gen_image_const (B, 'real', Width, Height)</l>
+            <l>get_domain (R, Domain)</l>
+            <l>get_region_points (Domain, Rows, Columns)</l>
+            <l>set_grayval (R, Rows, Columns, red)</l>
+            <l>set_grayval (G, Rows, Columns, green)</l>
+            <l>set_grayval (B, Rows, Columns, blue)</l>
+            <l>compose3 (R, G, B, RGB)</l>
+            <c/>
+            <c>* Displaying RGB image</c>
+            <l>dev_set_window (Window2D)</l>
+            <l>dev_display (RGB)</l>
+            <c/>
+            <c>* Visualizing current 3D object model</c>
+            <l>dev_set_window (Window3D)</l>
+            <l>Instructions[0] := 'Rotate: Left button'</l>
+            <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
+            <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
+            <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], ['red_channel_attrib','green_channel_attrib','blue_channel_attrib'], ['&amp;red','&amp;green','&amp;blue'], Instructions, [], '', PoseOut)</l>
+            <c/>
+            <c>* Clearing 3D object model from memory</c>
+            <l>clear_object_model_3d (ObjectModel3D)</l>
+            <c/>
+            <c>* Closing graphics windows</c>
+            <l>dev_set_window (Window2D)</l>
+            <l>dev_close_window ()</l>
+            <l>dev_set_window (Window3D)</l>
+            <l>dev_close_window ()</l>
+            <c/>
+            <c/>
+        </body>
+        <docu id="main">
+            <parameters/>
+        </docu>
+    </procedure>
+</hdevelop>
