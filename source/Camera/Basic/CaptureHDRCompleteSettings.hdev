@@ -80,7 +80,7 @@
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorExperimentalToneMappingEnabled', 'always')</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorExperimentalMode', 'automatic')</l>
             <c/>
             <c>* Capturing frame (HDR)</c>
             <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
