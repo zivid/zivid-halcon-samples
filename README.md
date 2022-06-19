@@ -1,6 +1,6 @@
 # HDevelop samples
 
-This repository contains HDevelop code samples for Zivid SDK v2.6.1. For
+This repository contains halcon code samples for Zivid SDK v2.7.0. For
 tested compatibility with earlier SDK versions, please check out
 [accompanying
 releases](https://github.com/zivid/zivid-halcon-samples/tree/master/../../releases).
@@ -70,8 +70,15 @@ from the camera can be used.
 If you want to use Zivid in HALCON, we provide a GenICam GenTL producer
 that comes with the [Zivid Software](http://www.zivid.com/downloads).
 
-Zivid and HALCON are compatible with Windows 10 and Ubuntu 16.04, 18.04,
-20.04.
+Zivid and HALCON are compatible with Windows 10 and Ubuntu 18.04, 20.04.
+
+-----
+
+Note:
+
+> Support for Ubuntu 16.04 is removed from SDK 2.7.
+
+-----
 
 To setup and use Zivid in one of these operating systems, please follow
 their respective instructions in the following pages:
