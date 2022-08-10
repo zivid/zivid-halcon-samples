@@ -84,15 +84,15 @@ To setup and use Zivid in one of these operating systems, please follow
 their respective instructions in the following pages:
 
   - [Install Zivid + HALCON for
-    Windows](https://support.zivid.com/latest/rst/api-reference/samples/halcon/install-zivid-halcon-for-windows.html)
+    Windows](https://support.zivid.com/latest/api-reference/samples/halcon/install-zivid-halcon-for-windows.html)
   - [Install Zivid + HALCON for
-    LINUX](https://support.zivid.com/latest/rst/api-reference/samples/halcon/install-zivid-halcon-for-linux.html)
+    LINUX](https://support.zivid.com/latest/api-reference/samples/halcon/install-zivid-halcon-for-linux.html)
   - [Create a HALCON "Hello World"
-    Program](https://support.zivid.com/latest/rst/api-reference/samples/halcon/create-a-halcon-hello-world.html)
+    Program](https://support.zivid.com/latest/api-reference/samples/halcon/create-a-halcon-hello-world.html)
   - [How to Run a HALCON
-    Sample](https://support.zivid.com/latest/rst/api-reference/samples/halcon/how-to-run-a-halcon-sample.html)
+    Sample](https://support.zivid.com/latest/api-reference/samples/halcon/how-to-run-a-halcon-sample.html)
   - [HALCON Sample
-    Videos](https://support.zivid.com/latest/rst/api-reference/samples/halcon/halcon-sample-videos.html)
+    Videos](https://support.zivid.com/latest/api-reference/samples/halcon/halcon-sample-videos.html)
 
 The following HALCON versions have been tested and confirmed to work
 with Zivid cameras:
@@ -106,7 +106,7 @@ We recommend to use one of the HALCON versions we have tested.
 For more information about the Zivid cameras, please visit our
 [Knowledge Base](https://support.zivid.com/latest). If you run into any
 issues please check out
-[Troubleshooting](https://support.zivid.com/latest/rst/support/troubleshooting.html).
+[Troubleshooting](https://support.zivid.com/latest/support/troubleshooting.html).
 
 ## License
 
