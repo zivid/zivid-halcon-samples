@@ -1,8 +1,12 @@
 """
-Read Zivid camera intrinsic parameters (OpenCV model) from .yml file, convert them to
-internal camera parameters (Halcon model), and save them to .dat file.
+Read Zivid camera intrinsic parameters (OpenCV model) from .yml file or camera,
+convert them to internal camera parameters (Halcon model), and save them to .dat file.
 
-Example: python convert_intrinsics_opencv_to_halcon.py --input-file IntrinsicsOpenCV.yml
+Example when reading from file: python convert_intrinsics_opencv_to_halcon.py
+         --input-file IntrinsicsOpenCV.yml --model-name "zivid two"
+         --output-file "IntrinsicsHalcon"
+
+Example when reading from camera: python convert_intrinsics_opencv_to_halcon.py
          --model-name "zivid two" --output-file "IntrinsicsHalcon"
 
 The .dat file can be read with read_cam_par HALCON operator which creates a camera parameter
@@ -20,8 +24,8 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+import numpy.typing as npt
 import yaml
-from numpy.typing import NDArray
 from scipy.optimize import minimize
 
 
@@ -37,19 +41,41 @@ class CameraIntrinsics:
     p1: float
     p2: float
 
-    def __init__(self, filepath: Path):
+    @classmethod
+    def from_file(cls, filepath: Path):
         data = yaml.safe_load(filepath.read_text(encoding="utf-8"))
-        self.cx = data["CameraIntrinsics"]["CameraMatrix"]["CX"]
-        self.cy = data["CameraIntrinsics"]["CameraMatrix"]["CY"]
-        self.fx = data["CameraIntrinsics"]["CameraMatrix"]["FX"]
-        self.fy = data["CameraIntrinsics"]["CameraMatrix"]["FY"]
-        self.k1 = data["CameraIntrinsics"]["Distortion"]["K1"]
-        self.k2 = data["CameraIntrinsics"]["Distortion"]["K2"]
-        self.k3 = data["CameraIntrinsics"]["Distortion"]["K3"]
-        self.p1 = data["CameraIntrinsics"]["Distortion"]["P1"]
-        self.p2 = data["CameraIntrinsics"]["Distortion"]["P2"]
+        cx = data["CameraIntrinsics"]["CameraMatrix"]["CX"]
+        cy = data["CameraIntrinsics"]["CameraMatrix"]["CY"]
+        fx = data["CameraIntrinsics"]["CameraMatrix"]["FX"]
+        fy = data["CameraIntrinsics"]["CameraMatrix"]["FY"]
+        k1 = data["CameraIntrinsics"]["Distortion"]["K1"]
+        k2 = data["CameraIntrinsics"]["Distortion"]["K2"]
+        k3 = data["CameraIntrinsics"]["Distortion"]["K3"]
+        p1 = data["CameraIntrinsics"]["Distortion"]["P1"]
+        p2 = data["CameraIntrinsics"]["Distortion"]["P2"]
+        return cls(cx, cy, fx, fy, k1, k2, k3, p1, p2)
 
-    def _camera_matrix(self) -> NDArray[np.float64]:
+    @classmethod
+    def from_camera(cls):
+        # pylint: disable=import-outside-toplevel
+        import zivid
+        from zivid.experimental import calibration
+
+        app = zivid.Application()
+        camera = app.connect_camera()
+        intrinsics = calibration.intrinsics(camera)
+        cx = intrinsics.camera_matrix.cx
+        cy = intrinsics.camera_matrix.cy
+        fx = intrinsics.camera_matrix.fx
+        fy = intrinsics.camera_matrix.fy
+        k1 = intrinsics.distortion.k1
+        k2 = intrinsics.distortion.k2
+        k3 = intrinsics.distortion.k3
+        p1 = intrinsics.distortion.p1
+        p2 = intrinsics.distortion.p2
+        return cls(cx, cy, fx, fy, k1, k2, k3, p1, p2)
+
+    def _camera_matrix(self) -> npt.NDArray[np.float64]:
         K = np.eye(3)
         K[0, 0] = self.fx
         K[1, 1] = self.fy
@@ -57,10 +83,10 @@ class CameraIntrinsics:
         K[1, 2] = self.cy
         return K
 
-    def _distortion_coefficients(self) -> NDArray[np.float64]:
+    def _distortion_coefficients(self) -> npt.NDArray[np.float64]:
         return np.array([self.k1, self.k2, self.p1, self.p2, self.k3])
 
-    def undistorted_pixels(self, pixels: NDArray) -> NDArray[np.float64]:
+    def undistorted_pixels(self, pixels: npt.NDArray) -> npt.NDArray[np.float64]:
         undistorted_normalized = cv2.undistortPoints(
             pixels,
             cameraMatrix=self._camera_matrix(),
@@ -76,14 +102,14 @@ class HalconInternalCameraParameters:
     sx: float
     sy: float
     focus: float
-    poly: NDArray
-    image_size: NDArray
+    poly: npt.NDArray
+    image_size: npt.NDArray
 
     def __init__(
         self,
         intrinsics: CameraIntrinsics,
-        pixel_size: NDArray[np.float64],
-        image_size: NDArray[np.int32],
+        pixel_size: npt.NDArray[np.float64],
+        image_size: npt.NDArray[np.int32],
     ):
         self.cx = intrinsics.cx
         self.cy = intrinsics.cy
@@ -93,7 +119,7 @@ class HalconInternalCameraParameters:
         self.poly = np.zeros((5))
         self.image_size = image_size
 
-    def undistorted_pixels(self, pixels: NDArray) -> NDArray:
+    def undistorted_pixels(self, pixels: npt.NDArray) -> npt.NDArray:
         x = (pixels[:, :, 0] - self.cx) * self.sx
         y = (pixels[:, :, 1] - self.cy) * self.sy
 
@@ -190,8 +216,8 @@ ImageHeight:imgh:  {self.image_size[1]};
 
 @dataclass
 class CameraParameters:
-    pixel_size: NDArray[np.float64]
-    image_size: NDArray[np.int32]
+    pixel_size: npt.NDArray[np.float64]
+    image_size: npt.NDArray[np.int32]
 
     def __init__(self, model_name: str):
         if model_name in [
@@ -208,10 +234,10 @@ class CameraParameters:
 
 
 def _cost_function(
-    poly: NDArray,
+    poly: npt.NDArray,
     halcon_parameters: HalconInternalCameraParameters,
     intrinsics: CameraIntrinsics,
-    pixels: NDArray,
+    pixels: npt.NDArray,
 ) -> float:
     halcon_parameters.poly = poly
     halcon_pixels_undistorted = halcon_parameters.undistorted_pixels(pixels=pixels)
@@ -221,7 +247,7 @@ def _cost_function(
 
 def _create_pixels(
     camera_parameters: CameraParameters,
-) -> NDArray:
+) -> npt.NDArray:
     samples_x = 25
     x = np.linspace(0, camera_parameters.image_size[0] - 1, samples_x)
     y = np.linspace(
@@ -234,12 +260,12 @@ def _create_pixels(
 
 
 def _estimate_halcon_internal_camera_parameters_from_opencv(
-    zivid_yaml_path: Path, model_name: str
+    intrinsics: CameraIntrinsics, model_name: str
 ) -> HalconInternalCameraParameters:
     """Estimate internal camera parameters (Halcon model) from intrinsic parameters (OpenCV model).
 
     Args:
-        zivid_yaml_path: Path to Zivid camera intrinsic parameters (OpenCV model) .yml file
+        intrinsics: Zivid camera intrinsic parameters (OpenCV model)
         model_name: Zivid camera model
 
     Returns:
@@ -247,7 +273,6 @@ def _estimate_halcon_internal_camera_parameters_from_opencv(
 
     """
 
-    intrinsics = CameraIntrinsics(filepath=zivid_yaml_path)
     camera_parameters = CameraParameters(model_name=model_name)
     halcon_parameters = HalconInternalCameraParameters(
         intrinsics=intrinsics,
@@ -271,8 +296,10 @@ def _args() -> argparse.Namespace:
     parser.add_argument(
         "--input-file",
         type=Path,
-        required=True,
-        help="Path to Zivid camera intrinsic parameters (openCV model) as .yml file",
+        help=(
+            "Path to Zivid camera intrinsic parameters (openCV model) as .yml file. "
+            "Don't use argument to read intrinsics from connected camera (requires zivid-python)."
+        ),
     )
     parser.add_argument(
         "--model-name",
@@ -287,13 +314,22 @@ def _args() -> argparse.Namespace:
         required=True,
         help="Path to .dat file to save HALCON internal camera parameters",
     )
+
     return parser.parse_args()
 
 
 def _main():
     args = _args()
+
+    if args.input_file:
+        print(f"Reading intrinsics from file '{args.input_file}'")
+        intrinsics = CameraIntrinsics.from_file(args.input_file)
+    else:
+        print("Reading intrinsics from camera")
+        intrinsics = CameraIntrinsics.from_camera()
+
     halcon_internal_camera_parameters = _estimate_halcon_internal_camera_parameters_from_opencv(
-        args.input_file, args.model_name
+        intrinsics, args.model_name
     )
     halcon_internal_camera_parameters.write_to_dat_file(args.output_file)
     print(f"Halcon internal camera parameters saved to {args.output_file}")
