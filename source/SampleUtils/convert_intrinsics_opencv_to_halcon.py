@@ -16,6 +16,7 @@ used to generate a camera parameter tuple (CameraParam).
 To generate Zivid camera intrinsic parameters (OpenCV model) for your Zivid camera, run
 GetCameraIntrinsics.cpp code sample from https://github.com/zivid/zivid-cpp-samples. An
 example YML file for this sample can be found under the main instructions for Zivid samples.
+
 """
 
 import argparse
@@ -204,10 +205,9 @@ ImageHeight:imgh:  {self.image_size[1]};
         Args:
             filepath: Path to .dat file to save HALCON internal camera parameters
 
-        Returns None
-
         Raises:
             FileExistsError: File path already exists
+
         """
         if filepath.exists():
             raise FileExistsError(f"{filepath} already exists")
@@ -272,7 +272,6 @@ def _estimate_halcon_internal_camera_parameters_from_opencv(
         Estimated internal camera parameters (Halcon model)
 
     """
-
     camera_parameters = CameraParameters(model_name=model_name)
     halcon_parameters = HalconInternalCameraParameters(
         intrinsics=intrinsics,
@@ -292,6 +291,12 @@ def _estimate_halcon_internal_camera_parameters_from_opencv(
 
 
 def _args() -> argparse.Namespace:
+    """Function for taking in arguments from user.
+
+    Returns:
+        Argument from user
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--input-file",
