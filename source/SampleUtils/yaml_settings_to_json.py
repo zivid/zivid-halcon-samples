@@ -1,4 +1,6 @@
-""" Script to convert from .yaml/.yml to .json
+"""
+Script to convert from .yaml/.yml to .json
+
 """
 
 import argparse
@@ -9,6 +11,12 @@ import yaml
 
 
 def _args() -> argparse.Namespace:
+    """Function for taking in arguments from user.
+
+    Returns:
+        Argument from user
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("--directory", type=Path, required=True)
     return parser.parse_args()
