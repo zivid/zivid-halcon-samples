@@ -1,5 +1,5 @@
 """
-Script to convert from .yaml/.yml to .json
+Script to convert from YAML/YML to JSON
 
 """
 

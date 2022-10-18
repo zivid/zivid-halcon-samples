@@ -1,5 +1,5 @@
 """
-Read Zivid camera intrinsic parameters (OpenCV model) from .yml file or camera,
+Read Zivid camera intrinsic parameters (OpenCV model) from YML file or camera,
 convert them to internal camera parameters (Halcon model), and save them to .dat file.
 
 Example when reading from file: python convert_intrinsics_opencv_to_halcon.py
@@ -302,7 +302,7 @@ def _args() -> argparse.Namespace:
         "--input-file",
         type=Path,
         help=(
-            "Path to Zivid camera intrinsic parameters (openCV model) as .yml file. "
+            "Path to Zivid camera intrinsic parameters (openCV model) as YML file. "
             "Don't use argument to read intrinsics from connected camera (requires zivid-python)."
         ),
     )
