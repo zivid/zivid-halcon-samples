@@ -56,7 +56,7 @@
             <c/>
             <l>for Index := 1 to 5 by 1</l>
             <c/>
-            <l>    tuple_add (ScenePath, '/im', SceneFilename)</l>
+            <l>    tuple_add (ScenePath, '/Im', SceneFilename)</l>
             <l>    tuple_add (SceneFilename, Index, SceneFilename)</l>
             <l>    tuple_add (SceneFilename, '.ply', SceneFilename)    </l>
             <l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3DScene, Status)</l>

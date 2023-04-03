@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+    <procedure name="main">
+        <interface/>
+        <body>
+            <c>*</c>
+            <c>* A basic warm-up method for a Zivid camera with specified time and capture cycle.</c>
+            <c>*</c>
+            <c/>
+            <c>* Preparing the graphics window</c>
+            <l>dev_close_window ()</l>
+            <l>WinWidth := 480</l>
+            <l>WinHeight := 400</l>
+            <l>dev_open_window (0, 0, WinWidth, WinHeight, 'black', Window3D)</l>
+            <c/>
+            <c>* Getting first available Zivid device</c>
+            <l>info_framegrabber ('GenICamTL','device', Information, Devices)</l>
+            <l>import './../../Procedures'</l>
+            <l>get_first_available_zivid_device (Devices, Device)</l>
+            <l>get_zivid_sample_data_dir(ZividDataDir)</l>
+            <c/>
+            <c>* Connecting to Zivid camera</c>
+            <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
+            <c/>
+            <l>WarmupTimeMinutes := 10</l>
+            <l>CaptureCycle := 5</l>
+            <c/>
+            <c>* Reading JSON settings path</c>
+            <l>get_framegrabber_param (AcqHandle, 'DeviceModelName', DeviceModelName)</l>
+            <l>get_zivid_model_folder_name (DeviceModelName, DeviceModelFolder)</l>
+            <l>read_dict (ZividDataDir + '/SettingsJson/' + DeviceModelFolder + '/Settings01.json', [], [], JsonSettings)</l>
+            <l>read_zivid_json_params (AcqHandle, JsonSettings)</l>
+            <c/>
+            <l>dev_disp_text ('Starting warm up for: ' + WarmupTimeMinutes + ' minutes' , 'window', 60, 12, 'black', [], [])</l>
+            <c/>
+            <l>TimePast := 0</l>
+            <l>WarmupTime := WarmupTimeMinutes * 60</l>
+            <l>while(TimePast &lt; WarmupTime)    </l>
+            <l>    count_seconds(BeforeGrabData)</l>
+            <l>    grab_data (Image, Region, Contours, AcqHandle, Data)</l>
+            <l>    count_seconds(AfterGrabData)</l>
+            <c>    </c>
+            <l>    CaptureTime := AfterGrabData - BeforeGrabData</l>
+            <c>    </c>
+            <l>    if (CaptureTime &lt; CaptureCycle)</l>
+            <l>        wait_seconds (CaptureCycle - CaptureTime) </l>
+            <l>    else</l>
+            <l>        dev_disp_text('Your capture time is longer than your desired capture cycle. Please increase the desired capture cycle.','window', 84, 12, 'black', [], [])</l>
+            <l>    endif</l>
+            <c>        </c>
+            <l>    TimePast := TimePast + max([CaptureTime, CaptureCycle])</l>
+            <l>    RemainingTime := WarmupTime - TimePast</l>
+            <l>    RemainingTimeSeconds := max2 (0, int(RemainingTime) % 60)</l>
+            <l>    RemainingTimeMinutes := int (RemainingTime - RemainingTimeSeconds) / 60</l>
+            <l>    dev_disp_text('Remaining time: ' + RemainingTimeMinutes + ' minutes, ' + RemainingTimeSeconds + ' seconds' , 'window', 106, 12, 'black', [], [])</l>
+            <l>endwhile</l>
+            <c/>
+            <l>dev_disp_text('Warm up completed', 'window', 120, 12, 'black', [], [])</l>
+            <c/>
+            <c>* Closing graphics window </c>
+            <l>dev_close_window ()</l>
+        </body>
+        <docu id="main">
+            <parameters/>
+        </docu>
+    </procedure>
+</hdevelop>
