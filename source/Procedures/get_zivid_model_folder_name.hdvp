@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+    <procedure name="get_zivid_model_folder_name">
+        <interface>
+            <ic>
+                <par name="DeviceModelName" base_type="ctrl" dimension="0"/>
+            </ic>
+            <oc>
+                <par name="ZividFolder" base_type="ctrl" dimension="0"/>
+            </oc>
+        </interface>
+        <body>
+            <l>tuple_split(DeviceModelName, ' ', Substrings)</l>
+            <l>if (Substrings[1] == 'One')</l>
+            <l>    ZividFolder := 'zividOne'</l>
+            <l>else</l>
+            <l>    ZividFolder := 'zividTwo'</l>
+            <l>endif</l>
+            <l>return ()</l>
+        </body>
+        <docu id="get_zivid_model_folder_name">
+            <parameters>
+                <parameter id="DeviceModelName"/>
+                <parameter id="ZividFolder"/>
+            </parameters>
+        </docu>
+    </procedure>
+</hdevelop>

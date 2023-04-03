@@ -27,7 +27,7 @@
             <c>* Connecting to Zivid camera</c>
             <l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
             <l>get_framegrabber_param (AcqHandle, 'DeviceModelName', DeviceModelName)</l>
-            <l>tuple_substr (DeviceModelName, 0, 8, DeviceModelFolder)</l>
+            <l>get_zivid_model_folder_name (DeviceModelName, DeviceModelFolder)</l>
             <c/>
             <c>* Configuring 3D-settings</c>
             <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
@@ -45,7 +45,8 @@
             <l>    set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
             <c/>
             <c>    * Configuring HDR settings for frames</c>
-            <l>    set_settings (AcqHandle, ZividDataDir + '/SettingsJson/' + DeviceModelFolder +'/Settings0'+(Index+1)+'.json')</l>
+            <l>    read_dict (ZividDataDir + '/SettingsJson/' + DeviceModelFolder + '/Settings01.json', [], [], JsonSettings)</l>
+            <l>    read_zivid_json_params (AcqHandle, JsonSettings)</l>
             <c/>
             <c>    * Capturing frame (HDR)</c>
             <l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
