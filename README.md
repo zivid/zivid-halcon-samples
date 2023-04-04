@@ -1,6 +1,6 @@
 # HDevelop samples
 
-This repository contains halcon code samples for Zivid SDK v2.8.1. For
+This repository contains halcon code samples for Zivid SDK v2.9.0. For
 tested compatibility with earlier SDK versions, please check out
 [accompanying
 releases](https://github.com/zivid/zivid-halcon-samples/tree/master/../../releases).
@@ -48,6 +48,8 @@ from the camera can be used.
       - **InfoUtilOther**
           - [QuerySettingsAndParameters](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/InfoUtilOther/QuerySettingsAndParameters.hdev) - Query information about the image acquisition interface
             and selected specific parameters of Zivid camera.
+          - [Warmup](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/InfoUtilOther/Warmup.hdev) - A basic warm-up method for a Zivid camera with specified
+            time and capture cycle.
   - **Applications**
       - **Basic**
           - **FileFormats**

@@ -66,6 +66,21 @@
             <c/>
             <c>* Setting global settings</c>
             <l>set_framegrabber_param (AcqHandle, 'ExperimentalEngine', 'phase')</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOZ', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAX', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAY', -1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAZ', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBX', -1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBY', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBZ', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMin', -1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMax', 1000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthEnabled', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMin', 200)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMax', 2000)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 1.5)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
@@ -73,10 +88,16 @@
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalEnabled', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMaxNeighborDistance', 10)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMinArea', 100)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength', 0.4)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold', 0.5)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingEnabled', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingHoleSize', 0.2)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingStrictness', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', 1)</l>
