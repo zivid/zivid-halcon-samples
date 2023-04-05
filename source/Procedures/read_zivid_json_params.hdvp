@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<hdevelop file_version="1.2" halcon_version="22.11.0.0">
     <procedure name="read_zivid_json_params">
         <interface>
             <ic>
@@ -9,7 +9,7 @@
         </interface>
         <body>
             <l>get_dict_tuple (path, 'Settings', Settings)</l>
-            <l>get_dict_tuple (Settings,'Acquisitions', Acquisitions)</l>
+            <l>get_dict_tuple (Settings, 'Acquisitions', Acquisitions)</l>
             <l>get_dict_param (Acquisitions, 'keys', [], AllKeys)</l>
             <c/>
             <c>* Single Capture or HDR</c>
@@ -24,79 +24,142 @@
             <l>    get_dict_tuple (Acquisitions, Index, AcquisitionIndex)</l>
             <l>    get_dict_tuple (AcquisitionIndex, 'Acquisition', Acquisition)</l>
             <l>    get_dict_tuple (Acquisition, 'ExposureTime', ExposureTime)</l>
-            <l>    set_framegrabber_param(AcqHandle,'ExposureTime', ExposureTime)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', ExposureTime)</l>
             <l>    get_dict_tuple (Acquisition, 'Aperture', Aperture)</l>
             <l>    set_framegrabber_param (AcqHandle, 'Aperture', Aperture)</l>
-            <l>    get_dict_tuple(Acquisition, 'Brightness', Brightness) </l>
+            <l>    get_dict_tuple (Acquisition, 'Brightness', Brightness) </l>
             <l>    set_framegrabber_param (AcqHandle, 'Brightness', Brightness)</l>
-            <l>    get_dict_tuple(Acquisition, 'Gain', Gain) </l>
-            <l>    set_framegrabber_param(AcqHandle, 'Gain', Gain)</l>
-            <l>    set_framegrabber_param(AcqHandle, 'AddAcquisition',1)</l>
+            <l>    get_dict_tuple (Acquisition, 'Gain', Gain) </l>
+            <l>    set_framegrabber_param (AcqHandle, 'Gain', Gain)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <l>endfor</l>
             <c/>
+            <c>* RegionOfInterest</c>
+            <l>get_dict_tuple (Settings, 'RegionOfInterest', RegionOfInterest)</l>
+            <c/>
+            <c>* Box</c>
+            <l>get_dict_tuple (RegionOfInterest, 'Box', Box)</l>
+            <l>get_dict_tuple (Box, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', Enabled)</l>
+            <l>get_dict_tuple (Box, 'Extents', Extents)</l>
+            <l>get_dict_tuple (Extents, 0, ExtentsMin)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMin', ExtentsMin)</l>
+            <l>get_dict_tuple (Extents, 1, ExtentsMax)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMax', ExtentsMax)</l>
+            <l>get_dict_tuple (Box, 'PointO', PointO)</l>
+            <l>get_dict_tuple (PointO, 0, PointOX)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', PointOX)</l>
+            <l>get_dict_tuple (PointO, 1, PointOY)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', PointOY)</l>
+            <l>get_dict_tuple (PointO, 2, PointOZ)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOZ', PointOZ)</l>
+            <l>get_dict_tuple (Box, 'PointA', PointA)</l>
+            <l>get_dict_tuple (PointA, 0, PointAX)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAX', PointAX)</l>
+            <l>get_dict_tuple (PointA, 1, PointAY)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAY', PointAY)</l>
+            <l>get_dict_tuple (PointA, 2, PointAZ)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAZ', PointAZ)</l>
+            <l>get_dict_tuple (Box, 'PointB', PointB)</l>
+            <l>get_dict_tuple (PointB, 0, PointBX)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBX', PointBX)</l>
+            <l>get_dict_tuple (PointB, 1, PointBY)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBY', PointBY)</l>
+            <l>get_dict_tuple (PointB, 2, PointBZ)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBZ', PointBZ)</l>
+            <c/>
+            <c>* Depth</c>
+            <l>get_dict_tuple (RegionOfInterest, 'Depth', Depth)</l>
+            <l>get_dict_tuple (Depth, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthEnabled', 1)</l>
+            <l>get_dict_tuple (Depth, 'Range', Range)</l>
+            <l>get_dict_tuple (Range, 0, RangeMin)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMin', RangeMin)</l>
+            <l>get_dict_tuple (Range, 1, RangeMax)</l>
+            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMax', RangeMax)</l>
+            <c/>
             <c>* Processing Settings</c>
-            <l>get_dict_tuple(Settings, 'Processing', Processing)</l>
-            <l>get_dict_tuple(Processing, 'Filters', Filters)</l>
+            <l>get_dict_tuple (Settings, 'Processing', Processing)</l>
+            <l>get_dict_tuple (Processing, 'Filters', Filters)</l>
+            <c/>
+            <c>* Cluster Filter</c>
+            <l>get_dict_tuple (Filters, 'Cluster', Cluster)</l>
+            <l>get_dict_tuple (Cluster, 'Removal', Removal)</l>
+            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalEnabled', Enabled)</l>
+            <l>get_dict_tuple (Removal, 'MaxNeighborDistance', MaxNeighborDistance)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMaxNeighborDistance', MaxNeighborDistance)</l>
+            <l>get_dict_tuple (Removal, 'MinArea', MinArea)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMinArea', MinArea)</l>
             <c/>
             <c>* Noise Filter</c>
-            <l>get_dict_tuple(Filters, 'Noise', Noise)</l>
-            <l>get_dict_tuple(Noise, 'Removal', Removal)</l>
-            <l>get_dict_tuple(Removal,'Enabled',Enabled)</l>
-            <l>set_framegrabber_param(AcqHandle,'ProcessingFiltersNoiseRemovalEnabled', Enabled)</l>
-            <l>get_dict_tuple(Removal,'Threshold',Threshold)</l>
-            <l>set_framegrabber_param(AcqHandle,'ProcessingFiltersNoiseRemovalThreshold',Threshold)</l>
+            <l>get_dict_tuple (Filters, 'Noise', Noise)</l>
+            <l>get_dict_tuple (Noise, 'Removal', Removal)</l>
+            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', Enabled)</l>
+            <l>get_dict_tuple (Removal, 'Threshold', Threshold)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', Threshold)</l>
             <c/>
             <c>* Outlier Filter</c>
-            <l>get_dict_tuple(Filters, 'Outlier', Outlier)</l>
-            <l>get_dict_tuple(Outlier, 'Removal', Removal) </l>
-            <l>get_dict_tuple(Removal,'Enabled', Enabled)</l>
-            <l>set_framegrabber_param(AcqHandle,'ProcessingFiltersOutlierRemovalEnabled', Enabled)</l>
-            <l>get_dict_tuple(Removal,'Threshold', Threshold)</l>
+            <l>get_dict_tuple (Filters, 'Outlier', Outlier)</l>
+            <l>get_dict_tuple (Outlier, 'Removal', Removal) </l>
+            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', Enabled)</l>
+            <l>get_dict_tuple (Removal, 'Threshold', Threshold)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', Threshold)</l>
             <c/>
             <c>* Reflection Filter</c>
-            <l>get_dict_tuple(Filters, 'Reflection', Reflection)</l>
-            <l>get_dict_tuple(Reflection, 'Removal', Removal)</l>
-            <l>get_dict_tuple(Removal, 'Enabled', Enabled) </l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled',Enabled)</l>
-            <l>get_dict_tuple(Removal,'Experimental', Experimental)</l>
-            <l>get_dict_tuple(Experimental,'Mode', Mode)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingFiltersReflectionRemovalExperimentalMode',Mode)</l>
+            <l>get_dict_tuple (Filters, 'Reflection', Reflection)</l>
+            <l>get_dict_tuple (Reflection, 'Removal', Removal)</l>
+            <l>get_dict_tuple (Removal, 'Enabled', Enabled) </l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', Enabled)</l>
+            <l>get_dict_tuple (Removal, 'Experimental', Experimental)</l>
+            <l>get_dict_tuple (Experimental, 'Mode', Mode)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalExperimentalMode', Mode)</l>
             <c/>
             <c>* Smoothing Filter</c>
-            <l>get_dict_tuple(Filters, 'Smoothing', Smoothing)</l>
-            <l>get_dict_tuple(Smoothing, 'Gaussian', Gaussian)</l>
-            <l>get_dict_tuple(Gaussian, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled',Enabled)</l>
-            <l>get_dict_tuple(Gaussian, 'Sigma', Sigma)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', Sigma)</l>
+            <l>get_dict_tuple (Filters, 'Smoothing', Smoothing)</l>
+            <l>get_dict_tuple (Smoothing, 'Gaussian', Gaussian)</l>
+            <l>get_dict_tuple (Gaussian, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', Enabled)</l>
+            <l>get_dict_tuple (Gaussian, 'Sigma', Sigma)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', Sigma)</l>
             <c/>
             <c>* ContrastDistortion Filter</c>
-            <l>get_dict_tuple(Filters, 'Experimental', Experimental)</l>
-            <l>get_dict_tuple(Experimental, 'ContrastDistortion', ContrastDistortion)</l>
-            <l>get_dict_tuple(ContrastDistortion, 'Correction', Correction)</l>
-            <l>get_dict_tuple(Correction, 'Enabled', Enabled)</l>
-            <l>get_dict_tuple(Correction, 'Strength', Strength)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled',Enabled)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength',Strength)</l>
-            <l>get_dict_tuple(ContrastDistortion, 'Removal', Removal)</l>
-            <l>get_dict_tuple(Removal, 'Enabled', Enabled)</l>
-            <l>get_dict_tuple(Removal, 'Threshold', Threshold)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled',Enabled)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold',Threshold)</l>
+            <l>get_dict_tuple (Filters, 'Experimental', Experimental)</l>
+            <l>get_dict_tuple (Experimental, 'ContrastDistortion', ContrastDistortion)</l>
+            <l>get_dict_tuple (ContrastDistortion, 'Correction', Correction)</l>
+            <l>get_dict_tuple (Correction, 'Enabled', Enabled)</l>
+            <l>get_dict_tuple (Correction, 'Strength', Strength)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength', Strength)</l>
+            <l>get_dict_tuple (ContrastDistortion, 'Removal', Removal)</l>
+            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>get_dict_tuple (Removal, 'Threshold', Threshold)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold', Threshold)</l>
+            <c/>
+            <c>* Hole Filling Filter</c>
+            <l>get_dict_tuple (Experimental, 'HoleFilling', HoleFilling)</l>
+            <l>get_dict_tuple (HoleFilling, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingEnabled', Enabled)</l>
+            <l>get_dict_tuple (HoleFilling, 'HoleSize', HoleSize)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingHoleSize', HoleSize)</l>
+            <l>get_dict_tuple (HoleFilling, 'Strictness', Strictness)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingStrictness', Strictness)</l>
             <c/>
             <c>* Color Settings</c>
-            <l>get_dict_tuple(Processing, 'Color', Color)</l>
-            <l>get_dict_tuple(Color, 'Balance', Balance)</l>
-            <l>get_dict_tuple(Balance, 'Blue', Blue)</l>
-            <l>get_dict_tuple(Balance, 'Green', Green)</l>
-            <l>get_dict_tuple(Balance, 'Red', Red)</l>
-            <l>set_framegrabber_param (AcqHandle,'ProcessingColorBalanceBlue', Blue)</l>
-            <l>set_framegrabber_param (AcqHandle,'ProcessingColorBalanceGreen', Green)</l>
-            <l>set_framegrabber_param (AcqHandle,'ProcessingColorBalanceRed', Red)</l>
-            <l>get_dict_tuple(Color, 'Experimental', Experimental)</l>
-            <l>get_dict_tuple(Experimental, 'Mode', Mode)</l>
-            <l>set_framegrabber_param(AcqHandle, 'ProcessingColorExperimentalMode', Mode)</l>
+            <l>get_dict_tuple (Processing, 'Color', Color)</l>
+            <l>get_dict_tuple (Color, 'Balance', Balance)</l>
+            <l>get_dict_tuple (Balance, 'Blue', Blue)</l>
+            <l>get_dict_tuple (Balance, 'Green', Green)</l>
+            <l>get_dict_tuple (Balance, 'Red', Red)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', Blue)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', Green)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', Red)</l>
+            <l>get_dict_tuple (Color, 'Experimental', Experimental)</l>
+            <l>get_dict_tuple (Experimental, 'Mode', Mode)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorExperimentalMode', Mode)</l>
             <c/>
             <l>return ()</l>
         </body>
