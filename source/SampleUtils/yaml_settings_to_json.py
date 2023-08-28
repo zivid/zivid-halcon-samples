@@ -25,7 +25,7 @@ def _args() -> argparse.Namespace:
 def _main() -> None:
     input_directory = _args().directory
     if not input_directory.is_dir():
-        raise Exception(f"{input_directory} is not a directory")
+        raise RuntimeError(f"{input_directory} is not a directory")
     output_directory = Path(f"{input_directory}_json")
     output_directory.mkdir(exist_ok=True)
     for x in list(_args().directory.glob("*.yml")):

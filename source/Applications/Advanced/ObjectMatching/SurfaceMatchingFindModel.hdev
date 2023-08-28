@@ -68,7 +68,7 @@
             <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
             <l>    set_framegrabber_param (AcqHandle, 'Aperture', 4.36)</l>
             <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
-            <l>    set_framegrabber_param (AcqHandle, 'Aperture', 2.00)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'Aperture', 2.10)</l>
             <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <l>endif</l>
             <c>* Coca-Cola bottle</c>

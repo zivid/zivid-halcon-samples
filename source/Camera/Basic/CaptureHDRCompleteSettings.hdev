@@ -66,6 +66,8 @@
             <c/>
             <c>* Setting global settings</c>
             <l>set_framegrabber_param (AcqHandle, 'ExperimentalEngine', 'phase')</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'all')</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', 1000)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', 1000)</l>
@@ -85,6 +87,8 @@
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 1.5)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 7.0)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseSuppressionEnabled', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRepairEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 5.0)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
