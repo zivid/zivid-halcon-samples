@@ -33,6 +33,11 @@
             <l>import './../../../Procedures'</l>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
             <l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile</l>
+            <c>* Specify the camera that point cloud was taken with; options are: 'Zivid One+', 'Zivid 2', and 'Zivid 2+'.</c>
+            <l>Camera := 'Zivid One+'</l>
+            <c>* Specify SamplingPixel that point cloud was taken with; options are: 'all', 'blueSubsample2x2', and 'redSubsample2x2'</c>
+            <l>SamplingPixel := 'all'</l>
+            <l>get_zivid_camera_width (Camera, SamplingPixel, MapWidth)</l>
             <c/>
             <c>* Specify whether you want to use your own model created with the SurfaceMatchingCreateModelFromFile.hdev</c>
             <l>MySurfaceModelFile := false</l>
@@ -59,7 +64,7 @@
             <l>    tuple_add (ScenePath, '/Im', SceneFilename)</l>
             <l>    tuple_add (SceneFilename, Index, SceneFilename)</l>
             <l>    tuple_add (SceneFilename, '.ply', SceneFilename)    </l>
-            <l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], [1920], ObjectModel3DScene, Status)</l>
+            <l>    read_object_model_3d (SceneFilename, 'm', ['xyz_map_width'], MapWidth, ObjectModel3DScene, Status)</l>
             <c/>
             <c>    * Fixing to make the point cloud appear with colors</c>
             <l>    get_object_model_3d_params (ObjectModel3DScene, 'red', red)</l>

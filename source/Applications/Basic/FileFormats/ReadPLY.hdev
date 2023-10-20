@@ -16,11 +16,16 @@
             <l>dev_open_window (0, 0, WinWidth, WinHeight, 'black', Window2D)</l>
             <l>dev_open_window (0, WinWidth, WinWidth, WinHeight, 'blue', Window3D)</l>
             <c/>
-            <c>* Reading PCD point cloud from file</c>
+            <c>* Reading PLY point cloud from file</c>
             <l>import './../../../Procedures'</l>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
             <l>PointCloudFile := ZividDataDir + '/Zivid3D.ply'</l>
-            <l>read_object_model_3d (PointCloudFile, 'mm', ['xyz_map_width'], [1920], ObjectModel3D, Status)</l>
+            <c>* Specify the camera that point cloud was taken with; options are: 'Zivid One+', 'Zivid 2', and 'Zivid 2+'.</c>
+            <l>Camera := 'Zivid One+'</l>
+            <c>* Specify SamplingPixel that point cloud was taken with; options are: 'all', 'blueSubsample2x2', and 'redSubsample2x2'</c>
+            <l>SamplingPixel := 'all'</l>
+            <l>get_zivid_camera_width (Camera, SamplingPixel, MapWidth)</l>
+            <l>read_object_model_3d (PointCloudFile, 'mm', ['xyz_map_width'], MapWidth, ObjectModel3D, Status)</l>
             <c/>
             <c>* Fixing to make the point cloud appear with colors</c>
             <l>get_object_model_3d_params (ObjectModel3D, 'red', red)</l>
