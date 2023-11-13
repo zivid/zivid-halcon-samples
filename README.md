@@ -40,6 +40,8 @@ from the camera can be used.
             configured settings for each frame.
           - [CaptureSavePLY](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/CaptureSavePLY.hdev) - Capture a 3D color point cloud from the camera and save it
             to a PLY file format.
+          - [CaptureWithSettingsFromJSON](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/CaptureWithSettingsFromJSON.hdev) - Capture a 3D color point cloud from the camera and use it
+            to generate a HALCON ObjectModel3D which is then visualized.
           - [ConnectToSerialNumberCamera](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/ConnectToSerialNumberCamera.hdev) - Connect to a specific Zivid 3D camera based on its serial
             number.
       - **Advanced**
