@@ -34,6 +34,18 @@
             <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <l>endfor</l>
             <c/>
+            <c>* Engine</c>
+            <l>get_dict_tuple (Settings, 'Experimental', Experimental)</l>
+            <l>get_dict_tuple (Experimental, 'Engine', Engine)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ExperimentalEngine', Engine)</l>
+            <c/>
+            <c>* Sampling</c>
+            <l>get_dict_tuple (Settings, 'Sampling', Sampling)</l>
+            <l>get_dict_tuple (Sampling, 'Color', SamplingColor)</l>
+            <l>get_dict_tuple (Sampling, 'Pixel', SamplingPixel)</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingColor', SamplingColor)</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', SamplingPixel)</l>
+            <c/>
             <c>* RegionOfInterest</c>
             <l>get_dict_tuple (Settings, 'RegionOfInterest', RegionOfInterest)</l>
             <c/>
@@ -99,6 +111,12 @@
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', Enabled)</l>
             <l>get_dict_tuple (Removal, 'Threshold', Threshold)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', Threshold)</l>
+            <l>get_dict_tuple (Noise, 'Suppression', Suppression)</l>
+            <l>get_dict_tuple (Suppression, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseSuppressionEnabled', Enabled)</l>
+            <l>get_dict_tuple (Noise, 'Repair', Repair)</l>
+            <l>get_dict_tuple (Repair, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRepairEnabled', Enabled)</l>
             <c/>
             <c>* Outlier Filter</c>
             <l>get_dict_tuple (Filters, 'Outlier', Outlier)</l>
