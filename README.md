@@ -1,6 +1,6 @@
 # HDevelop samples
 
-This repository contains halcon code samples for Zivid SDK v2.10.1. For
+This repository contains halcon code samples for Zivid SDK v2.11.0. For
 tested compatibility with earlier SDK versions, please check out
 [accompanying
 releases](https://github.com/zivid/zivid-halcon-samples/tree/master/../../releases).
@@ -32,41 +32,41 @@ from the camera can be used.
 
   - **Camera**
       - **Basic**
-          - [Capture](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/Capture.hdev) - Capture a 3D color point cloud from the camera and use it
+          - [Capture](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/Capture.hdev) - Capture a 3D color point cloud from the camera and use it
             to generate a HALCON ObjectModel3D which is then visualized.
-          - [CaptureHDR](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/CaptureHDR.hdev) - Capture an HDR image from the camera and use it to
+          - [CaptureHDR](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureHDR.hdev) - Capture an HDR image from the camera and use it to
             generate a HALCON ObjectModel3D which is then visualized.
-          - [CaptureHDRCompleteSettings](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/CaptureHDRCompleteSettings.hdev) - Capture an HDR image from the Zivid camera with fully
+          - [CaptureHDRCompleteSettings](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureHDRCompleteSettings.hdev) - Capture an HDR image from the Zivid camera with fully
             configured settings for each frame.
-          - [CaptureSavePLY](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/CaptureSavePLY.hdev) - Capture a 3D color point cloud from the camera and save it
+          - [CaptureSavePLY](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureSavePLY.hdev) - Capture a 3D color point cloud from the camera and save it
             to a PLY file format.
-          - [CaptureWithSettingsFromJSON](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/CaptureWithSettingsFromJSON.hdev) - Capture a 3D color point cloud from the camera and use it
+          - [CaptureWithSettingsFromJSON](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureWithSettingsFromJSON.hdev) - Capture a 3D color point cloud from the camera and use it
             to generate a HALCON ObjectModel3D which is then visualized.
-          - [ConnectToSerialNumberCamera](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Basic/ConnectToSerialNumberCamera.hdev) - Connect to a specific Zivid 3D camera based on its serial
+          - [ConnectToSerialNumberCamera](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/ConnectToSerialNumberCamera.hdev) - Connect to a specific Zivid 3D camera based on its serial
             number.
       - **Advanced**
-          - [CaptureHDRLoop](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/Advanced/CaptureHDRLoop.hdev) - Capture HDR images from the camera in a loop (while
+          - [CaptureHDRLoop](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Advanced/CaptureHDRLoop.hdev) - Capture HDR images from the camera in a loop (while
             actively changing some HDR settings).
       - **InfoUtilOther**
-          - [QuerySettingsAndParameters](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/InfoUtilOther/QuerySettingsAndParameters.hdev) - Query information about the image acquisition interface
+          - [QuerySettingsAndParameters](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/InfoUtilOther/QuerySettingsAndParameters.hdev) - Query information about the image acquisition interface
             and selected specific parameters of Zivid camera.
-          - [Warmup](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Camera/InfoUtilOther/Warmup.hdev) - A basic warm-up method for a Zivid camera with specified
+          - [Warmup](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/InfoUtilOther/Warmup.hdev) - A basic warm-up method for a Zivid camera with specified
             time and capture cycle.
   - **Applications**
       - **Basic**
           - **FileFormats**
-              - [ReadPLY](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Applications/Basic/FileFormats/ReadPLY.hdev) - Import and display a Zivid point cloud from a PLY
+              - [ReadPLY](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Basic/FileFormats/ReadPLY.hdev) - Import and display a Zivid point cloud from a PLY
                 file.
       - **Advanced**
           - **ObjectMatching**
-              - [SurfaceMatchingCreateModel](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModel.hdev) - Create a model for HALCON surface-based 3D matching
+              - [SurfaceMatchingCreateModel](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModel.hdev) - Create a model for HALCON surface-based 3D matching
                 algorithm from a Zivid point cloud captured by a camera.
-              - [SurfaceMatchingCreateModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModelFromFile.hdev) - Create a model for HALCON surface-based 3D matching
+              - [SurfaceMatchingCreateModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModelFromFile.hdev) - Create a model for HALCON surface-based 3D matching
                 algorithm from a Zivid point cloud loaded from a ZDF
                 file.
-              - [SurfaceMatchingFindModel](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModel.hdev) - Utilize surface-based 3D matching on data taken with a
+              - [SurfaceMatchingFindModel](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModel.hdev) - Utilize surface-based 3D matching on data taken with a
                 Zivid camera.
-              - [SurfaceMatchingFindModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master//source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev) - Utilize surface-based 3D matching on data taken with a
+              - [SurfaceMatchingFindModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev) - Utilize surface-based 3D matching on data taken with a
                 Zivid camera.
 
 ## Installation
