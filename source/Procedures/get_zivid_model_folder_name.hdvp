@@ -14,7 +14,7 @@
             <l>if (Substrings[1] == 'One')</l>
             <l>    ZividFolder := 'zividOne'</l>
             <l>elseif (Substrings[1] == '2')</l>
-            <l>    ZividFolder := 'zividTwo'</l>
+            <l>    ZividFolder := 'zivid2'</l>
             <l>elseif (Substrings[1] == '2+')</l>
             <l>    ZividFolder := 'zivid2Plus'</l>
             <l>else</l>
