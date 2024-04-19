@@ -65,7 +65,7 @@
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <c/>
             <c>* Setting global settings</c>
-            <l>set_framegrabber_param (AcqHandle, 'ExperimentalEngine', 'phase')</l>
+            <l>set_framegrabber_param (AcqHandle, 'Engine', 'phase')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'all')</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', 1)</l>
@@ -99,9 +99,9 @@
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength', 0.4)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold', 0.5)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingHoleSize', 0.2)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingStrictness', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairEnabled', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairHoleSize', 0.2)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairStrictness', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', 1)</l>

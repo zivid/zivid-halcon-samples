@@ -11,9 +11,7 @@
             </oc>
         </interface>
         <body>
-            <l>if (Camera == 'Zivid One+')</l>
-            <l>    Width := 1920</l>
-            <l>elseif (Camera == 'Zivid 2')</l>
+            <l>if (Camera == 'Zivid 2')</l>
             <l>    Width := 1944</l>
             <l>elseif (Camera == 'Zivid 2+')</l>
             <l>    Width := 2448</l>
