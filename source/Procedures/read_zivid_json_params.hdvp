@@ -35,9 +35,8 @@
             <l>endfor</l>
             <c/>
             <c>* Engine</c>
-            <l>get_dict_tuple (Settings, 'Experimental', Experimental)</l>
-            <l>get_dict_tuple (Experimental, 'Engine', Engine)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ExperimentalEngine', Engine)</l>
+            <l>get_dict_tuple (Settings, 'Engine', Engine)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Engine', Engine)</l>
             <c/>
             <c>* Sampling</c>
             <l>get_dict_tuple (Settings, 'Sampling', Sampling)</l>
@@ -131,9 +130,8 @@
             <l>get_dict_tuple (Reflection, 'Removal', Removal)</l>
             <l>get_dict_tuple (Removal, 'Enabled', Enabled) </l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', Enabled)</l>
-            <l>get_dict_tuple (Removal, 'Experimental', Experimental)</l>
-            <l>get_dict_tuple (Experimental, 'Mode', Mode)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalExperimentalMode', Mode)</l>
+            <l>get_dict_tuple (Removal, 'Mode', Mode)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalMode', Mode)</l>
             <c/>
             <c>* Smoothing Filter</c>
             <l>get_dict_tuple (Filters, 'Smoothing', Smoothing)</l>
@@ -157,14 +155,15 @@
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', Enabled)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold', Threshold)</l>
             <c/>
-            <c>* Hole Filling Filter</c>
-            <l>get_dict_tuple (Experimental, 'HoleFilling', HoleFilling)</l>
-            <l>get_dict_tuple (HoleFilling, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingEnabled', Enabled)</l>
-            <l>get_dict_tuple (HoleFilling, 'HoleSize', HoleSize)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingHoleSize', HoleSize)</l>
-            <l>get_dict_tuple (HoleFilling, 'Strictness', Strictness)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalHoleFillingStrictness', Strictness)</l>
+            <c>* Hole Repair Filter</c>
+            <l>get_dict_tuple (Filters, 'Hole', Hole)</l>
+            <l>get_dict_tuple (Hole, 'Repair', Repair)</l>
+            <l>get_dict_tuple (Repair, 'Enabled', Enabled)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairEnabled', Enabled)</l>
+            <l>get_dict_tuple (Repair, 'HoleSize', HoleSize)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairHoleSize', HoleSize)</l>
+            <l>get_dict_tuple (Repair, 'Strictness', Strictness)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairStrictness', Strictness)</l>
             <c/>
             <c>* Color Settings</c>
             <l>get_dict_tuple (Processing, 'Color', Color)</l>

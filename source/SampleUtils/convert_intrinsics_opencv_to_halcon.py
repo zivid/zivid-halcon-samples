@@ -20,6 +20,8 @@ To generate Zivid camera intrinsic parameters (OpenCV model) for your Zivid came
 GetCameraIntrinsics.cpp code sample from https://github.com/zivid/zivid-cpp-samples. An
 example YML file for this sample can be found under the main instructions for Zivid samples.
 
+Note: This example uses experimental SDK features, which may be modified, moved, or deleted in the future without notice.
+
 """
 
 import argparse
@@ -237,14 +239,6 @@ class CameraParameters:
             if sampling in ["blueSubsample2x2", "redSubsample2x2"]:
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
-        elif model_name in [
-            "zivid one",
-            "zivid one plus",
-        ]:
-            pixel_size = 5.86e-6
-            image_size = np.array([np.int32(1920), np.int32(1200)])
-            if sampling != "all":
-                raise ValueError(f"{sampling} is not supported for {model_name.title()}")
 
         return cls(pixel_size, image_size, intrinsics)
 
@@ -270,13 +264,8 @@ class CameraParameters:
             if settings and settings.sampling.pixel in ["blueSubsample2x2", "redSubsample2x2"]:
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
-        elif "zividOne" in camera.info.model:
-            pixel_size = 5.86e-6
-            image_size = np.array([np.int32(1920), np.int32(1200)])
-            if settings and settings.sampling.pixel != "all":
-                raise ValueError(f"{settings.sampling.pixel} is not supported for {camera.info.model_name}")
         else:
-            raise RuntimeError("Unsupported camera model in this sample")
+            raise RuntimeError("Unsupported camera model")
 
         return cls(pixel_size, image_size, intrinsics)
 
@@ -358,7 +347,7 @@ def _args() -> argparse.Namespace:
     parser.add_argument(
         "--model-name",
         type=str,
-        choices=["zivid one", "zivid one plus", "zivid 2", "zivid 2+"],
+        choices=["zivid 2", "zivid 2+"],
         required="--input-intrinsics" in sys.argv,
         help="Zivid camera model",
     )

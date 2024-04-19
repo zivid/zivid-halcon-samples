@@ -20,10 +20,10 @@
             <l>import './../../../Procedures'</l>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
             <l>PointCloudFile := ZividDataDir + '/Zivid3D.ply'</l>
-            <c>* Specify the camera that point cloud was taken with; options are: 'Zivid One+', 'Zivid 2', and 'Zivid 2+'.</c>
-            <l>Camera := 'Zivid One+'</l>
+            <c>* Specify the camera that point cloud was taken with; options are: 'Zivid 2' and 'Zivid 2+'.</c>
+            <l>Camera := 'Zivid 2+'</l>
             <c>* Specify SamplingPixel that point cloud was taken with; options are: 'all', 'blueSubsample2x2', and 'redSubsample2x2'</c>
-            <l>SamplingPixel := 'all'</l>
+            <l>SamplingPixel := 'blueSubsample2x2'</l>
             <l>get_zivid_camera_width (Camera, SamplingPixel, MapWidth)</l>
             <l>read_object_model_3d (PointCloudFile, 'mm', ['xyz_map_width'], MapWidth, ObjectModel3D, Status)</l>
             <c/>
