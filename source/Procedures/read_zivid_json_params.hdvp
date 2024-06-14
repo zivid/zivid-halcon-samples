@@ -12,6 +12,8 @@
             <l>get_dict_tuple (Settings, 'Acquisitions', Acquisitions)</l>
             <l>get_dict_param (Acquisitions, 'keys', [], AllKeys)</l>
             <c/>
+            <l>NonExistingKeys := []</l>
+            <c/>
             <c>* Single Capture or HDR</c>
             <l>if (|AllKeys|==1)</l>
             <l>    set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
@@ -35,148 +37,242 @@
             <l>endfor</l>
             <c/>
             <c>* Engine</c>
-            <l>get_dict_tuple (Settings, 'Engine', Engine)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Engine', Engine)</l>
+            <l>get_dict_param(Settings, 'key_exists', 'Engine', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Settings, 'Engine', Engine)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'Engine', Engine)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'Engine']</l>
+            <l>endif</l>
             <c/>
             <c>* Sampling</c>
-            <l>get_dict_tuple (Settings, 'Sampling', Sampling)</l>
-            <l>get_dict_tuple (Sampling, 'Color', SamplingColor)</l>
-            <l>get_dict_tuple (Sampling, 'Pixel', SamplingPixel)</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingColor', SamplingColor)</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', SamplingPixel)</l>
+            <l>get_dict_param(Settings, 'key_exists', 'Sampling', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Settings, 'Sampling', Sampling)</l>
+            <l>    get_dict_tuple (Sampling, 'Color', SamplingColor)</l>
+            <l>    get_dict_tuple (Sampling, 'Pixel', SamplingPixel)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'SamplingColor', SamplingColor)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'SamplingPixel', SamplingPixel)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'Sampling']</l>
+            <l>endif</l>
             <c/>
             <c>* RegionOfInterest</c>
-            <l>get_dict_tuple (Settings, 'RegionOfInterest', RegionOfInterest)</l>
+            <l>get_dict_param(Settings, 'key_exists', 'RegionOfInterest', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Settings, 'RegionOfInterest', RegionOfInterest)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'RegionOfInterest']</l>
+            <l>endif</l>
             <c/>
             <c>* Box</c>
-            <l>get_dict_tuple (RegionOfInterest, 'Box', Box)</l>
-            <l>get_dict_tuple (Box, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', Enabled)</l>
-            <l>get_dict_tuple (Box, 'Extents', Extents)</l>
-            <l>get_dict_tuple (Extents, 0, ExtentsMin)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMin', ExtentsMin)</l>
-            <l>get_dict_tuple (Extents, 1, ExtentsMax)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMax', ExtentsMax)</l>
-            <l>get_dict_tuple (Box, 'PointO', PointO)</l>
-            <l>get_dict_tuple (PointO, 0, PointOX)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', PointOX)</l>
-            <l>get_dict_tuple (PointO, 1, PointOY)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', PointOY)</l>
-            <l>get_dict_tuple (PointO, 2, PointOZ)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOZ', PointOZ)</l>
-            <l>get_dict_tuple (Box, 'PointA', PointA)</l>
-            <l>get_dict_tuple (PointA, 0, PointAX)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAX', PointAX)</l>
-            <l>get_dict_tuple (PointA, 1, PointAY)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAY', PointAY)</l>
-            <l>get_dict_tuple (PointA, 2, PointAZ)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAZ', PointAZ)</l>
-            <l>get_dict_tuple (Box, 'PointB', PointB)</l>
-            <l>get_dict_tuple (PointB, 0, PointBX)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBX', PointBX)</l>
-            <l>get_dict_tuple (PointB, 1, PointBY)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBY', PointBY)</l>
-            <l>get_dict_tuple (PointB, 2, PointBZ)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBZ', PointBZ)</l>
+            <l>get_dict_param(RegionOfInterest, 'key_exists', 'Box', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (RegionOfInterest, 'Box', Box)</l>
+            <l>    get_dict_tuple (Box, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Box, 'Extents', Extents)</l>
+            <l>    get_dict_tuple (Extents, 0, ExtentsMin)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMin', ExtentsMin)</l>
+            <l>    get_dict_tuple (Extents, 1, ExtentsMax)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxExtentsMax', ExtentsMax)</l>
+            <l>    get_dict_tuple (Box, 'PointO', PointO)</l>
+            <l>    get_dict_tuple (PointO, 0, PointOX)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', PointOX)</l>
+            <l>    get_dict_tuple (PointO, 1, PointOY)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', PointOY)</l>
+            <l>    get_dict_tuple (PointO, 2, PointOZ)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOZ', PointOZ)</l>
+            <l>    get_dict_tuple (Box, 'PointA', PointA)</l>
+            <l>    get_dict_tuple (PointA, 0, PointAX)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAX', PointAX)</l>
+            <l>    get_dict_tuple (PointA, 1, PointAY)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAY', PointAY)</l>
+            <l>    get_dict_tuple (PointA, 2, PointAZ)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointAZ', PointAZ)</l>
+            <l>    get_dict_tuple (Box, 'PointB', PointB)</l>
+            <l>    get_dict_tuple (PointB, 0, PointBX)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBX', PointBX)</l>
+            <l>    get_dict_tuple (PointB, 1, PointBY)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBY', PointBY)</l>
+            <l>    get_dict_tuple (PointB, 2, PointBZ)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointBZ', PointBZ)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'RegionOfInterestBox']</l>
+            <l>endif</l>
             <c/>
             <c>* Depth</c>
-            <l>get_dict_tuple (RegionOfInterest, 'Depth', Depth)</l>
-            <l>get_dict_tuple (Depth, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthEnabled', 1)</l>
-            <l>get_dict_tuple (Depth, 'Range', Range)</l>
-            <l>get_dict_tuple (Range, 0, RangeMin)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMin', RangeMin)</l>
-            <l>get_dict_tuple (Range, 1, RangeMax)</l>
-            <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMax', RangeMax)</l>
+            <l>get_dict_param(RegionOfInterest, 'key_exists', 'Depth', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (RegionOfInterest, 'Depth', Depth)</l>
+            <l>    get_dict_tuple (Depth, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthEnabled', 1)</l>
+            <l>    get_dict_tuple (Depth, 'Range', Range)</l>
+            <l>    get_dict_tuple (Range, 0, RangeMin)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMin', RangeMin)</l>
+            <l>    get_dict_tuple (Range, 1, RangeMax)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'RegionOfInterestDepthRangeMax', RangeMax)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'RegionOfInterestDepth']</l>
+            <l>endif</l>
             <c/>
             <c>* Processing Settings</c>
             <l>get_dict_tuple (Settings, 'Processing', Processing)</l>
             <l>get_dict_tuple (Processing, 'Filters', Filters)</l>
             <c/>
             <c>* Cluster Filter</c>
-            <l>get_dict_tuple (Filters, 'Cluster', Cluster)</l>
-            <l>get_dict_tuple (Cluster, 'Removal', Removal)</l>
-            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalEnabled', Enabled)</l>
-            <l>get_dict_tuple (Removal, 'MaxNeighborDistance', MaxNeighborDistance)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMaxNeighborDistance', MaxNeighborDistance)</l>
-            <l>get_dict_tuple (Removal, 'MinArea', MinArea)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMinArea', MinArea)</l>
+            <l>get_dict_param(Filters, 'key_exists', 'Cluster', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Filters, 'Cluster', Cluster)</l>
+            <l>    get_dict_tuple (Cluster, 'Removal', Removal)</l>
+            <l>    get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Removal, 'MaxNeighborDistance', MaxNeighborDistance)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMaxNeighborDistance', MaxNeighborDistance)</l>
+            <l>    get_dict_tuple (Removal, 'MinArea', MinArea)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMinArea', MinArea)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'ClusterFilter']</l>
+            <l>endif</l>
             <c/>
             <c>* Noise Filter</c>
-            <l>get_dict_tuple (Filters, 'Noise', Noise)</l>
-            <l>get_dict_tuple (Noise, 'Removal', Removal)</l>
-            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', Enabled)</l>
-            <l>get_dict_tuple (Removal, 'Threshold', Threshold)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', Threshold)</l>
-            <l>get_dict_tuple (Noise, 'Suppression', Suppression)</l>
-            <l>get_dict_tuple (Suppression, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseSuppressionEnabled', Enabled)</l>
-            <l>get_dict_tuple (Noise, 'Repair', Repair)</l>
-            <l>get_dict_tuple (Repair, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRepairEnabled', Enabled)</l>
+            <l>get_dict_param(Filters, 'key_exists', 'Noise', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Filters, 'Noise', Noise)</l>
+            <l>    get_dict_tuple (Noise, 'Removal', Removal)</l>
+            <l>    get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Removal, 'Threshold', Threshold)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', Threshold)</l>
+            <l>    get_dict_tuple (Noise, 'Suppression', Suppression)</l>
+            <l>    get_dict_tuple (Suppression, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseSuppressionEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Noise, 'Repair', Repair)</l>
+            <l>    get_dict_tuple (Repair, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRepairEnabled', Enabled)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'NoiseFilter']</l>
+            <l>endif</l>
             <c/>
             <c>* Outlier Filter</c>
-            <l>get_dict_tuple (Filters, 'Outlier', Outlier)</l>
-            <l>get_dict_tuple (Outlier, 'Removal', Removal) </l>
-            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', Enabled)</l>
-            <l>get_dict_tuple (Removal, 'Threshold', Threshold)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', Threshold)</l>
+            <l>get_dict_param(Filters, 'key_exists', 'Outlier', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Filters, 'Outlier', Outlier)</l>
+            <l>    get_dict_tuple (Outlier, 'Removal', Removal) </l>
+            <l>    get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Removal, 'Threshold', Threshold)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', Threshold)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'OutlierFilter']</l>
+            <l>endif</l>
             <c/>
             <c>* Reflection Filter</c>
-            <l>get_dict_tuple (Filters, 'Reflection', Reflection)</l>
-            <l>get_dict_tuple (Reflection, 'Removal', Removal)</l>
-            <l>get_dict_tuple (Removal, 'Enabled', Enabled) </l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', Enabled)</l>
-            <l>get_dict_tuple (Removal, 'Mode', Mode)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalMode', Mode)</l>
+            <l>get_dict_param(Filters, 'key_exists', 'Reflection', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Filters, 'Reflection', Reflection)</l>
+            <l>    get_dict_tuple (Reflection, 'Removal', Removal)</l>
+            <l>    get_dict_tuple (Removal, 'Enabled', Enabled) </l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Removal, 'Mode', Mode)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalMode', Mode)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'ReflectionFilter']</l>
+            <l>endif</l>
             <c/>
             <c>* Smoothing Filter</c>
-            <l>get_dict_tuple (Filters, 'Smoothing', Smoothing)</l>
-            <l>get_dict_tuple (Smoothing, 'Gaussian', Gaussian)</l>
-            <l>get_dict_tuple (Gaussian, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', Enabled)</l>
-            <l>get_dict_tuple (Gaussian, 'Sigma', Sigma)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', Sigma)</l>
+            <l>get_dict_param(Filters, 'key_exists', 'Smoothing', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Filters, 'Smoothing', Smoothing)</l>
+            <l>    get_dict_tuple (Smoothing, 'Gaussian', Gaussian)</l>
+            <l>    get_dict_tuple (Gaussian, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Gaussian, 'Sigma', Sigma)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', Sigma)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'SmoothingFilter']</l>
+            <l>endif</l>
             <c/>
             <c>* ContrastDistortion Filter</c>
-            <l>get_dict_tuple (Filters, 'Experimental', Experimental)</l>
-            <l>get_dict_tuple (Experimental, 'ContrastDistortion', ContrastDistortion)</l>
-            <l>get_dict_tuple (ContrastDistortion, 'Correction', Correction)</l>
-            <l>get_dict_tuple (Correction, 'Enabled', Enabled)</l>
-            <l>get_dict_tuple (Correction, 'Strength', Strength)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength', Strength)</l>
-            <l>get_dict_tuple (ContrastDistortion, 'Removal', Removal)</l>
-            <l>get_dict_tuple (Removal, 'Enabled', Enabled)</l>
-            <l>get_dict_tuple (Removal, 'Threshold', Threshold)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold', Threshold)</l>
+            <l>get_dict_param(Filters, 'key_exists', 'Experimental', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Filters, 'Experimental', Experimental)</l>
+            <l>    get_dict_param(Experimental, 'key_exists', 'ContrastDistortion', KeyExists)</l>
+            <l>    if (KeyExists)</l>
+            <l>        get_dict_tuple (Experimental, 'ContrastDistortion', ContrastDistortion)</l>
+            <l>        get_dict_tuple (ContrastDistortion, 'Correction', Correction)</l>
+            <l>        get_dict_tuple (Correction, 'Enabled', Enabled)</l>
+            <l>        get_dict_tuple (Correction, 'Strength', Strength)</l>
+            <l>        set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled', Enabled)</l>
+            <l>        set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionStrength', Strength)</l>
+            <l>        get_dict_tuple (ContrastDistortion, 'Removal', Removal)</l>
+            <l>        get_dict_tuple (Removal, 'Enabled', Enabled)</l>
+            <l>        get_dict_tuple (Removal, 'Threshold', Threshold)</l>
+            <l>        set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', Enabled)</l>
+            <l>        set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalThreshold', Threshold)</l>
+            <l>    else</l>
+            <l>        NonExistingKeys := [NonExistingKeys, 'ContrastDistortionFilter']</l>
+            <l>    endif</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'Experimental']</l>
+            <l>endif</l>
             <c/>
             <c>* Hole Repair Filter</c>
-            <l>get_dict_tuple (Filters, 'Hole', Hole)</l>
-            <l>get_dict_tuple (Hole, 'Repair', Repair)</l>
-            <l>get_dict_tuple (Repair, 'Enabled', Enabled)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairEnabled', Enabled)</l>
-            <l>get_dict_tuple (Repair, 'HoleSize', HoleSize)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairHoleSize', HoleSize)</l>
-            <l>get_dict_tuple (Repair, 'Strictness', Strictness)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairStrictness', Strictness)</l>
+            <l>get_dict_param(Filters, 'key_exists', 'Hole', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Filters, 'Hole', Hole)</l>
+            <l>    get_dict_tuple (Hole, 'Repair', Repair)</l>
+            <l>    get_dict_tuple (Repair, 'Enabled', Enabled)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairEnabled', Enabled)</l>
+            <l>    get_dict_tuple (Repair, 'HoleSize', HoleSize)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairHoleSize', HoleSize)</l>
+            <l>    get_dict_tuple (Repair, 'Strictness', Strictness)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairStrictness', Strictness)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'HoleRepairFilter']</l>
+            <l>endif</l>
+            <c/>
+            <c>* Resampling</c>
+            <l>get_dict_param(Processing, 'key_exists', 'Resampling', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple(Processing, 'Resampling', Resampling)</l>
+            <l>    get_dict_tuple(Resampling, 'Mode', Mode)</l>
+            <l>    set_framegrabber_param(AcqHandle, 'ProcessingResamplingMode', Mode)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'Resampling']</l>
+            <l>endif</l>
             <c/>
             <c>* Color Settings</c>
-            <l>get_dict_tuple (Processing, 'Color', Color)</l>
-            <l>get_dict_tuple (Color, 'Balance', Balance)</l>
-            <l>get_dict_tuple (Balance, 'Blue', Blue)</l>
-            <l>get_dict_tuple (Balance, 'Green', Green)</l>
-            <l>get_dict_tuple (Balance, 'Red', Red)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', Blue)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', Green)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', Red)</l>
-            <l>get_dict_tuple (Color, 'Experimental', Experimental)</l>
-            <l>get_dict_tuple (Experimental, 'Mode', Mode)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingColorExperimentalMode', Mode)</l>
+            <l>get_dict_param(Processing, 'key_exists', 'Color', KeyExists)</l>
+            <l>if (KeyExists)</l>
+            <l>    get_dict_tuple (Processing, 'Color', Color)</l>
+            <l>    get_dict_tuple (Color, 'Balance', Balance)</l>
+            <l>    get_dict_tuple (Balance, 'Blue', Blue)</l>
+            <l>    get_dict_tuple (Balance, 'Green', Green)</l>
+            <l>    get_dict_tuple (Balance, 'Red', Red)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', Blue)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', Green)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', Red)</l>
+            <l>    get_dict_tuple (Color, 'Experimental', Experimental)</l>
+            <l>    get_dict_tuple (Experimental, 'Mode', Mode)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ProcessingColorExperimentalMode', Mode)</l>
+            <l>else</l>
+            <l>    NonExistingKeys := [NonExistingKeys, 'Color']</l>
+            <l>endif</l>
+            <c/>
+            <l>tuple_length(NonExistingKeys, NumberOfNonExistingKeys)</l>
+            <l>if (NumberOfNonExistingKeys &gt; 0)</l>
+            <l>    dev_open_window (0, 0, 512, 512, 'black', WindowHandle)</l>
+            <l>    DisplayText := 'Could not find the following capture settings:\n'</l>
+            <l>    for Index := 0 to |NumberOfNonExistingKeys| - 1 by 1</l>
+            <l>        tuple_select(NonExistingKeys, Index, NonExistingKey)</l>
+            <l>        DisplayText := DisplayText + '\t\t- ' + NonExistingKey + '\n'</l>
+            <l>    endfor</l>
+            <l>    DisplayText := DisplayText + 'Using default settings instead.'</l>
+            <l>    dev_disp_text(DisplayText, 'window', 0, 0, 'red', ['box'], ['false'])</l>
+            <l>    wait_seconds(5)</l>
+            <l>    dev_close_window()</l>
+            <l>endif</l>
             <c/>
             <l>return ()</l>
         </body>

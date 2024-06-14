@@ -43,7 +43,7 @@
             <c>* Configuring HDR settings for the first image</c>
             <l>set_framegrabber_param (AcqHandle, 'Aperture', 8)</l>
             <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1.8)</l>
             <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
             <c/>
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
@@ -51,7 +51,7 @@
             <c>* Configuring HDR settings for the second image</c>
             <l>set_framegrabber_param (AcqHandle, 'Aperture', 4.00)</l>
             <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1.8)</l>
             <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
             <c/>
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
@@ -59,7 +59,7 @@
             <c>* Configuring HDR settings for the third image</c>
             <l>set_framegrabber_param (AcqHandle, 'Aperture', 4.00)</l>
             <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 40000)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1.8)</l>
             <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
             <c/>
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
@@ -67,7 +67,7 @@
             <c>* Setting global settings</c>
             <l>set_framegrabber_param (AcqHandle, 'Engine', 'phase')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'all')</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'blueSubsample2x2')</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', 1000)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', 1000)</l>
@@ -102,6 +102,7 @@
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairHoleSize', 0.2)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairStrictness', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ProcessingResamplingMode', 'upsample2x2')</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceBlue', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceGreen', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingColorBalanceRed', 1)</l>

@@ -55,7 +55,7 @@
             <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
             <c/>
             <c>* Setting global settings</c>
-            <l>set_framegrabber_param (AcqHandle, 'Engine', 'omni')</l>
+            <l>set_framegrabber_param (AcqHandle, 'Engine', 'stripe')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'blueSubsample2x2')</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
