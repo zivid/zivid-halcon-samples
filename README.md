@@ -1,6 +1,6 @@
 # HDevelop samples
 
-This repository contains halcon code samples for Zivid SDK v2.12.0. For
+This repository contains halcon code samples for Zivid SDK v2.13.1. For
 tested compatibility with earlier SDK versions, please check out
 [accompanying
 releases](https://github.com/zivid/zivid-halcon-samples/tree/master/../../releases).
@@ -75,7 +75,7 @@ If you want to use Zivid in HALCON, we provide a GenICam GenTL producer
 that comes with the [Zivid Software](http://www.zivid.com/downloads).
 
 Zivid and HALCON are compatible with Windows 10 and 11, and Ubuntu
-20.04, 22.04.
+20.04, 22.04, 24.04.
 
 -----
 
