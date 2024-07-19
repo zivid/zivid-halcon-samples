@@ -9,8 +9,8 @@
             <c>* It should be used together with the SurfaceMatchingFindModel.hdev where the model created by this program is utilized for surface-based 3D matching algorithm.</c>
             <c>* This example comes with HDR settings and other parameters which were used to create models of the following three objects:</c>
             <c>* Twinings tea box</c>
-            <c>* Pepsi can (0.3 l)</c>
-            <c>* plastic Coca-Cola bottle (2 l)</c>
+            <c>* Pringles can (190 g)</c>
+            <c>* plastic Coca-Cola bottle (0.5 l)</c>
             <c>*</c>
             <c>* Please note that you first need to install Zivid Software and correctly set the environment variables. After this, you can access the camera with the HALCON</c>
             <c>* GenICamTL interface.</c>
@@ -37,33 +37,34 @@
             <c>* Resetting any previous HDR settings</c>
             <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
             <c/>
-            <c>* Setting global settings</c>
-            <l>set_framegrabber_param (AcqHandle, 'Engine', 'stripe')</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'blueSubsample2x2')</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 2.0)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalThreshold', 2.0)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseSuppressionEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRepairEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersOutlierRemovalThreshold', 10.0)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersReflectionRemovalEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMaxNeighborDistance', 6)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersClusterRemovalMinArea', 600)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionCorrectionEnabled', 0)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersExperimentalContrastDistortionRemovalEnabled', 0)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairEnabled', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairHoleSize', 0.7)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersHoleRepairStrictness', 1)</l>
+            <c>* Configuring HDR settings (Twinings tea box)</c>
+            <l>*set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'Aperture', 5.65)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'Aperture', 4.0)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <c/>
-            <c>* Configuring HDR settings</c>
+            <c>* Configuring HDR settings (Pringles can)</c>
+            <l>*set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'Aperture', 4.36)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'Aperture', 2.0)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <c/>
+            <c>* Configuring HDR settings (Coca-Cola bottle)</c>
+            <l>*set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'Aperture', 6.16)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'Aperture', 3.08)</l>
+            <l>*set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <c/>
+            <c>* Configuring HDR settings (Your own object)</c>
             <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Aperture', 2.64)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Aperture', 10.37)</l>
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Aperture', 2.64)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Aperture', 5.50)</l>
+            <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Aperture', 2.37)</l>
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <c/>
             <c>* Capturing frame (HDR)</c>
