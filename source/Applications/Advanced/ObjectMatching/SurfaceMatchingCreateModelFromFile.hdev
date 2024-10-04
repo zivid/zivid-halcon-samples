@@ -9,8 +9,8 @@
             <c>* It should be used together with the SurfaceMatchingFindModelFromFile.hdev where the model created by this program is utilized for surface-based 3D matching algorithm.</c>
             <c>* This example comes with models of three following objects:</c>
             <c>* Twinings tea box</c>
-            <c>* Pepsi can (0.3 l)</c>
-            <c>* plastic Coca-Cola bottle (2 l)</c>
+            <c>* Pringles can (190 g)</c>
+            <c>* plastic Coca-Cola bottle (0.5 l)</c>
             <c>*</c>
             <c>* Please note that you first need to install Zivid Software and correctly set the environment variables. After this, you can access the camera with the HALCON</c>
             <c>* GenICamTL interface.</c>
@@ -25,18 +25,18 @@
             <c>* Reading a 3D point cloud of the scene</c>
             <c>* Twinings tea box</c>
             <l>SurfaceModelFile:= 'TwiningsTeaBox'</l>
-            <c>* Pepsi can</c>
-            <l>* SurfaceModelFile:= 'PepsiCan'</l>
+            <c>* Pringles can</c>
+            <l>* SurfaceModelFile:= 'PringlesCan'</l>
             <c>* Coca-Cola bottle</c>
             <l>* SurfaceModelFile:= 'CocaColaBottle'</l>
             <c/>
             <l>import './../../../Procedures'</l>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
             <l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile + '/Im1.ply'</l>
-            <c>* Specify the camera that point cloud was taken with.</c>
-            <l>Camera := 'Zivid 2+'</l>
-            <c>* Specify SamplingPixel that point cloud was taken with.</c>
-            <l>SamplingPixel := 'blueSubsample2x2'</l>
+            <c>* Specify the camera that point cloud was taken with; options are: 'Zivid One+', 'Zivid 2', and 'Zivid 2+'.</c>
+            <l>Camera := 'Zivid One+'</l>
+            <c>* Specify SamplingPixel that point cloud was taken with; options are: 'all', 'blueSubsample2x2', and 'redSubsample2x2'</c>
+            <l>SamplingPixel := 'all'</l>
             <l>get_zivid_camera_width (Camera, SamplingPixel, MapWidth)</l>
             <l>read_object_model_3d (ScenePath, 'm', ['xyz_map_width'], MapWidth, ObjectModel3D_Scene, Status)</l>
             <c/>

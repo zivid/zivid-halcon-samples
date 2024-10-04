@@ -31,6 +31,12 @@
             <c>* Switching to single acquisition mode</c>
             <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'SingleFrame')</l>
             <c/>
+            <c>* Configuring settings</c>
+            <l>set_framegrabber_param (AcqHandle, 'Aperture', 5.66)</l>
+            <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 6500)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1)</l>
+            <c/>
             <c>* Capturing frame</c>
             <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
             <c/>
