@@ -14,7 +14,12 @@
             <l>if (Substrings[1] == '2')</l>
             <l>    ZividFolder := 'zivid2'</l>
             <l>elseif (Substrings[1] == '2+')</l>
-            <l>    ZividFolder := 'zivid2Plus'</l>
+            <l>    tuple_strchr(Substrings[2], 'R', Position)</l>
+            <l>    if (Position == -1)</l>
+            <l>        ZividFolder := 'zivid2Plus'</l>
+            <l>    else</l>
+            <l>        ZividFolder := 'zivid2Plus/R'</l>
+            <l>    endif</l>
             <l>else</l>
             <l>    throw('Unsupported camera model: ' + DeviceModelName)</l>
             <l>endif</l>

@@ -40,7 +40,7 @@
             <c>* Setting global settings</c>
             <l>set_framegrabber_param (AcqHandle, 'Engine', 'stripe')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'blueSubsample2x2')</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'all')</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersSmoothingGaussianSigma', 2.0)</l>
             <l>set_framegrabber_param (AcqHandle, 'ProcessingFiltersNoiseRemovalEnabled', 1)</l>
