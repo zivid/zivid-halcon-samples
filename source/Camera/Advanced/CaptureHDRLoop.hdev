@@ -39,14 +39,13 @@
             <c>* Switching to HDR mode (multiple acquisitions)</c>
             <l>set_framegrabber_param (AcqHandle, 'AcquisitionMode', 'MultiAcquisitionFrame')</l>
             <c/>
-            <l>for Index := 0 to 2 by 1</l>
+            <l>for Index := 1 to 3 by 1</l>
             <c/>
             <c>    * Reseting any previous HDR settings</c>
             <l>    set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
             <c/>
             <c>    * Configuring HDR settings for frames</c>
-            <l>    read_dict (ZividDataDir + '/SettingsJson/' + DeviceModelFolder + '/Settings01.json', [], [], JsonSettings)</l>
-            <l>    read_zivid_json_params (AcqHandle, JsonSettings)</l>
+            <l>    set_framegrabber_param( AcqHandle, 'LoadSettingsFromFile', ZividDataDir + '/Settings/' + DeviceModelFolder + '/Settings0' + Index + '.yml')</l>
             <c/>
             <c>    * Capturing frame (HDR)</c>
             <l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>

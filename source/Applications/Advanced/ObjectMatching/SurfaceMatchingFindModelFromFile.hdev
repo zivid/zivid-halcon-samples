@@ -33,9 +33,9 @@
             <l>import './../../../Procedures'</l>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
             <l>ScenePath := ZividDataDir + '/ObjectMatching/' + SurfaceModelFile</l>
-            <c>* Specify the camera that point cloud was taken with; options are: 'Zivid 2' and 'Zivid 2+'.</c>
+            <c>* Specify the camera that point cloud was taken with.</c>
             <l>Camera := 'Zivid 2+'</l>
-            <c>* Specify SamplingPixel that point cloud was taken with; options are: 'all', 'blueSubsample2x2', and 'redSubsample2x2'</c>
+            <c>* Specify SamplingPixel that point cloud was taken with.'</c>
             <l>SamplingPixel := 'blueSubsample2x2'</l>
             <l>get_zivid_camera_width (Camera, SamplingPixel, MapWidth)</l>
             <c/>

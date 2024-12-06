@@ -233,10 +233,13 @@ class CameraParameters:
             if sampling == "all":
                 pixel_size /= 2
                 image_size *= 2
+            elif sampling in ("blueSubsample4x4", "redSubsample4x4", "by4x4"):
+                pixel_size *= 2
+                image_size = (image_size / 2).astype(np.int32)
         elif model_name == "zivid 2":
             pixel_size = 4.50e-6
             image_size = np.array([np.int32(1944), np.int32(1200)])
-            if sampling in ["blueSubsample2x2", "redSubsample2x2"]:
+            if sampling in ("blueSubsample2x2", "redSubsample2x2"):
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
 
@@ -252,16 +255,36 @@ class CameraParameters:
         settings = zivid.Settings.load(settings_path) if settings_path else None
 
         intrinsics = CameraIntrinsics.from_camera(camera, settings)
-        if "zivid2Plus" in camera.info.model:
+        if camera.info.model in (
+            zivid.CameraInfo.Model.zivid2PlusMR130,
+            zivid.CameraInfo.Model.zivid2PlusMR60,
+            zivid.CameraInfo.Model.zivid2PlusLR110,
+        ):
             pixel_size = 5.48e-6
             image_size = np.array([np.int32(1224), np.int32(1024)])
             if settings and settings.sampling.pixel == "all":
                 pixel_size /= 2
                 image_size *= 2
-        elif "zividTwo" in camera.info.model:
+            elif settings and settings.sampling.pixel == "by4x4":
+                pixel_size *= 2
+                image_size = (image_size / 2).astype(np.int32)
+        elif camera.info.model in (
+            zivid.CameraInfo.Model.zivid2PlusM130,
+            zivid.CameraInfo.Model.zivid2PlusM60,
+            zivid.CameraInfo.Model.zivid2PlusL110,
+        ):
+            pixel_size = 5.48e-6
+            image_size = np.array([np.int32(1224), np.int32(1024)])
+            if settings and settings.sampling.pixel == "all":
+                pixel_size /= 2
+                image_size *= 2
+            elif settings and settings.sampling.pixel in ("blueSubsample4x4", "redSubsample4x4"):
+                pixel_size *= 2
+                image_size = (image_size / 2).astype(np.int32)
+        elif camera.info.model in (zivid.CameraInfo.Model.zividTwo, zivid.CameraInfo.Model.zividTwoL100):
             pixel_size = 4.50e-6
             image_size = np.array([np.int32(1944), np.int32(1200)])
-            if settings and settings.sampling.pixel in ["blueSubsample2x2", "redSubsample2x2"]:
+            if settings and settings.sampling.pixel in ("blueSubsample2x2", "redSubsample2x2"):
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
         else:
@@ -354,7 +377,7 @@ def _args() -> argparse.Namespace:
     parser.add_argument(
         "--pixels-to-sample",
         type=str,
-        choices=["all", "blueSubsample2x2", "redSubsample2x2"],
+        choices=["all", "blueSubsample2x2", "redSubsample2x2", "blueSubsample4x4", "redSubsample4x4", "by2x2", "by4x4"],
         required="--input-intrinsics" in sys.argv,
         help="Sampling.Pixel setting",
     )

@@ -29,8 +29,9 @@
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
             <l>get_framegrabber_param (AcqHandle, 'DeviceModelName', DeviceModelName)</l>
             <l>get_zivid_model_folder_name (DeviceModelName, DeviceModelFolder)</l>
-            <l>read_dict (ZividDataDir + '/SettingsJson/' + DeviceModelFolder + '/Settings01.json', [], [], JsonSettings)</l>
-            <l>read_zivid_json_params (AcqHandle, JsonSettings)</l>
+            <c/>
+            <c>* Read settings from a file</c>
+            <l>set_framegrabber_param (AcqHandle, 'LoadSettingsFromFile', ZividDataDir + '/Settings/' + DeviceModelFolder + '/Settings01.yml')</l>
             <c/>
             <c>* Configuring acquisition</c>
             <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
