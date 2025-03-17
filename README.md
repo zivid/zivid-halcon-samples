@@ -1,6 +1,6 @@
 # HDevelop samples
 
-This repository contains halcon code samples for Zivid SDK v2.14.0. For
+This repository contains halcon code samples for Zivid SDK v2.14.2. For
 tested compatibility with earlier SDK versions, please check out
 [accompanying
 releases](https://github.com/zivid/zivid-halcon-samples/tree/master/../../releases).
