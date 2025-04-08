@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
@@ -26,14 +26,15 @@
             <c/>
             <c>* Connecting to Zivid camera</c>
             <l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
-            <l>get_framegrabber_param (AcqHandle, 'DeviceModelName', DeviceModelName)</l>
-            <l>get_zivid_model_folder_name (DeviceModelName, DeviceModelFolder)</l>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoModel', CameraInfoModel)</l>
+            <l>get_zivid_model_folder_name (CameraInfoModel, CameraModelFolder)</l>
             <c/>
             <c>* Configuring 3D-settings</c>
+            <l>set_framegrabber_param (AcqHandle, 'CaptureMode', 'Capture2D3D')</l>
             <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
             <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
             <c/>
-            <c>* Seting the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
+            <c>* Setting the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
             <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
             <c/>
             <c>* Switching to HDR mode (multiple acquisitions)</c>
@@ -41,11 +42,11 @@
             <c/>
             <l>for Index := 1 to 3 by 1</l>
             <c/>
-            <c>    * Reseting any previous HDR settings</c>
+            <c>    * Resetting any previous HDR settings</c>
             <l>    set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
             <c/>
             <c>    * Configuring HDR settings for frames</c>
-            <l>    set_framegrabber_param( AcqHandle, 'LoadSettingsFromFile', ZividDataDir + '/Settings/' + DeviceModelFolder + '/Settings0' + Index + '.yml')</l>
+            <l>    set_framegrabber_param( AcqHandle, 'LoadSettingsFromFile', ZividDataDir + '/Settings/' + CameraModelFolder + '/Settings0' + Index + '.yml')</l>
             <c/>
             <c>    * Capturing frame (HDR)</c>
             <l>    grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>

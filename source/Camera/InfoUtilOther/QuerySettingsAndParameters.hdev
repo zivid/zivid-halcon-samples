@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
@@ -30,6 +30,12 @@
             <c>* Querying information about specific parameters of Zivid camera</c>
             <l>get_framegrabber_param (AcqHandle, 'available_callback_types', Value_available_callback_types)</l>
             <l>get_framegrabber_param (AcqHandle, 'available_param_names', Value_available_param_names)</l>
+            <c/>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoFirmwareVersion', Value_CameraInfoFirmwareVersion)</l>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoHardwareRevision', Value_CameraInfoHardwareVersion)</l>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoModel', Value_CameraInfoModel)</l>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoModelName', Value_CameraInfoModelName)</l>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoSerialNumber', Value_CameraInfoSerialNumber)</l>
             <c/>
             <l>get_framegrabber_param (AcqHandle, 'DeviceSerialNumber', Value_DeviceSerialNumber)</l>
             <l>get_framegrabber_param (AcqHandle, 'DeviceVendorName', Value_DeviceVendorName)</l>

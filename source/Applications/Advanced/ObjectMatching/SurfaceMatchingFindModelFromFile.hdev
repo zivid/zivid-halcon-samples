@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
@@ -24,11 +24,11 @@
             <c/>
             <c>* Specify the object for surface-based 3D matching</c>
             <c>* Existing Twinings tea box model</c>
-            <l>* SurfaceModelFile := 'TwiningsTeaBox'</l>
+            <l>SurfaceModelFile := 'TwiningsTeaBox'</l>
             <c>* Existing Pepsi can model</c>
             <l>* SurfaceModelFile := 'PepsiCan'</l>
             <c>* Existing Coca-Cola bottle model</c>
-            <l>SurfaceModelFile := 'CocaColaBottle'</l>
+            <l>* SurfaceModelFile := 'CocaColaBottle'</l>
             <c/>
             <l>import './../../../Procedures'</l>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>

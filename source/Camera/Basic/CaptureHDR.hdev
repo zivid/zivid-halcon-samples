@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
@@ -26,6 +26,7 @@
             <l>open_framegrabber ('GenICamTL', 1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', Device, 0, 0, AcqHandle)</l>
             <c/>
             <c>* Configuring 3D-settings</c>
+            <l>set_framegrabber_param (AcqHandle, 'CaptureMode', 'Capture2D3D')</l>
             <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
             <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
             <c/>
@@ -39,9 +40,9 @@
             <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
             <c/>
             <c>* Configuring HDR settings</c>
-            <l>set_framegrabber_param (AcqHandle, 'Aperture', 11.31)</l>
-            <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'Aperture', 5.66)</l>
+            <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>set_framegrabber_param (AcqHandle, 'Aperture', 4.0)</l>
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'Aperture', 2.83)</l>
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
