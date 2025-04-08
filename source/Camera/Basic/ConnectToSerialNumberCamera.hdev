@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
@@ -12,8 +12,10 @@
             <c>* variables. After this, you can access the camera with the HALCON GenICamTL interface.</c>
             <c>*</c>
             <c/>
-            <c>* Connecting to Zivid camera with the following serial number</c>
-            <l>CameraSerial := 'Zivid_DEV_19242553'</l>
+            <c>* Connecting to the Zivid camera using the specified serial number.</c>
+            <c>* Format: 'Zivid_DEV_SN', where SN represents the camera serial number.</c>
+            <l>CameraSerial := 'Zivid_DEV_24140CB5'</l>
+            <c/>
             <l>open_framegrabber ('GenICamTL',1, 1, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', CameraSerial, 0, 0, AcqHandle)</l>
             <c/>
             <c>* Disconnecting from Zivid Camera</c>

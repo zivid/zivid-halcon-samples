@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
             <c>*</c>
-            <c>* Capture a 3D color point cloud from the camera and use it to generate a HALCON ObjectModel3D which is then visualized.</c>
+            <c>* Capture a 2D color image, a 3D point cloud without colour and 2D color image + 3D color point cloud from the camera and use them to generate HALCON ObjectModel3D which is then visualized.</c>
             <c>*</c>
             <c>* Please note that you first need to install Zivid Software and correctly set the environment variables. After this, you can access the camera with the HALCON</c>
             <c>* GenICamTL interface.</c>
@@ -27,16 +27,52 @@
             <c/>
             <c>* Loading settings from file</c>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
-            <l>get_framegrabber_param (AcqHandle, 'DeviceModelName', DeviceModelName)</l>
-            <l>get_zivid_model_folder_name (DeviceModelName, DeviceModelFolder)</l>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoModel', CameraInfoModel)</l>
+            <l>get_zivid_model_folder_name (CameraInfoModel, CameraModelFolder)</l>
             <c/>
             <c>* Read settings from a file</c>
-            <l>set_framegrabber_param (AcqHandle, 'LoadSettingsFromFile', ZividDataDir + '/Settings/' + DeviceModelFolder + '/Settings01.yml')</l>
+            <l>set_framegrabber_param (AcqHandle, 'LoadSettingsFromFile', ZividDataDir + '/Settings/' + CameraModelFolder + '/Settings01.yml')</l>
             <c/>
-            <c>* Configuring acquisition</c>
+            <c>* Configuring 2D acquisition</c>
+            <l>set_framegrabber_param (AcqHandle, 'CaptureMode', 'Capture2D')</l>
+            <c/>
+            <c>* Setting the timeout for aborting a pending grab to infinity; useful for longer exposure times</c>
+            <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
+            <c/>
+            <c>* Capturing image</c>
+            <l>grab_image(Image, AcqHandle)</l>
+            <c/>
+            <c>* Displaying 2D color image</c>
+            <l>dev_set_window (Window2D)</l>
+            <l>dev_display (Image)</l>
+            <c/>
+            <c/>
+            <c>* Configure 3D acquisition</c>
+            <l>set_framegrabber_param (AcqHandle, 'CaptureMode', 'Capture3D')</l>
+            <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
+            <c/>
+            <c>* Capturing frame</c>
+            <l>grab_data (PointCloudNoColors, Region, Contours, AcqHandle, ObjectModel3D)</l>
+            <c/>
+            <c>* Extracting the following data: X, Y, Z, and SNR</c>
+            <l>select_obj (PointCloudNoColors, X, 1)</l>
+            <l>select_obj (PointCloudNoColors, Y, 2)</l>
+            <l>select_obj (PointCloudNoColors, Z, 3)</l>
+            <l>select_obj (PointCloudNoColors, Confidence, 4)</l>
+            <c/>
+            <c>* Displaying 3D point cloud, press the button to continue</c>
+            <l>Instructions[0] := 'Point cloud without color'</l>
+            <l>Instructions[1] := 'Rotate: Left button'</l>
+            <l>Instructions[2] := 'Zoom:   Shift + left button'</l>
+            <l>Instructions[3] := 'Move:   Ctrl  + left button'</l>
+            <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], [], [], [], [], [Instructions], PoseOut)</l>
+            <c/>
+            <c/>
+            <c>* Configure 2D+3D acquisition</c>
+            <l>set_framegrabber_param (AcqHandle, 'CaptureMode', 'Capture2D3D')</l>
             <l>set_framegrabber_param (AcqHandle, 'create_objectmodel3d', 'enable')</l>
             <l>set_framegrabber_param (AcqHandle, 'add_objectmodel3d_overlay_attrib', 'enable')</l>
-            <l>set_framegrabber_param (AcqHandle, 'grab_timeout', -1)</l>
+            <c/>
             <c/>
             <c>* Capturing frame</c>
             <l>grab_data (Image, Region, Contours, AcqHandle, ObjectModel3D)</l>
@@ -53,9 +89,10 @@
             <l>dev_display (RGBA)</l>
             <c/>
             <c>* Displaying 3D color point cloud, press the button to continue</c>
-            <l>Instructions[0] := 'Rotate: Left button'</l>
-            <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
-            <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
+            <l>Instructions[0] := 'Point cloud with color'</l>
+            <l>Instructions[1] := 'Rotate: Left button'</l>
+            <l>Instructions[2] := 'Zoom:   Shift + left button'</l>
+            <l>Instructions[3] := 'Move:   Ctrl  + left button'</l>
             <l>visualize_object_model_3d (Window3D, ObjectModel3D, [], [], ['red_channel_attrib','green_channel_attrib','blue_channel_attrib'], ['&amp;overlay_red','&amp;overlay_green','&amp;overlay_blue'], [], [], [Instructions], PoseOut)</l>
             <c/>
             <c>* Disconnecting from Zivid Camera</c>

@@ -1,6 +1,6 @@
 # HDevelop samples
 
-This repository contains halcon code samples for Zivid SDK v2.14.2. For
+This repository contains halcon code samples for Zivid SDK v2.15.0. For
 tested compatibility with earlier SDK versions, please check out
 [accompanying
 releases](https://github.com/zivid/zivid-halcon-samples/tree/master/../../releases).
@@ -40,8 +40,10 @@ from the camera can be used.
             configured settings for each frame.
           - [CaptureSavePLY](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureSavePLY.hdev) - Capture a 3D color point cloud from the camera and save it
             to a PLY file format.
-          - [CaptureWithSettingsFromYML](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureWithSettingsFromYML.hdev) - Capture a 3D color point cloud from the camera and use it
-            to generate a HALCON ObjectModel3D which is then visualized.
+          - [CaptureWithSettingsFromYML](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureWithSettingsFromYML.hdev) - Capture a 2D color image, a 3D point cloud without colour
+            and 2D color image + 3D color point cloud from the camera
+            and use them to generate HALCON ObjectModel3D which is then
+            visualized.
           - [ConnectToSerialNumberCamera](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/ConnectToSerialNumberCamera.hdev) - Connect to a specific Zivid 3D camera based on its serial
             number.
       - **Advanced**
@@ -71,8 +73,16 @@ from the camera can be used.
 
 ## Installation
 
-If you want to use Zivid in HALCON, we provide a GenICam GenTL producer
-that comes with the [Zivid Software](http://www.zivid.com/downloads).
+Zivid offers two ways of interfacing with HALCON:
+
+1.  Through the Zivid SDK, utilizing the C++/C\# libraries available for
+    HALCON. We provide samples for both
+    [C++](https://support.zivid.com/latest//api-reference/samples/cpp.html)
+    and
+    [C\#](https://support.zivid.com/latest//api-reference/samples/csharp.html).
+    (**Recommended**)
+2.  Directly through a GenICam GenTL producer that comes with the [Zivid
+    Software](https://support.zivid.com/latest//getting-started/software-installation.html).
 
 Zivid and HALCON are compatible with Windows 10 and 11, and Ubuntu
 20.04, 22.04, 24.04.
@@ -104,7 +114,8 @@ their respective instructions on the following pages:
 The following HALCON versions have been tested and confirmed to work
 with Zivid cameras:
 
-  - 19.05 Progress, 20.05 Progress, 21.11 Progress
+  - 19.05 Progress, 20.05 Progress, 21.11 Progress, 24.05 Progress,
+    24.11 Progress-Steady
 
 We recommend using one of the HALCON versions we have tested.
 
