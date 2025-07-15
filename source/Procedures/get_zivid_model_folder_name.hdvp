@@ -10,7 +10,7 @@
             </oc>
         </interface>
         <body>
-            <l>Models := ['zivid2PlusMR60', 'zivid2PlusMR130', 'zivid2PlusLR110', 'zivid2PlusM60', 'zivid2PlusM130', 'zivid2PlusL110', 'zividTwoM70', 'zividTwoL100']</l>
+            <l>Models := ['zivid2PlusMR60', 'zivid2PlusMR130', 'zivid2PlusLR110', 'zivid2PlusM60', 'zivid2PlusM130', 'zivid2PlusL110', 'zividTwo', 'zividTwoL100']</l>
             <c/>
             <l>Folders := ['zivid2Plus/R', 'zivid2Plus/R', 'zivid2Plus/R', 'zivid2Plus', 'zivid2Plus', 'zivid2Plus', 'zivid2', 'zivid2']</l>
             <c/>
