@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="25.05.0.0">
+    <procedure name="get_zivid_preset_file">
+        <interface>
+            <ic>
+                <par name="ZividDataDir" base_type="ctrl" dimension="0"/>
+                <par name="CameraInfoModel" base_type="ctrl" dimension="0"/>
+            </ic>
+            <oc>
+                <par name="PresetFilename" base_type="ctrl" dimension="0"/>
+            </oc>
+        </interface>
+        <body>
+            <c>*</c>
+            <c>* Get preset file for given camera.</c>
+            <c>*</c>
+            <c>* Filter for setting files</c>
+            <l>list_files (ZividDataDir + '/Settings/' , 'files', Files)</l>
+            <c/>
+            <c>* Get Zivid model preset filename</c>
+            <l>ModelsToYML := dict{\
+                ['zividTwo']: 'Zivid_Two_M70_ManufacturingSpecular.yml', \
+                ['zividTwoL100']: 'Zivid_Two_L100_ManufacturingSpecular.yml',\
+                ['zivid2PlusM130']: 'Zivid_Two_Plus_M130_ConsumerGoodsQuality.yml',\
+                ['zivid2PlusM60']: 'Zivid_Two_Plus_M60_ConsumerGoodsQuality.yml',\
+                ['zivid2PlusL110']: 'Zivid_Two_Plus_L110_ConsumerGoodsQuality.yml',\
+                ['zivid2PlusMR130']: 'Zivid_Two_Plus_MR130_ConsumerGoodsQuality.yml',\
+                ['zivid2PlusMR60']: 'Zivid_Two_Plus_MR60_ConsumerGoodsQuality.yml',\
+                ['zivid2PlusLR110']: 'Zivid_Two_Plus_LR110_ConsumerGoodsQuality.yml',\
+                ['zivid3XL250']: 'Zivid_Three_XL250_DepalletizationQuality.yml',\
+}               </l>
+            <c/>
+            <l>try</l>
+            <l>    FileName := ModelsToYML.[CameraInfoModel]</l>
+            <l>catch (Exception)</l>
+            <l>    throw('Unsupported camera model: ' + CameraInfoModel)</l>
+            <l>endtry</l>
+            <c/>
+            <l>tuple_regexp_select(Files, FileName, FilePath)</l>
+            <c/>
+            <l>if(FilePath != [])</l>
+            <l>    PresetFilename := FilePath</l>
+            <l>    return ()</l>
+            <l>else</l>
+            <c>    *Fallback to any YML file</c>
+            <l>    tuple_regexp_select (Files, '.yml', YMLFiles)</l>
+            <l>    PresetFilename := YMLFiles[0]</l>
+            <l>    return ()</l>
+            <l>endif</l>
+            <c/>
+        </body>
+        <docu id="get_zivid_preset_file">
+            <parameters>
+                <parameter id="CameraInfoModel"/>
+                <parameter id="PresetFilename"/>
+                <parameter id="ZividDataDir"/>
+            </parameters>
+        </docu>
+    </procedure>
+</hdevelop>

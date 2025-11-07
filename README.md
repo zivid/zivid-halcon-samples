@@ -1,6 +1,6 @@
 # HDevelop samples
 
-This repository contains halcon code samples for Zivid SDK v2.16.0. For
+This repository contains halcon code samples for Zivid SDK v2.17.0. For
 tested compatibility with earlier SDK versions, please check out
 [accompanying
 releases](https://github.com/zivid/zivid-halcon-samples/tree/master/../../releases).
@@ -34,8 +34,6 @@ from the camera can be used.
       - **Basic**
           - [Capture](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/Capture.hdev) - Capture a 3D color point cloud from the camera and use it
             to generate a HALCON ObjectModel3D which is then visualized.
-          - [CaptureHDR](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureHDR.hdev) - Capture an HDR image from the camera and use it to
-            generate a HALCON ObjectModel3D which is then visualized.
           - [CaptureHDRCompleteSettings](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureHDRCompleteSettings.hdev) - Capture an HDR image from the Zivid camera with fully
             configured settings for each frame.
           - [CaptureSavePLY](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/CaptureSavePLY.hdev) - Capture a 3D color point cloud from the camera and save it
@@ -46,9 +44,6 @@ from the camera can be used.
             visualized.
           - [ConnectToSerialNumberCamera](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Basic/ConnectToSerialNumberCamera.hdev) - Connect to a specific Zivid 3D camera based on its serial
             number.
-      - **Advanced**
-          - [CaptureHDRLoop](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/Advanced/CaptureHDRLoop.hdev) - Capture HDR images from the camera in a loop (while
-            actively changing some HDR settings).
       - **InfoUtilOther**
           - [QuerySettingsAndParameters](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Camera/InfoUtilOther/QuerySettingsAndParameters.hdev) - Query information about the image acquisition interface
             and selected specific parameters of Zivid camera.
@@ -70,6 +65,11 @@ from the camera can be used.
                 Zivid camera.
               - [SurfaceMatchingFindModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev) - Utilize surface-based 3D matching on data taken with a
                 Zivid camera.
+  - **Procedures**
+      - [get\_first\_available\_zivid\_device](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_first_available_zivid_device.hdev) - Get the first Zivid device from the input tuple of devices.
+      - [get\_zivid\_camera\_width](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_camera_width.hdev) - Get width for given camera and sampling pixel setting.
+      - [get\_zivid\_preset\_file](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_preset_file.hdev) - Get preset file for given camera.
+      - [get\_zivid\_sample\_data\_dir](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_sample_data_dir.hdev) - Get the path of ZIVID DATA depending on your operating system.
 
 ## Installation
 

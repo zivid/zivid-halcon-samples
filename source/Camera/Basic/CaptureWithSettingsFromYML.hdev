@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<hdevelop file_version="1.2" halcon_version="25.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
@@ -28,10 +28,10 @@
             <c>* Loading settings from file</c>
             <l>get_zivid_sample_data_dir(ZividDataDir)</l>
             <l>get_framegrabber_param (AcqHandle, 'CameraInfoModel', CameraInfoModel)</l>
-            <l>get_zivid_model_folder_name (CameraInfoModel, CameraModelFolder)</l>
+            <l>get_zivid_preset_file (ZividDataDir, CameraInfoModel, PresetFile)</l>
             <c/>
             <c>* Read settings from a file</c>
-            <l>set_framegrabber_param (AcqHandle, 'LoadSettingsFromFile', ZividDataDir + '/Settings/' + CameraModelFolder + '/Settings01.yml')</l>
+            <l>set_framegrabber_param (AcqHandle, 'LoadSettingsFromFile', PresetFile)</l>
             <c/>
             <c>* Configuring 2D acquisition</c>
             <l>set_framegrabber_param (AcqHandle, 'CaptureMode', 'Capture2D')</l>

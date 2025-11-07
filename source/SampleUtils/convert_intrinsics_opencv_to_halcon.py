@@ -255,13 +255,22 @@ class CameraParameters:
         settings = zivid.Settings.load(settings_path) if settings_path else None
 
         intrinsics = CameraIntrinsics.from_camera(camera, settings)
+        if camera.info.model in (zivid.CameraInfo.Model.zivid3XL250):
+            pixel_size = 5.48e-6
+            image_size = np.array([np.int32(1408), np.int32(1408)])  # assume by2x2
+            if settings and settings.sampling.pixel == "all":
+                pixel_size /= 2
+                image_size *= 2
+            elif settings and settings.sampling.pixel == "by4x4":
+                pixel_size *= 2
+                image_size = (image_size / 2).astype(np.int32)
         if camera.info.model in (
             zivid.CameraInfo.Model.zivid2PlusMR130,
             zivid.CameraInfo.Model.zivid2PlusMR60,
             zivid.CameraInfo.Model.zivid2PlusLR110,
         ):
             pixel_size = 5.48e-6
-            image_size = np.array([np.int32(1224), np.int32(1024)])
+            image_size = np.array([np.int32(1224), np.int32(1024)])  # assume by2x2
             if settings and settings.sampling.pixel == "all":
                 pixel_size /= 2
                 image_size *= 2
