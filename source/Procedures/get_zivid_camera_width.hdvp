@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<hdevelop file_version="1.2" halcon_version="25.05.0.0">
     <procedure name="get_zivid_camera_width">
         <interface>
             <ic>
@@ -11,6 +11,10 @@
             </oc>
         </interface>
         <body>
+            <c>*</c>
+            <c>* Get width for given camera and sampling pixel setting.</c>
+            <c>*</c>
+            <c>* Get Zivid camera resolution width.</c>
             <l>if (Camera == 'Zivid 2')</l>
             <l>    Width := 1944</l>
             <l>    if (SamplingPixel == 'blueSubsample2x2')</l>
@@ -36,6 +40,15 @@
             <l>        Width := Width/4</l>
             <l>    elseif (SamplingPixel != 'all')</l>
             <l>        throw('Unsupported SamplingPixel for camera ' + Camera + ': ' + SamplingPixel)    </l>
+            <l>    endif</l>
+            <l>elseif (Camera == 'Zivid 3')</l>
+            <l>    Width := 2816</l>
+            <l>    if (SamplingPixel == 'by2x2')</l>
+            <l>        Width := Width/2</l>
+            <l>    elseif (SamplingPixel == 'by4x4')</l>
+            <l>        Width := Width/4        </l>
+            <l>    elseif (SamplingPixel != 'all')</l>
+            <l>         throw('Unsupported SamplingPixel for camera ' + Camera + ': ' + SamplingPixel)    </l>
             <l>    endif</l>
             <l>else</l>
             <l>    throw('Unsupported camera: ' + Camera)</l>

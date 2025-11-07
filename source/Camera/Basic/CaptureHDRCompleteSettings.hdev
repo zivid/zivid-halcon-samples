@@ -66,9 +66,11 @@
             <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
             <c/>
             <c>* Setting global settings</c>
-            <l>set_framegrabber_param (AcqHandle, 'Engine', 'phase')</l>
+            <l>set_framegrabber_param (AcqHandle, 'Engine', 'stripe')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'all')</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingIntervalEnabled', 0)</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingIntervalDuration', 10000)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', 1000)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', 1000)</l>
