@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="25.05.0.0">
+    <procedure name="get_settings_for_zivid_camera_model">
+        <interface>
+            <ic>
+                <par name="CameraInfoModel" base_type="ctrl" dimension="0"/>
+            </ic>
+            <oc>
+                <par name="Apertures" base_type="ctrl" dimension="0"/>
+                <par name="Gains" base_type="ctrl" dimension="0"/>
+                <par name="ExposureTimes" base_type="ctrl" dimension="0"/>
+                <par name="Brightnesses" base_type="ctrl" dimension="0"/>
+                <par name="Sampling_Pixel" base_type="ctrl" dimension="0"/>
+            </oc>
+        </interface>
+        <body>
+            <c>*</c>
+            <c>* Get settings depending on the camera model.</c>
+            <c>*</c>
+            <l>if (CameraInfoModel == 'zivid3XL250')</l>
+            <l>    Apertures := [3.0, 3.0]</l>
+            <l>    Gains := [1.0, 1.0]</l>
+            <l>    ExposureTimes := [1000, 7000]</l>
+            <l>    Brightnesses := [3.0, 3.0]</l>
+            <l>    Sampling_Pixel := 'by2x2'</l>
+            <l>elseif (CameraInfoModel == 'zivid2PlusMR130' or CameraInfoModel == 'zivid2PlusLR110' or CameraInfoModel == 'zivid2PlusMR60')</l>
+            <l>    Apertures := [5.66, 2.8, 2.37]</l>
+            <l>    Gains := [1.0, 1.0, 1.0]</l>
+            <l>    ExposureTimes := [900, 1500, 20000]</l>
+            <l>    Brightnesses := [2.5, 2.5, 2.5]</l>
+            <l>    Sampling_Pixel := 'by2x2'</l>
+            <l>elseif (CameraInfoModel == 'zivid2PlusM130' or CameraInfoModel == 'zivid2PlusL110' or CameraInfoModel == 'zivid2PlusM60')</l>
+            <l>    Apertures := [5.66, 2.8, 2.37]</l>
+            <l>    Gains := [1.0, 1.0, 1.0]</l>
+            <l>    ExposureTimes := [1677, 5000, 100000]</l>
+            <l>    Brightnesses := [2.2, 2.2, 2.2]</l>
+            <l>    Sampling_Pixel := 'blueSubsample2x2'</l>
+            <l>elseif (CameraInfoModel == 'zividTwo' or CameraInfoModel == 'zividTwoL100')</l>
+            <l>    Apertures := [5.66, 2.38, 2.1]</l>
+            <l>    Gains := [1.0, 1.0, 1.0]</l>
+            <l>    ExposureTimes := [1677, 5000, 100000]</l>
+            <l>    Brightnesses := [1.8, 1.8, 1.8]</l>
+            <l>    Sampling_Pixel := 'blueSubsample2x2'</l>
+            <l>endif</l>
+            <l>return ()</l>
+        </body>
+        <docu id="get_settings_for_zivid_camera_model">
+            <parameters>
+                <parameter id="Apertures"/>
+                <parameter id="Brightnesses"/>
+                <parameter id="CameraInfoModel"/>
+                <parameter id="ExposureTimes"/>
+                <parameter id="Gains"/>
+                <parameter id="Sampling_Pixel"/>
+            </parameters>
+        </docu>
+    </procedure>
+</hdevelop>

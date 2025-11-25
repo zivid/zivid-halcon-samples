@@ -21,13 +21,13 @@
             <l>ModelsToYML := dict{\
                 ['zividTwo']: 'Zivid_Two_M70_ManufacturingSpecular.yml', \
                 ['zividTwoL100']: 'Zivid_Two_L100_ManufacturingSpecular.yml',\
-                ['zivid2PlusM130']: 'Zivid_Two_Plus_M130_ConsumerGoodsQuality.yml',\
-                ['zivid2PlusM60']: 'Zivid_Two_Plus_M60_ConsumerGoodsQuality.yml',\
-                ['zivid2PlusL110']: 'Zivid_Two_Plus_L110_ConsumerGoodsQuality.yml',\
-                ['zivid2PlusMR130']: 'Zivid_Two_Plus_MR130_ConsumerGoodsQuality.yml',\
-                ['zivid2PlusMR60']: 'Zivid_Two_Plus_MR60_ConsumerGoodsQuality.yml',\
-                ['zivid2PlusLR110']: 'Zivid_Two_Plus_LR110_ConsumerGoodsQuality.yml',\
-                ['zivid3XL250']: 'Zivid_Three_XL250_DepalletizationQuality.yml',\
+                ['zivid2PlusM130']: 'Zivid_Two_Plus_M130_ManufacturingSpecular.yml',\
+                ['zivid2PlusM60']: 'Zivid_Two_Plus_M60_ManufacturingSpecular.yml',\
+                ['zivid2PlusL110']: 'Zivid_Two_Plus_L110_ManufacturingSpecular.yml',\
+                ['zivid2PlusMR130']: 'Zivid_Two_Plus_MR130_ManufacturingSpecular.yml',\
+                ['zivid2PlusMR60']: 'Zivid_Two_Plus_MR60_ManufacturingSpecular.yml',\
+                ['zivid2PlusLR110']: 'Zivid_Two_Plus_LR110_ManufacturingSpecular.yml',\
+                ['zivid3XL250']: 'Zivid_Three_XL250_ManufacturingSpecular.yml',\
 }               </l>
             <c/>
             <l>try</l>

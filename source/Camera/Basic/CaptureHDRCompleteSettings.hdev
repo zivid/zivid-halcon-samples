@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<hdevelop file_version="1.2" halcon_version="25.05.0.0">
     <procedure name="main">
         <interface/>
         <body>
@@ -41,36 +41,28 @@
             <c>* Resetting any previous HDR settings</c>
             <l>set_framegrabber_param (AcqHandle, 'ResetAcquisitions', 1)</l>
             <c/>
-            <c>* Configuring HDR settings for the first image</c>
-            <l>set_framegrabber_param (AcqHandle, 'Aperture', 8)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1.8)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
+            <c>* Getting capture settings</c>
+            <l>get_framegrabber_param (AcqHandle, 'CameraInfoModel', CameraInfoModel)</l>
             <c/>
-            <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <c>* Some parameters have different limits/options per camera model hence we get model specific parameters:</c>
+            <l>get_settings_for_zivid_camera_model (CameraInfoModel, Apertures, Gains, ExposureTimes, Brightnesses, SamplingPixelValue)</l>
             <c/>
-            <c>* Configuring HDR settings for the second image</c>
-            <l>set_framegrabber_param (AcqHandle, 'Aperture', 4.00)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 10000)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1.8)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
+            <c>* Configuring HDR settings for the acquisitions</c>
+            <l>tuple_length (Apertures, NumberOfAcquisitions)</l>
             <c/>
-            <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>for i := 0 to NumberOfAcquisitions - 1 by 1</l>
+            <l>    set_framegrabber_param (AcqHandle, 'Aperture', Apertures[i])</l>
+            <l>    set_framegrabber_param (AcqHandle, 'ExposureTime', ExposureTimes[i])</l>
+            <l>    set_framegrabber_param (AcqHandle, 'Brightness', Brightnesses[i])</l>
+            <l>    set_framegrabber_param (AcqHandle, 'Gain', Gains[i])</l>
             <c/>
-            <c>* Configuring HDR settings for the third image</c>
-            <l>set_framegrabber_param (AcqHandle, 'Aperture', 4.00)</l>
-            <l>set_framegrabber_param (AcqHandle, 'ExposureTime', 40000)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Brightness', 1.8)</l>
-            <l>set_framegrabber_param (AcqHandle, 'Gain', 1)</l>
-            <c/>
-            <l>set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>    set_framegrabber_param (AcqHandle, 'AddAcquisition', 1)</l>
+            <l>endfor</l>
             <c/>
             <c>* Setting global settings</c>
             <l>set_framegrabber_param (AcqHandle, 'Engine', 'stripe')</l>
             <l>set_framegrabber_param (AcqHandle, 'SamplingColor', 'rgb')</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', 'all')</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingIntervalEnabled', 0)</l>
-            <l>set_framegrabber_param (AcqHandle, 'SamplingIntervalDuration', 10000)</l>
+            <l>set_framegrabber_param (AcqHandle, 'SamplingPixel', SamplingPixelValue)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxEnabled', 1)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOX', 1000)</l>
             <l>set_framegrabber_param (AcqHandle, 'RegionOfInterestBoxPointOY', 1000)</l>
