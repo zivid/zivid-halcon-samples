@@ -29,6 +29,7 @@
             <l>settingsFileName := 'YOURFILENAME.yml' // DEFINE YOUR FILE HERE.</l>
             <l>if(settingsFileName == 'YOURFILENAME.yml')</l>
             <c>    *FallBack On Preset File</c>
+            <l>    get_framegrabber_param (AcqHandle, 'CameraInfoModel', CameraInfoModel)</l>
             <l>    get_zivid_preset_file (ZividDataDir, CameraInfoModel, PresetFile)    </l>
             <l>    settingsFileName := PresetFile</l>
             <l>endif</l>
