@@ -66,11 +66,11 @@ from the camera can be used.
               - [SurfaceMatchingFindModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev) - Utilize surface-based 3D matching on data taken with a
                 Zivid camera.
   - **Procedures**
-      - [get\_first\_available\_zivid\_device](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_first_available_zivid_device.hdev) - Get the first Zivid device from the input tuple of devices.
-      - [get\_settings\_for\_zivid\_camera\_model](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_settings_for_zivid_camera_model.hdev) - Get settings depending on the camera model.
-      - [get\_zivid\_camera\_width](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_camera_width.hdev) - Get width for given camera and sampling pixel setting.
-      - [get\_zivid\_preset\_file](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_preset_file.hdev) - Get preset file for given camera.
-      - [get\_zivid\_sample\_data\_dir](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_sample_data_dir.hdev) - Get the path of ZIVID DATA depending on your operating system.
+      - [get\_first\_available\_zivid\_device](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_first_available_zivid_device.hdvp) - Get the first Zivid device from the input tuple of devices.
+      - [get\_settings\_for\_zivid\_camera\_model](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_settings_for_zivid_camera_model.hdvp) - Get settings depending on the camera model.
+      - [get\_zivid\_camera\_width](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_camera_width.hdvp) - Get width for given camera and sampling pixel setting.
+      - [get\_zivid\_preset\_file](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_preset_file.hdvp) - Get preset file for given camera.
+      - [get\_zivid\_sample\_data\_dir](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_sample_data_dir.hdvp) - Get the path of ZIVID DATA depending on your operating system.
 
 ## Installation
 
