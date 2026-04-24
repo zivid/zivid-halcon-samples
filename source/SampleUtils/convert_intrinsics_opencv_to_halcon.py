@@ -1,5 +1,5 @@
 """
-Read Zivid camera intrinsic parameters (OpenCV model) from YML file or camera,
+Read Zivid camera intrinsic parameters (OpenCV model) from YML file, ZDF file or camera,
 convert them to internal camera parameters (Halcon model), and save them to .dat file.
 
 Example when reading from file: python convert_intrinsics_opencv_to_halcon.py
@@ -8,6 +8,9 @@ Example when reading from file: python convert_intrinsics_opencv_to_halcon.py
 
 Example when reading from camera with settings: python convert_intrinsics_opencv_to_halcon.py
          --input-settings Settings.yml --output-file "IntrinsicsHalcon"
+
+Example when reading from ZDF file: python convert_intrinsics_opencv_to_halcon.py
+         --input-zdf "frame.zdf" --output-file "IntrinsicsHalcon"
 
 Example when reading from camera without settings: python convert_intrinsics_opencv_to_halcon.py
          --output-file "IntrinsicsHalcon"
@@ -68,6 +71,23 @@ class CameraIntrinsics:
         from zivid.experimental import calibration
 
         intrinsics = calibration.intrinsics(camera, settings)
+        cx = intrinsics.camera_matrix.cx
+        cy = intrinsics.camera_matrix.cy
+        fx = intrinsics.camera_matrix.fx
+        fy = intrinsics.camera_matrix.fy
+        k1 = intrinsics.distortion.k1
+        k2 = intrinsics.distortion.k2
+        k3 = intrinsics.distortion.k3
+        p1 = intrinsics.distortion.p1
+        p2 = intrinsics.distortion.p2
+        return cls(cx, cy, fx, fy, k1, k2, k3, p1, p2)
+
+    @classmethod
+    def from_zdf(cls, frame):
+        # pylint: disable=import-outside-toplevel
+        from zivid.experimental import calibration
+
+        intrinsics = calibration.estimate_intrinsics(frame)
         cx = intrinsics.camera_matrix.cx
         cy = intrinsics.camera_matrix.cy
         fx = intrinsics.camera_matrix.fx
@@ -255,51 +275,72 @@ class CameraParameters:
         settings = zivid.Settings.load(settings_path) if settings_path else None
 
         intrinsics = CameraIntrinsics.from_camera(camera, settings)
-        if camera.info.model in (zivid.CameraInfo.Model.zivid3XL250):
+        pixel_size, image_size = cls.image_pixel_size(camera.info.model, settings.sampling.pixel if settings else None)
+
+        return cls(pixel_size, image_size, intrinsics)
+
+    @classmethod
+    def from_zdf(cls, zdf_filepath: Path):
+        # pylint: disable=import-outside-toplevel
+        import zivid
+
+        _ = zivid.Application()
+        frame = zivid.Frame(str(zdf_filepath))
+
+        intrinsics = CameraIntrinsics.from_zdf(frame)
+        pixel_size, image_size = cls.image_pixel_size(frame.camera_info.model, frame.settings.color.sampling.pixel)
+
+        return cls(pixel_size, image_size, intrinsics)
+
+    @classmethod
+    def image_pixel_size(cls, camera_model, sampling):
+        # pylint: disable=import-outside-toplevel
+        import zivid
+
+        if camera_model in (zivid.CameraInfo.Model.zivid3XL250):
             pixel_size = 5.48e-6
             image_size = np.array([np.int32(1408), np.int32(1408)])  # assume by2x2
-            if settings and settings.sampling.pixel == "all":
+            if sampling == "all":
                 pixel_size /= 2
                 image_size *= 2
-            elif settings and settings.sampling.pixel == "by4x4":
+            elif sampling == "by4x4":
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
-        if camera.info.model in (
+        if camera_model in (
             zivid.CameraInfo.Model.zivid2PlusMR130,
             zivid.CameraInfo.Model.zivid2PlusMR60,
             zivid.CameraInfo.Model.zivid2PlusLR110,
         ):
             pixel_size = 5.48e-6
             image_size = np.array([np.int32(1224), np.int32(1024)])  # assume by2x2
-            if settings and settings.sampling.pixel == "all":
+            if sampling == "all":
                 pixel_size /= 2
                 image_size *= 2
-            elif settings and settings.sampling.pixel == "by4x4":
+            elif sampling == "by4x4":
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
-        elif camera.info.model in (
+        elif camera_model in (
             zivid.CameraInfo.Model.zivid2PlusM130,
             zivid.CameraInfo.Model.zivid2PlusM60,
             zivid.CameraInfo.Model.zivid2PlusL110,
         ):
             pixel_size = 5.48e-6
             image_size = np.array([np.int32(1224), np.int32(1024)])
-            if settings and settings.sampling.pixel == "all":
+            if sampling == "all":
                 pixel_size /= 2
                 image_size *= 2
-            elif settings and settings.sampling.pixel in ("blueSubsample4x4", "redSubsample4x4"):
+            elif sampling in ("blueSubsample4x4", "redSubsample4x4"):
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
-        elif camera.info.model in (zivid.CameraInfo.Model.zividTwo, zivid.CameraInfo.Model.zividTwoL100):
+        elif camera_model in (zivid.CameraInfo.Model.zividTwo, zivid.CameraInfo.Model.zividTwoL100):
             pixel_size = 4.50e-6
             image_size = np.array([np.int32(1944), np.int32(1200)])
-            if settings and settings.sampling.pixel in ("blueSubsample2x2", "redSubsample2x2"):
+            if sampling in ("blueSubsample2x2", "redSubsample2x2"):
                 pixel_size *= 2
                 image_size = (image_size / 2).astype(np.int32)
         else:
             raise RuntimeError("Unsupported camera model")
-
-        return cls(pixel_size, image_size, intrinsics)
+        return pixel_size, image_size
 
 
 def _cost_function(
@@ -376,6 +417,11 @@ def _args() -> argparse.Namespace:
         type=Path,
         help=("Path to Zivid capture settings to use for getting intrinsics from the camera as YML file."),
     )
+    group.add_argument(
+        "--input-zdf",
+        type=Path,
+        help=("Path to Zivid Data Format to use for getting intrinsics from the camera as zdf file."),
+    )
     parser.add_argument(
         "--model-name",
         type=str,
@@ -406,13 +452,15 @@ def _main():
     if args.input_intrinsics:
         print(f"Reading intrinsics from file '{args.input_intrinsics}'")
         camera_parameters = CameraParameters.from_file(args.input_intrinsics, args.model_name, args.pixels_to_sample)
+    elif args.input_zdf:
+        print(f"Reading intrinsics from ZDF file '{args.input_zdf}'")
+        camera_parameters = CameraParameters.from_zdf(args.input_zdf)
+    elif args.input_settings:
+        print("Reading intrinsics from camera with given settings")
+        camera_parameters = CameraParameters.from_camera(args.input_settings)
     else:
-        if args.input_settings:
-            print("Reading intrinsics from camera with given settings")
-            camera_parameters = CameraParameters.from_camera(args.input_settings)
-        else:
-            print("Reading intrinsics from camera with default settings")
-            camera_parameters = CameraParameters.from_camera()
+        print("Reading intrinsics from camera with default settings")
+        camera_parameters = CameraParameters.from_camera()
 
     halcon_internal_camera_parameters = _estimate_halcon_internal_camera_parameters_from_opencv(camera_parameters)
     halcon_internal_camera_parameters.write_to_dat_file(args.output_file)

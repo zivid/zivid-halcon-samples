@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="25.11.0.0">
+    <procedure name="main">
+        <interface/>
+        <body>
+            <c>*</c>
+            <c>* Hand-eye calibration with a Zivid camera and a 3D calibration object</c>
+            <c>*</c>
+            <c>* This example explains how to use the hand-eye calibration for the case where</c>
+            <c>* a 3D camera is moving with the robot and the calibration</c>
+            <c>* object is stationary (Eye-In-Hand). The pose of a 3D model of a calibration</c>
+            <c>* object is determined in the scene using surface-based matching.</c>
+            <c>* To run this sample, you can download the dataset</c>
+            <c>* from https://support.zivid.com/en/latest/api-reference/samples/sample-data.html</c>
+            <c>*</c>
+            <c/>
+            <l>import './../../../Procedures'</l>
+            <c/>
+            <l>dev_update_off ()</l>
+            <l>get_zivid_sample_data_dir(ZividDataDir)</l>
+            <l>HalconZividSampleData := ZividDataDir + '/ZividHandEyeHalconData/'</l>
+            <c/>
+            <c>* Reading the initial values for the Zivid camera intrinsics </c>
+            <c>* Use either hard-coded camera intrinsics or intrinsics estimated from the point cloud (recommended)</c>
+            <c>* https://support.zivid.com/en/latest/reference-articles/camera-intrinsics.html</c>
+            <l>read_cam_par(HalconZividSampleData + 'estimated_intrinsics.dat', InputCameraParameters)</l>
+            <c/>
+            <c>* Setting path and reading a 3D object model from PLY file</c>
+            <l>PointCloudDir := HalconZividSampleData + 'CalibrationObjectPointClouds/'</l>
+            <l>RobotPosesDir := HalconZividSampleData + 'RobotPoses/'</l>
+            <l>ImageWidth := InputCameraParameters[11]</l>
+            <c/>
+            <c>* Reading the 3D object model from file.</c>
+            <c>* It can be any 3D object of your choice.</c>
+            <c>* This object model will serve as the calibration object.</c>
+            <l>read_object_model_3d (HalconZividSampleData + 'calibration_object.dxf', 1, [], [], OM3DModel, StatusReadCalibrationObject)</l>
+            <l>sample_object_model_3d (OM3DModel, 'fast', 0.0009, [], [], SampledObjectModel3DZremoved)</l>
+            <c/>
+            <c>* Removing the flat surface of the object to avoid matching a flat surface</c>
+            <l>select_points_object_model_3d (SampledObjectModel3DZremoved, 'point_coord_z', 0.0001, 'max', ObjectModel3DThresholded)</l>
+            <c/>
+            <c>* Prepare surface model for the surface matching algorithm</c>
+            <l>create_pose (0, 0, 0.5, 180, 0, 0, 'Rp+T', 'gba', 'point', Pose)</l>
+            <l>rigid_trans_object_model_3d (ObjectModel3DThresholded, Pose, ObjectModel3DRigidTrans)</l>
+            <l>triangulate_object_model_3d (ObjectModel3DRigidTrans, 'greedy', [], [], TriangulatedObjectModel3D, Information)</l>
+            <l>surface_normals_object_model_3d (TriangulatedObjectModel3D, 'triangles', [], [], ObjectModel3DNormals)</l>
+            <l>pose_invert (Pose, PoseInvert)</l>
+            <l>rigid_trans_object_model_3d (ObjectModel3DNormals, PoseInvert, ObjectModel3DRigidTransInvert)</l>
+            <l>create_surface_model (ObjectModel3DRigidTransInvert, 0.03, [], [], CalibrationObjectSurfaceModelID)</l>
+            <c/>
+            <c>* Setting windows parameters</c>
+            <l>dev_close_window ()</l>
+            <l>WindowWidth := 512</l>
+            <l>WindowHeight := 384</l>
+            <l>dev_open_window (0, WindowWidth + 10, WindowWidth, WindowHeight, 'black', ImageWindowHandle)</l>
+            <l>dev_open_window (0, 0, WindowWidth, WindowHeight, 'black', WindowHandle)</l>
+            <l>set_display_font (WindowHandle, 14, 'mono', 'true', 'false')</l>
+            <l>set_display_font (ImageWindowHandle, 14, 'mono', 'true', 'false')</l>
+            <l>Instruction := ['Rotate: Left button', 'Zoom:   Shift + left button', 'Move:   Ctrl  + left button']</l>
+            <l>dev_set_color ('green')</l>
+            <c/>
+            <l>Message := 'Surface model to be searched'</l>
+            <c>* Reducing the point density of the model for better visualization</c>
+            <l>sample_object_model_3d (OM3DModel, 'fast', 0.0009, [], [], SampledObjectModel3D)</l>
+            <l>visualize_object_model_3d (WindowHandle, SampledObjectModel3D, [], [], 'color_0', 'gray', Message, [], Instruction, PoseOut)</l>
+            <c/>
+            <c>* The number of files.</c>
+            <l>NumCalibrationScenes := 11</l>
+            <c/>
+            <c>* Creating the calibration model for the hand eye calibration</c>
+            <c>* using a moving 3D camera</c>
+            <l>create_calib_data ('hand_eye_moving_cam', 0, 0, HandEyeCalibrationDataID)</l>
+            <c/>
+            <c>* Setting the optimization method to be used</c>
+            <l>set_calib_data (HandEyeCalibrationDataID, 'model', 'general', 'optimization_method', 'nonlinear')</l>
+            <c/>
+            <c>* Determinining the 3D poses of the observed model object</c>
+            <c>* in all scenes using surface-based matching.</c>
+            <l>list_files (PointCloudDir, 'files', Files)</l>
+            <l>for I := 0 to |Files| - 1 by 1</l>
+            <c/>
+            <l>    read_object_model_3d (PointCloudDir + 'calibration_object_pose_' + I$'02d' + '.ply', 'mm', 'xyz_map_width', ImageWidth, OM3DScene, StatusReadPointCloud)</l>
+            <c/>
+            <c>    * Reading pose of flange (end-effector) in robot base coordinates (RobotPose)</c>
+            <l>    read_pose (RobotPosesDir + 'robot_pose_' + I$'02d' + '.dat', RobotPose)</l>
+            <c/>
+            <c>    * Getting color data to generate 2D RGB image</c>
+            <l>    get_object_model_3d_params (OM3DScene, 'red', red)</l>
+            <l>    get_object_model_3d_params (OM3DScene, 'green', green)</l>
+            <l>    get_object_model_3d_params (OM3DScene, 'blue', blue)</l>
+            <l>    set_object_model_3d_attrib (OM3DScene, '&amp;red', 'points', red, OM3DScene)</l>
+            <l>    set_object_model_3d_attrib (OM3DScene, '&amp;green', 'points', green, OM3DScene)</l>
+            <l>    set_object_model_3d_attrib (OM3DScene, '&amp;blue', 'points', blue, OM3DScene)</l>
+            <c/>
+            <c>    * Generating X, Y, and Z image</c>
+            <l>    object_model_3d_to_xyz (X, Y, Z, OM3DScene, 'from_xyz_map', [], [])</l>
+            <c/>
+            <c>    * Generating R, G, B, and RGB image</c>
+            <l>    generate_R_G_B_and_RGB_images (X, R, G, B, RGB, red, green, blue)</l>
+            <l>    rgb1_to_gray (RGB, GrayImage)</l>
+            <l>    get_image_size (GrayImage, Width, Height)</l>
+            <c/>
+            <c>    * Finding the surface model in the current scene</c>
+            <l>    find_surface_model (CalibrationObjectSurfaceModelID, OM3DScene, 0.05, 1, 0, 'true', [], [], ObjectToCameraPose, Score, SurfaceMatchingResultID)</l>
+            <l>    refine_surface_model_pose (CalibrationObjectSurfaceModelID, OM3DScene, ObjectToCameraPose, 0, 'false', [], [], ObjectToCameraPose, Score, SurfaceMatchingResultID1)</l>
+            <c/>
+            <c>    * Use this function if the surface matching is not working as intended</c>
+            <l>    * debug_find_surface_model (CalibrationObjectSurfaceModelID, SampledObjectModel3D, OM3DScene, SurfaceMatchingResultID, CreateSurfaceModelParamName, CreateSurfaceModelParamValue, FindSurfaceModelParamName, FindSurfaceModelParamValue)</l>
+            <c>    </c>
+            <l>    if (|Score|)</l>
+            <c>        * Only use the pose if the result of the surface-based matching is</c>
+            <c>        * good enough.</c>
+            <l>        set_calib_data (HandEyeCalibrationDataID, 'tool', I, 'tool_in_base_pose', RobotPose)</l>
+            <l>        set_calib_data_observ_pose (HandEyeCalibrationDataID, 0, 0, I, ObjectToCameraPose)</l>
+            <l>    endif</l>
+            <c/>
+            <c>    * To visualize in what pose the model was found in the scene,</c>
+            <c>    * transforming the 3D object model so that it can be overlaid onto</c>
+            <c>    * the current scene.</c>
+            <l>    pose_to_hom_mat3d (ObjectToCameraPose, HomMat3D)</l>
+            <l>    affine_trans_object_model_3d (SampledObjectModel3D, HomMat3D, OM3DModelTrans)</l>
+            <c/>
+            <c>    * Showing only interactive 3D visualization for the first three scenes</c>
+            <l>    if (I &lt; 4)</l>
+            <c>        * Clearing both windows</c>
+            <l>        dev_clear_window ()</l>
+            <l>        dev_set_window (ImageWindowHandle)</l>
+            <l>        dev_display (GrayImage)</l>
+            <l>        disp_message (ImageWindowHandle, 'Image from camera', 'window', 12, 12, 'black', 'true')</l>
+            <l>        dev_set_window (WindowHandle)</l>
+            <l>        Message := 'Surface model is matched in the 3D scene.'</l>
+            <l>        Message[1] := 'Points of the current scene are gray.'</l>
+            <l>        Message[2] := 'Points of the matched model are green.'</l>
+            <c/>
+            <c>        * Reducing the point density of the model for better visualization</c>
+            <l>        sample_object_model_3d (OM3DScene, 'fast', 0.0009, [], [], SampledOM3DScene)</l>
+            <l>        disp_message (WindowHandle, Message, 'window', 12, 12, 'black', 'true')</l>
+            <l>        Message := 'Scene: '</l>
+            <l>        Message[1] := I + ' of ' + NumCalibrationScenes</l>
+            <l>        disp_message (WindowHandle, Message, 'window', 80, 12, 'white', 'false')</l>
+            <c/>
+            <c>        * Visualizing matching result with user interaction</c>
+            <l>        visualize_object_model_3d (WindowHandle, [SampledOM3DScene,OM3DModelTrans], [], [], ['color_0', 'color_1', 'disp_background'], ['gray', 'green', 'true'], [], [], Instruction, PoseOut)</l>
+            <l>    else</l>
+            <c>        * Clearing both windows</c>
+            <l>        dev_clear_window ()</l>
+            <l>        dev_set_window (ImageWindowHandle)</l>
+            <l>        dev_clear_window ()</l>
+            <l>        dev_set_window (WindowHandle)</l>
+            <c>        </c>
+            <l>        if (I == 4)</l>
+            <l>            Message := 'In the following, the surface-based matching'</l>
+            <l>            Message[1] := 'result is shown using the 3D visualization '</l>
+            <l>            Message[2] := 'without user interaction.'</l>
+            <l>            disp_message (WindowHandle, Message, 'window', 12, 12, 'black', 'true')</l>
+            <l>            disp_continue_message (WindowHandle, 'black', 'true')</l>
+            <l>            stop ()</l>
+            <l>            dev_clear_window ()</l>
+            <l>        endif</l>
+            <l>        dev_set_window (ImageWindowHandle)</l>
+            <l>        dev_display (GrayImage)</l>
+            <l>        disp_message (ImageWindowHandle, 'Image from camera', 'window', 12, 12, 'black', 'true')</l>
+            <l>        dev_set_window (WindowHandle)</l>
+            <c/>
+            <c>        * Reducing the point density of the model for better visualization</c>
+            <l>        sample_object_model_3d (OM3DScene, 'fast', 0.0009, [], [], SampledOM3DScene)</l>
+            <c/>
+            <c>        * Visualizing matching result without user interaction</c>
+            <l>        disp_object_model_3d_safe (WindowHandle, [SampledOM3DScene,OM3DModelTrans], [], [], ['color_0', 'color_1'], ['gray', 'green'])</l>
+            <l>        Message := 'Scene: ' + I + ' of ' + NumCalibrationScenes</l>
+            <l>        disp_message (WindowHandle, Message, 'window', 12, 12, 'white', 'false')</l>
+            <l>    endif</l>
+            <l>endfor</l>
+            <c/>
+            <c>* Checking the input poses for consistency</c>
+            <l>check_hand_eye_calibration_input_poses (HandEyeCalibrationDataID, 0.05, 0.005, Warnings)</l>
+            <l>if (|Warnings| != 0)</l>
+            <c>    * There were problem detected in the input poses. Inspect Warnings and</c>
+            <c>    * remove erroneous poses with remove_calib_data and remove_calib_data_observ.</c>
+            <l>    dev_inspect_ctrl (Warnings)</l>
+            <l>    stop ()</l>
+            <l>endif</l>
+            <c/>
+            <c>* Now that all data has been collected,</c>
+            <c>* the hand-eye calibration can be performed.</c>
+            <l>dev_clear_window ()</l>
+            <l>disp_message (WindowHandle, 'Performing the hand-eye calibration', 'window', 12, 12, 'black', 'true')</l>
+            <l>calibrate_hand_eye (HandEyeCalibrationDataID, HECPoseError)</l>
+            <c/>
+            <l>get_calib_data(HandEyeCalibrationDataID, 'camera', 0, 'tool_in_cam_pose', DataValue)</l>
+            <l>pose_to_hom_mat3d(DataValue, HomMat3D)</l>
+            <l>hom_mat3d_invert (HomMat3D, HomMat3DInvert)</l>
+            <c/>
+            <c>* Getting poses computed by the hand eye calibration</c>
+            <l>get_calib_data (HandEyeCalibrationDataID, 'camera', 0, 'tool_in_cam_pose', CameraToEndEffectorPose)</l>
+            <l>get_calib_data (HandEyeCalibrationDataID, 'calib_obj', 0, 'obj_in_base_pose', BaseToCalibrationObjectPose)</l>
+            <c/>
+            <c>* Getting the plane in base coordinate system pose by translating the</c>
+            <c>* BaseToCalibrationObjectPose by the calibration object's thickness in the</c>
+            <c>* z-direction</c>
+            <l>set_origin_pose (BaseToCalibrationObjectPose, 0, 0, 0.005, PlaneInBasePose)</l>
+            <c/>
+            <l>try</l>
+            <c>    * Handling situation where user does not have the permission</c>
+            <c>    * to write in the current directory.</c>
+            <c>    * </c>
+            <c>    * Save the hand eye calibration results to file</c>
+            <l>    write_pose (CameraToEndEffectorPose, RobotPosesDir + 'final_pose_cam_tool.dat')</l>
+            <l>    write_pose (BaseToCalibrationObjectPose, RobotPosesDir + 'final_pose_base_calplate.dat')</l>
+            <l>    write_pose (PlaneInBasePose, RobotPosesDir + 'final_pose_base_plane.dat')</l>
+            <l>catch (Exception)</l>
+            <c>    * do nothing</c>
+            <l>endtry</l>
+            <c/>
+            <l>dev_display (GrayImage)</l>
+            <c/>
+            <c>* Displaying calibration errors</c>
+            <l>disp_results (WindowHandle, [], HECPoseError)</l>
+            <l>disp_continue_message (WindowHandle, 'black', 'true')</l>
+            <l>stop ()</l>
+            <c/>
+            <c>* For the given camera, get the corresponding pose indices and calibration object indices</c>
+            <l>query_calib_data_observ_indices (HandEyeCalibrationDataID, 'camera', 0, CalibObjIdx, PoseIds)</l>
+            <c/>
+            <c>* Computing the pose of the calibration object in the camera coordinate</c>
+            <c>* system via calibrated poses and the BaseToEndEffectorPose and visualize it.</c>
+            <c>* Set sizes for 3D visualization in [m]</c>
+            <l>CameraSize := 0.05</l>
+            <l>CameraConeLength := 0.3</l>
+            <l>rigid_trans_object_model_3d (SampledObjectModel3D, BaseToCalibrationObjectPose, OM3DObject)</l>
+            <l>dev_open_window (0, Width + 10, Width/4, Height/4, 'black', WindowHandleR)</l>
+            <l>set_display_font (WindowHandleR, 14, 'mono', 'true', 'false')</l>
+            <l>ParamName := ['color_0', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'color_6', 'color_7', 'alpha_7', 'color_8', 'color_9', 'color_10', 'alpha_8', 'alpha_9', 'alpha_10', 'point_size']</l>
+            <l>ParamValue := ['red', 'red', 'green', 'blue', 'red', 'green', 'blue', 'white', 0.7, 'magenta', 'yellow', 'white', 0.5, 0.5, 0.5, 5]</l>
+            <c/>
+            <c>* Labels for the visualized 3D object models</c>
+            <l>tuple_gen_const (11, '', Labels)</l>
+            <l>Labels[0] := 'Calibration Object'</l>
+            <l>Labels[1] := 'Robot\'s Flange (end-effector)'</l>
+            <l>Labels[4] := 'Robot\'s Base'</l>
+            <l>Labels[8] := 'Camera'</l>
+            <l>Instructions[0] := 'Rotate: Left button'</l>
+            <l>Instructions[1] := 'Zoom:   Shift + left button'</l>
+            <l>Instructions[2] := 'Move:   Ctrl  + left button'</l>
+            <c/>
+            <c>* Set size for 3D visualization in [m]</c>
+            <l>ArrowThickness := 0.005</l>
+            <l>ArrowLength := 0.05</l>
+            <l>gen_robot_tool_and_base_object_model_3d (ArrowThickness, ArrowLength, OM3DToolOrigin, OM3DBase)</l>
+            <c/>
+            <l>for I := 0 to |Files| - 1 by 1</l>
+            <l>    dev_set_window (WindowHandle)</l>
+            <l>    dev_clear_window ()</l>
+            <c/>
+            <c>    * Reading a 3D object model from PLY file</c>
+            <l>    read_object_model_3d (PointCloudDir + 'calibration_object_pose_' + I$'02d' + '.ply', 'mm', 'xyz_map_width', ImageWidth, OM3DScene, StatusReadPointCloud)</l>
+            <c/>
+            <c>    * Getting color data to generate 2D RGB image</c>
+            <l>    get_object_model_3d_params (OM3DScene, 'red', red)</l>
+            <l>    get_object_model_3d_params (OM3DScene, 'green', green)</l>
+            <l>    get_object_model_3d_params (OM3DScene, 'blue', blue)</l>
+            <l>    set_object_model_3d_attrib (OM3DScene, '&amp;red', 'points', red, ObjectModel3D)</l>
+            <l>    set_object_model_3d_attrib (OM3DScene, '&amp;green', 'points', green, ObjectModel3D)</l>
+            <l>    set_object_model_3d_attrib (OM3DScene, '&amp;blue', 'points', blue, ObjectModel3D)</l>
+            <c/>
+            <c>    * Generating X, Y, and Z image</c>
+            <l>    object_model_3d_to_xyz (X, Y, Z, OM3DScene, 'from_xyz_map', [], [])</l>
+            <c/>
+            <c>    * Generating R, G, B, and RGB image</c>
+            <l>    generate_R_G_B_and_RGB_images (X, R, G, B, RGB, red, green, blue)</l>
+            <l>    rgb1_to_gray (RGB, GrayImage)</l>
+            <l>    convert_image_type (GrayImage, GrayImage, 'byte')</l>
+            <l>    dev_display (GrayImage)</l>
+            <c/>
+            <c>    * Obtaining the pose of the flange (end-effector) in robot base coordinates used in the calibration.</c>
+            <c>    * The index corresponds to the index of the pose of the observation object.</c>
+            <l>    get_calib_data (HandEyeCalibrationDataID, 'tool', PoseIds[I], 'tool_in_base_pose', BaseToEndEffectorPose)</l>
+            <c/>
+            <c>    * Computing the pose of the calibration object relative to the camera</c>
+            <l>    calc_calplate_pose_eye_in_hand (BaseToCalibrationObjectPose, CameraToEndEffectorPose, BaseToEndEffectorPose, CameraToCalibrationObjectPose)</l>
+            <c/>
+            <c>    * Displaying the coordinate system</c>
+            <l>    dev_set_colored (3)</l>
+            <l>    gen_cam_par_area_scan_division (0.008, 0, 5.2e-06, 5.2e-06, 640, 512, 1280, 1024, ArtificalCameraParams)</l>
+            <l>    gen_camera_and_tool_moving_cam_object_model_3d (CameraToEndEffectorPose, BaseToEndEffectorPose, CameraSize, CameraConeLength, OM3DToolOrigin, \
+                                                    ArtificalCameraParams, OM3DCamera, OM3DTool)</l>
+            <l>    Message := 'Using the calibration results to display '</l>
+            <l>    Message[1] := 'the coordinate system in image ' + (I + 1) + ' of ' + |Files|</l>
+            <l>    disp_message (WindowHandle, Message, 'window', 12, 12, 'black', 'true')</l>
+            <l>    if (I == 0)</l>
+            <l>        VisualizationPoseIn := [-0.122133, 0.460322, 18.1503, 106.933, 359.48, 257.771, 0]</l>
+            <l>    else</l>
+            <l>        VisualizationPoseIn := VisualizationPoseOut</l>
+            <l>    endif</l>
+            <l>    visualize_object_model_3d (WindowHandleR, [OM3DObject,OM3DTool,OM3DBase,OM3DCamera], [], VisualizationPoseIn, ParamName, ParamValue, [], Labels, Instructions, VisualizationPoseOut)</l>
+            <l>endfor</l>
+            <c/>
+            <c>* Clearing the data model</c>
+            <l>clear_calib_data (HandEyeCalibrationDataID)</l>
+            <l>dev_set_window (WindowHandleR)</l>
+            <l>dev_close_window ()</l>
+            <c/>
+            <c>* </c>
+            <c>* After the hand-eye calibration the computed pose</c>
+            <c>* CameraToEndEffectorPose can be used in robotic grasping applications.</c>
+            <c>* To grasp an object with the robot, typically, its pose</c>
+            <c>* with respect to the camera is determined (which</c>
+            <c>* is simulated here by setting the object's pose to the</c>
+            <c>* pose of the calibration object)</c>
+            <l>ObjectToCameraPose := CameraToCalibrationObjectPose</l>
+            <c/>
+            <c>* If the flange (end-effector) coordinate system is placed at the gripper</c>
+            <c>* and a detected object ObjectToCameraPose shall be grasped</c>
+            <c>* (here the calibration object),</c>
+            <c>* the pose of the detected object relative</c>
+            <c>* to the robot base coordinate system has to be computed.</c>
+            <l>pose_invert (CameraToEndEffectorPose, EndEffectorToCameraPose)</l>
+            <l>pose_compose (BaseToEndEffectorPose, EndEffectorToCameraPose, BaseToCameraPose)</l>
+            <l>pose_compose (BaseToCameraPose, ObjectToCameraPose, BaseToObjectPose)</l>
+        </body>
+        <docu id="main">
+            <parameters/>
+        </docu>
+    </procedure>
+    <procedure name="disp_results">
+        <interface>
+            <ic>
+                <par name="WindowHandle" base_type="ctrl" dimension="0"/>
+                <par name="CamCalibError" base_type="ctrl" dimension="0"/>
+                <par name="Errors" base_type="ctrl" dimension="0"/>
+            </ic>
+        </interface>
+        <body>
+            <l>dev_clear_window ()</l>
+            <l>Message := 'Quality of the results:'</l>
+            <l>disp_message (WindowHandle, Message, 'window', 12, 12, 'black', 'true')</l>
+            <l>Message := 'Error of the camera calibration:      ' + CamCalibError$'6.4f' + ' pixel'</l>
+            <l>disp_message (WindowHandle, Message, 'window', 52, 12, 'black', 'true')</l>
+            <l>Message := 'Errors of the hand eye calibration:'</l>
+            <l>disp_message (WindowHandle, Message, 'window', 92, 12, 'black', 'true')</l>
+            <l>DispErrors := []</l>
+            <l>DispErrors := [DispErrors,'                     |   RMS    |  Maximum |']</l>
+            <l>DispErrors := [DispErrors,'|--------------------+----------+----------|']</l>
+            <l>DispErrors := [DispErrors,'| Translational part | ' + (Errors[0] * 1e3)$'5.3f' + ' mm | ' + (Errors[2] * 1e3)$'5.3f' + ' mm |']</l>
+            <l>DispErrors := [DispErrors,'| Rotational part    | ' + Errors[1]$'5.3f' + ' °  | ' + Errors[3]$'5.3f' + ' °  |']</l>
+            <l>disp_message (WindowHandle, DispErrors, 'window', 132, 40, 'black', 'true')</l>
+            <l>return ()</l>
+        </body>
+        <docu id="disp_results">
+            <parameters>
+                <parameter id="CamCalibError"/>
+                <parameter id="Errors"/>
+                <parameter id="WindowHandle"/>
+            </parameters>
+        </docu>
+    </procedure>
+</hdevelop>

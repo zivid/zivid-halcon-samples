@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="25.11.0.0">
+    <procedure name="main">
+        <interface/>
+        <body>
+            <c>*</c>
+            <c>* Transform homogenous matrixes to halcon pose</c>
+            <c>*</c>
+            <c>* Remember that translation part of the homogeneous matrix should be in meters</c>
+            <c>* It expects a matrix in this format:</c>
+            <c>* {</c>
+            <c>*  "Data": [</c>
+            <c>*    [-0.0268069, 0.9914033, -0.1280658, -0.3689413],</c>
+            <c>*    [0.99952, 0.02857302, 0.01197316, 0.2234139999],</c>
+            <c>*    [0.01552946, -0.1276834, -0.9916934, 0.8008651],</c>
+            <c>*    [0, 0, 0, 1]</c>
+            <c>*  ]</c>
+            <c>* }</c>
+            <c/>
+            <l>main_path := '.'</l>
+            <c/>
+            <c>* Checking if this folder exists</c>
+            <l>file_exists(main_path + '/robot_poses_halcon/', Exists)</l>
+            <l>if (not Exists)</l>
+            <l>    make_dir(main_path + '/robot_poses_halcon/')</l>
+            <l>endif</l>
+            <c/>
+            <l>list_files (main_path + '/robot_poses_json/', 'files', Files)</l>
+            <l>for j := 0 to |Files| - 1 by 1</l>
+            <c>    * Loading JSON from folder 'robot_poses_json'</c>
+            <l>    read_dict (main_path + '/robot_poses_json/robot_pose_'+ j +'.json', [], [], Dict)</l>
+            <c>    </c>
+            <c>    * Extracting 4×4 matrix</c>
+            <l>    MatTuple := Dict.['Data']</l>
+            <l>    Row0 := MatTuple.[0]</l>
+            <l>    Row1 := MatTuple.[1]</l>
+            <l>    Row2 := MatTuple.[2]</l>
+            <c>    </c>
+            <c>    * Filling HomMat3D (12 values)</c>
+            <l>    hom_mat3d_identity (H)</l>
+            <c>    </c>
+            <l>    for I := 0 to 3 by 1</l>
+            <l>        H[I]      := Row0.[I]</l>
+            <l>        H[4+I]    := Row1.[I]</l>
+            <l>        H[8+I]    := Row2.[I]</l>
+            <l>    endfor</l>
+            <c>    </c>
+            <c>    * Converting to halcon pose and saving</c>
+            <l>    hom_mat3d_to_pose (H, Pose)</l>
+            <l>    write_pose (Pose, main_path + '/robot_poses_halcon/robot_pose_'+ j +'.dat')</l>
+            <l>endfor</l>
+            <c/>
+        </body>
+        <docu id="main">
+            <parameters/>
+        </docu>
+    </procedure>
+</hdevelop>

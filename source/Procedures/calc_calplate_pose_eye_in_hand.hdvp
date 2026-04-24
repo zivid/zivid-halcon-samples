@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="25.11.0.0">
+    <procedure name="calc_calplate_pose_eye_in_hand">
+        <interface>
+            <ic>
+                <par name="BaseToCalibrationObjectPose" base_type="ctrl" dimension="0"/>
+                <par name="CameraToEndEffectorPose" base_type="ctrl" dimension="0"/>
+                <par name="BaseToEndEffectorPose" base_type="ctrl" dimension="0"/>
+            </ic>
+            <oc>
+                <par name="CameraToCalibrationObjectPose" base_type="ctrl" dimension="0"/>
+            </oc>
+        </interface>
+        <body>
+            <c>*</c>
+            <c>* Calculate the pose of the calibration object in the camera frame for Eye-In-Hand.</c>
+            <c>*</c>
+            <c>* CameraToCalibrationObjectPose = cam_H_calplate</c>
+            <c>*                   = cam_H_tool * tool_H_base * base_H_calplate</c>
+            <c>*                   = CameraToEndEffectorPose * EndEffectorToBasePose * BaseToCalibrationObjectPose</c>
+            <l>pose_invert (BaseToEndEffectorPose, EndEffectorToBasePose)</l>
+            <l>pose_compose (CameraToEndEffectorPose, EndEffectorToBasePose, CameraToBasePose)</l>
+            <l>pose_compose (CameraToBasePose, BaseToCalibrationObjectPose, CameraToCalibrationObjectPose)</l>
+            <l>return ()</l>
+        </body>
+        <docu id="calc_calplate_pose_eye_in_hand">
+            <short lang="en_US">compute cam_H_calplate from hand-eye calibration results</short>
+            <parameters>
+                <parameter id="BaseToCalibrationObjectPose"/>
+                <parameter id="BaseToEndEffectorPose"/>
+                <parameter id="CameraToCalibrationObjectPose"/>
+                <parameter id="CameraToEndEffectorPose"/>
+            </parameters>
+        </docu>
+    </procedure>
+</hdevelop>
