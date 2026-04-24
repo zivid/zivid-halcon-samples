@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="25.11.0.0">
+    <procedure name="generate_R_G_B_and_RGB_images">
+        <interface>
+            <io>
+                <par name="X" base_type="iconic" dimension="0"/>
+            </io>
+            <oo>
+                <par name="R" base_type="iconic" dimension="0"/>
+                <par name="G" base_type="iconic" dimension="0"/>
+                <par name="B" base_type="iconic" dimension="0"/>
+                <par name="RGB" base_type="iconic" dimension="0"/>
+            </oo>
+            <ic>
+                <par name="red" base_type="ctrl" dimension="0"/>
+                <par name="green" base_type="ctrl" dimension="0"/>
+                <par name="blue" base_type="ctrl" dimension="0"/>
+            </ic>
+        </interface>
+        <body>
+            <c>*</c>
+            <c>* Create separate images for each color channel and a combined RGB image.</c>
+            <c>*</c>
+            <l>get_image_size (X, Width, Height)</l>
+            <l>gen_image_const (R, 'real', Width, Height)</l>
+            <l>gen_image_const (G, 'real', Width, Height)</l>
+            <l>gen_image_const (B, 'real', Width, Height)</l>
+            <l>get_domain (R, Domain)</l>
+            <l>get_region_points (Domain, Rows, Columns)</l>
+            <l>set_grayval (R, Rows, Columns, red)</l>
+            <l>set_grayval (G, Rows, Columns, green)</l>
+            <l>set_grayval (B, Rows, Columns, blue)</l>
+            <l>compose3 (R, G, B, RGB)</l>
+            <l>return ()</l>
+        </body>
+        <docu id="generate_R_G_B_and_RGB_images">
+            <parameters>
+                <parameter id="B"/>
+                <parameter id="G"/>
+                <parameter id="R"/>
+                <parameter id="RGB"/>
+                <parameter id="X"/>
+                <parameter id="blue"/>
+                <parameter id="green"/>
+                <parameter id="red"/>
+            </parameters>
+        </docu>
+    </procedure>
+</hdevelop>

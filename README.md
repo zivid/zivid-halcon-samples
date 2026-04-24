@@ -55,6 +55,12 @@ from the camera can be used.
               - [ReadPLY](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Basic/FileFormats/ReadPLY.hdev) - Import and display a Zivid point cloud from a PLY
                 file.
       - **Advanced**
+          - **HandEyeCalibration**
+              - [EyeInHandCalibration3DObject](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/HandEyeCalibration/EyeInHandCalibration3DObject.hdev) - Hand-eye calibration with a Zivid camera and a 3D
+                calibration object
+              - [EyeInHandCalibrationMVTecPlate](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/HandEyeCalibration/EyeInHandCalibrationMVTecPlate.hdev) - Hand-eye calibration with a Zivid camera and MVTec
+                calibration plate
+              - [JSONHomogeneousMatrixToHalconPose](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/HandEyeCalibration/JSONHomogeneousMatrixToHalconPose.hdev) - Transform homogenous matrixes to halcon pose
           - **ObjectMatching**
               - [SurfaceMatchingCreateModel](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingCreateModel.hdev) - Create a model for HALCON surface-based 3D matching
                 algorithm from a Zivid point cloud captured by a camera.
@@ -66,6 +72,9 @@ from the camera can be used.
               - [SurfaceMatchingFindModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev) - Utilize surface-based 3D matching on data taken with a
                 Zivid camera.
   - **Procedures**
+      - [calc\_calplate\_pose\_eye\_in\_hand](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/calc_calplate_pose_eye_in_hand.hdvp) - Calculate the pose of the calibration object in the camera frame for Eye-In-Hand.
+      - [calc\_calplate\_pose\_eye\_to\_hand](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/calc_calplate_pose_eye_to_hand.hdvp) - Calculate the pose of the calibration object in the camera frame for Eye-To-Hand.
+      - [generate\_R\_G\_B\_and\_RGB\_images](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/generate_R_G_B_and_RGB_images.hdvp) - Create separate images for each color channel and a combined RGB image.
       - [get\_first\_available\_zivid\_device](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_first_available_zivid_device.hdvp) - Get the first Zivid device from the input tuple of devices.
       - [get\_settings\_for\_zivid\_camera\_model](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_settings_for_zivid_camera_model.hdvp) - Get settings depending on the camera model.
       - [get\_zivid\_camera\_width](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_camera_width.hdvp) - Get width for given camera and sampling pixel setting.
