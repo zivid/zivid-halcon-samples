@@ -72,9 +72,12 @@ from the camera can be used.
               - [SurfaceMatchingFindModelFromFile](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Applications/Advanced/ObjectMatching/SurfaceMatchingFindModelFromFile.hdev) - Utilize surface-based 3D matching on data taken with a
                 Zivid camera.
   - **Procedures**
-      - [calc\_calplate\_pose\_eye\_in\_hand](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/calc_calplate_pose_eye_in_hand.hdvp) - Calculate the pose of the calibration object in the camera frame for Eye-In-Hand.
-      - [calc\_calplate\_pose\_eye\_to\_hand](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/calc_calplate_pose_eye_to_hand.hdvp) - Calculate the pose of the calibration object in the camera frame for Eye-To-Hand.
-      - [generate\_R\_G\_B\_and\_RGB\_images](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/generate_R_G_B_and_RGB_images.hdvp) - Create separate images for each color channel and a combined RGB image.
+      - [calc\_calplate\_pose\_eye\_in\_hand](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/calc_calplate_pose_eye_in_hand.hdvp) - Calculate the pose of the calibration object in the camera
+        frame for Eye-In-Hand.
+      - [calc\_calplate\_pose\_eye\_to\_hand](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/calc_calplate_pose_eye_to_hand.hdvp) - Calculate the pose of the calibration object in the camera
+        frame for Eye-To-Hand.
+      - [generate\_R\_G\_B\_and\_RGB\_images](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/generate_R_G_B_and_RGB_images.hdvp) - Create separate images for each color channel and a combined
+        RGB image.
       - [get\_first\_available\_zivid\_device](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_first_available_zivid_device.hdvp) - Get the first Zivid device from the input tuple of devices.
       - [get\_settings\_for\_zivid\_camera\_model](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_settings_for_zivid_camera_model.hdvp) - Get settings depending on the camera model.
       - [get\_zivid\_camera\_width](https://github.com/zivid/zivid-halcon-samples/tree/master/source/Procedures/get_zivid_camera_width.hdvp) - Get width for given camera and sampling pixel setting.
@@ -87,12 +90,12 @@ Zivid offers two ways of interfacing with HALCON:
 
 1.  Through the Zivid SDK, utilizing the C++/C\# libraries available for
     HALCON. We provide samples for both
-    [C++](https://support.zivid.com/latest//api-reference/samples/cpp.html)
+    [C++](https://support.zivid.com/en/latest//camera/api-reference/samples/cpp.html)
     and
-    [C\#](https://support.zivid.com/latest//api-reference/samples/csharp.html).
+    [C\#](https://support.zivid.com/en/latest//camera/api-reference/samples/csharp.html).
     (**Recommended**)
 2.  Directly through a GenICam GenTL producer that comes with the [Zivid
-    Software](https://support.zivid.com/latest//getting-started/software-installation.html).
+    Software](https://support.zivid.com/en/latest//camera/getting-started/software-installation.html).
 
 Zivid and HALCON are compatible with Windows 10 and 11, and Ubuntu
 20.04, 22.04, 24.04.
@@ -109,17 +112,17 @@ To set up and use Zivid in one of these operating systems, please follow
 their respective instructions on the following pages:
 
   - [Install Zivid + HALCON for
-    Windows](https://support.zivid.com/latest/api-reference/samples/halcon/install-zivid-halcon-for-windows.html)
+    Windows](https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/install-zivid-halcon-for-windows.html)
   - [Install Zivid + HALCON for
-    LINUX](https://support.zivid.com/latest/api-reference/samples/halcon/install-zivid-halcon-for-linux.html)
+    LINUX](https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/install-zivid-halcon-for-linux.html)
   - [Create a HALCON "Hello World"
-    Program](https://support.zivid.com/latest/api-reference/samples/halcon/create-a-halcon-hello-world.html)
+    Program](https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/create-a-halcon-hello-world.html)
   - [How to Run a HALCON
-    Sample](https://support.zivid.com/latest/api-reference/samples/halcon/how-to-run-a-halcon-sample.html)
+    Sample](https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/how-to-run-a-halcon-sample.html)
   - [Debug in
-    HALCON](https://support.zivid.com/latest/api-reference/samples/halcon/halcon-debug.html)
+    HALCON](https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/halcon-debug.html)
   - [HALCON Sample
-    Videos](https://support.zivid.com/latest/api-reference/samples/halcon/halcon-sample-videos.html)
+    Videos](https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/halcon-sample-videos.html)
 
 The following HALCON versions have been tested and confirmed to work
 with Zivid cameras:
@@ -132,9 +135,9 @@ We recommend using one of the HALCON versions we have tested.
 ## Support
 
 For more information about the Zivid cameras, please visit our
-[Knowledge Base](https://support.zivid.com/latest). If you run into any
-issues please check out
-[Troubleshooting](https://support.zivid.com/latest/support/troubleshooting.html).
+[Knowledge Base](https://support.zivid.com/en/latest). If you run into
+any issues please check out
+[Troubleshooting](https://support.zivid.com/en/latest/camera/support/troubleshooting.html).
 
 ## License
 
