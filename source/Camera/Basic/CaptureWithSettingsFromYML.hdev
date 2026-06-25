@@ -9,6 +9,9 @@
             <c>* Please note that you first need to install Zivid Software and correctly set the environment variables. After this, you can access the camera with the HALCON</c>
             <c>* GenICamTL interface.</c>
             <c>*</c>
+            <c>* For more information about camera settings, check out this article:</c>
+            <c>* https://support.zivid.com/en/latest/camera/reference-articles/camera-settings.html</c>
+            <c>*</c>
             <c/>
             <c>* Preparing graphics windows</c>
             <l>dev_close_window ()</l>

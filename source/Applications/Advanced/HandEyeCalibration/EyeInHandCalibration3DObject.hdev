@@ -13,6 +13,9 @@
             <c>* To run this sample, you can download the dataset</c>
             <c>* from https://support.zivid.com/en/latest/api-reference/samples/sample-data.html</c>
             <c>*</c>
+            <c>* For more information on Hand-Eye calibration, check out this tutorial:</c>
+            <c>* https://support.zivid.com/en/latest/camera/academy/applications/hand-eye/hand-eye-calibration-halcon.html</c>
+            <c>*</c>
             <c/>
             <l>import './../../../Procedures'</l>
             <c/>

@@ -25,6 +25,9 @@ example YML file for this sample can be found under the main instructions for Zi
 
 Note: This example uses experimental SDK features, which may be modified, moved, or deleted in the future without notice.
 
+For more information on camera intrinsics, check out this article:
+https://support.zivid.com/en/latest/camera/reference-articles/camera-intrinsics.html
+
 """
 
 import argparse
