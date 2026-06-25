@@ -26,9 +26,10 @@
             <c>*</c>
             <c>* The sample *.ply provided was captured with a Zivid 2+ and with </c>
             <c>* 2x2 sampling: hence a width of 1224.</c>
-            <c/>
-            <c>* More details explained here: </c>
-            <c>* https://support.zivid.com/en/latest/reference-articles/point-cloud-structure-and-output-formats.html#zivid-point-cloud</c>
+            <c>*</c>
+            <c>* For more information on supported formats and options, check out this article:</c>
+            <c>* https://support.zivid.com/en/latest/camera/reference-articles/point-cloud-structure-and-output-formats.html</c>
+            <c>*</c>
             <c/>
             <c>* Preparing graphics windows</c>
             <l>dev_close_window ()</l>

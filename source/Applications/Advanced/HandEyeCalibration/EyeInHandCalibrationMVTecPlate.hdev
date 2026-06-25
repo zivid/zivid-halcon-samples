@@ -30,6 +30,9 @@
             <c>* extracted and used to compute the pose of the calibration object in the</c>
             <c>* camera coordinate system.</c>
             <c>*</c>
+            <c>* For more information on Hand-Eye calibration, check out this tutorial:</c>
+            <c>* https://support.zivid.com/en/latest/camera/academy/applications/hand-eye/hand-eye-calibration-halcon.html</c>
+            <c>*</c>
             <c/>
             <l>import './../../../Procedures'</l>
             <c/>

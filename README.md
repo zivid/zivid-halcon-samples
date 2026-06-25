@@ -118,6 +118,7 @@ their respective instructions on the following pages:
 - [Install Zivid + HALCON for LINUX]
 - [Create a HALCON "Hello World" Program]
 - [How to Run a HALCON Sample]
+- [Capture Settings in HALCON]
 - [Debug in HALCON]
 - [HALCON Sample Videos]
 
@@ -171,6 +172,7 @@ Zivid Samples are distributed under the [BSD license].
   [Install Zivid + HALCON for LINUX]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/install-zivid-halcon-for-linux.html
   [Create a HALCON "Hello World" Program]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/create-a-halcon-hello-world.html
   [How to Run a HALCON Sample]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/how-to-run-a-halcon-sample.html
+  [Capture Settings in HALCON]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/capture-settings-in-halcon.html
   [Debug in HALCON]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/halcon-debug.html
   [HALCON Sample Videos]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/halcon-sample-videos.html
   [Knowledge Base]: https://support.zivid.com/en/latest

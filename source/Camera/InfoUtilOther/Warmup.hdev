@@ -6,6 +6,9 @@
             <c>*</c>
             <c>* A basic warm-up method for a Zivid camera with specified time and capture cycle.</c>
             <c>*</c>
+            <c>* For more information on warming up the camera, check out this tutorial:</c>
+            <c>* https://support.zivid.com/en/latest/camera/academy/camera/warmup.html</c>
+            <c>*</c>
             <c/>
             <c>* Preparing the graphics window</c>
             <l>dev_close_window ()</l>
