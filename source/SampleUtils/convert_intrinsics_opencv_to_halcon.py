@@ -34,12 +34,15 @@ import argparse
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import TYPE_CHECKING, Optional, Tuple
 
 import cv2
 import numpy as np
 import yaml
 from scipy.optimize import minimize
+
+if TYPE_CHECKING:
+    import zivid
 
 
 @dataclass
@@ -55,7 +58,7 @@ class CameraIntrinsics:
     p2: float
 
     @classmethod
-    def from_file(cls, filepath: Path):
+    def from_file(cls: type["CameraIntrinsics"], filepath: Path) -> "CameraIntrinsics":
         data = yaml.safe_load(filepath.read_text(encoding="utf-8"))
         cx = data["CameraIntrinsics"]["CameraMatrix"]["CX"]
         cy = data["CameraIntrinsics"]["CameraMatrix"]["CY"]
@@ -69,7 +72,11 @@ class CameraIntrinsics:
         return cls(cx, cy, fx, fy, k1, k2, k3, p1, p2)
 
     @classmethod
-    def from_camera(cls, camera, settings=None):
+    def from_camera(
+        cls: type["CameraIntrinsics"],
+        camera: "zivid.Camera",
+        settings: Optional["zivid.Settings"] = None,
+    ) -> "CameraIntrinsics":
         # pylint: disable=import-outside-toplevel
         from zivid.experimental import calibration
 
@@ -86,7 +93,7 @@ class CameraIntrinsics:
         return cls(cx, cy, fx, fy, k1, k2, k3, p1, p2)
 
     @classmethod
-    def from_zdf(cls, frame):
+    def from_zdf(cls: type["CameraIntrinsics"], frame: "zivid.Frame") -> "CameraIntrinsics":
         # pylint: disable=import-outside-toplevel
         from zivid.experimental import calibration
 
@@ -247,7 +254,12 @@ class CameraParameters:
     intrinsics: CameraIntrinsics
 
     @classmethod
-    def from_file(cls, filepath: Path, model_name: str, sampling: str):
+    def from_file(
+        cls: type["CameraParameters"],
+        filepath: Path,
+        model_name: str,
+        sampling: str,
+    ) -> "CameraParameters":
         intrinsics = CameraIntrinsics.from_file(filepath)
 
         if model_name == "zivid 2+":
@@ -269,7 +281,7 @@ class CameraParameters:
         return cls(pixel_size, image_size, intrinsics)
 
     @classmethod
-    def from_camera(cls, settings_path: Optional[Path] = None):
+    def from_camera(cls: type["CameraParameters"], settings_path: Optional[Path] = None) -> "CameraParameters":
         # pylint: disable=import-outside-toplevel
         import zivid
 
@@ -283,20 +295,24 @@ class CameraParameters:
         return cls(pixel_size, image_size, intrinsics)
 
     @classmethod
-    def from_zdf(cls, zdf_filepath: Path):
+    def from_zdf(cls: type["CameraParameters"], zdf_filepath: Path) -> "CameraParameters":
         # pylint: disable=import-outside-toplevel
         import zivid
 
-        _ = zivid.Application()
-        frame = zivid.Frame(str(zdf_filepath))
+        with zivid.Application():
+            frame = zivid.Frame(str(zdf_filepath))
 
-        intrinsics = CameraIntrinsics.from_zdf(frame)
-        pixel_size, image_size = cls.image_pixel_size(frame.camera_info.model, frame.settings.color.sampling.pixel)
+            intrinsics = CameraIntrinsics.from_zdf(frame)
+            pixel_size, image_size = cls.image_pixel_size(frame.camera_info.model, frame.settings.color.sampling.pixel)
 
-        return cls(pixel_size, image_size, intrinsics)
+            return cls(pixel_size, image_size, intrinsics)
 
     @classmethod
-    def image_pixel_size(cls, camera_model, sampling):
+    def image_pixel_size(
+        cls: type["CameraParameters"],
+        camera_model: "zivid.CameraInfo.Model",
+        sampling: Optional["zivid.Settings2D.Sampling.Pixel"],
+    ) -> Tuple[float, np.ndarray]:
         # pylint: disable=import-outside-toplevel
         import zivid
 
@@ -449,7 +465,7 @@ def _args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _main():
+def _main() -> None:
     args = _args()
 
     if args.input_intrinsics:
