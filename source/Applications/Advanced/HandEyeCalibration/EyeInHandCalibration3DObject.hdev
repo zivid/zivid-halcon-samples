@@ -4,7 +4,7 @@
         <interface/>
         <body>
             <c>*</c>
-            <c>* Hand-eye calibration with a Zivid camera and a 3D calibration object</c>
+            <c>* Hand-eye calibration with a Zivid camera and a 3D calibration object.</c>
             <c>*</c>
             <c>* This example explains how to use the hand-eye calibration for the case where</c>
             <c>* a 3D camera is moving with the robot and the calibration</c>

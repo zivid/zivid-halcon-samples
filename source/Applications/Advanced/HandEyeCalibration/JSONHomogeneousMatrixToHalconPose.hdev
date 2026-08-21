@@ -4,7 +4,7 @@
         <interface/>
         <body>
             <c>*</c>
-            <c>* Transform homogenous matrixes to halcon pose</c>
+            <c>* Transform homogenous matrixes to halcon pose.</c>
             <c>*</c>
             <c>* Remember that translation part of the homogeneous matrix should be in meters</c>
             <c>* It expects a matrix in this format:</c>

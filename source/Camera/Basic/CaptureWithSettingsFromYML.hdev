@@ -4,7 +4,7 @@
         <interface/>
         <body>
             <c>*</c>
-            <c>* Capture a 2D color image, a 3D point cloud without colour and 2D color image + 3D color point cloud from the camera and use them to generate HALCON ObjectModel3D which is then visualized.</c>
+            <c>* Capture 2D and 3D data with settings from YML, then generate and visualize a HALCON ObjectModel3D.</c>
             <c>*</c>
             <c>* Please note that you first need to install Zivid Software and correctly set the environment variables. After this, you can access the camera with the HALCON</c>
             <c>* GenICamTL interface.</c>
