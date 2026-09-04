@@ -37,10 +37,9 @@ from the camera can be used.
       camera with fully configured settings for each frame.
     - [CaptureSavePLY] - Capture a 3D color point cloud from the camera
       and save it to a PLY file format.
-    - [CaptureWithSettingsFromYML] - Capture a 2D color image, a 3D
-      point cloud without colour and 2D color image + 3D color point
-      cloud from the camera and use them to generate HALCON
-      ObjectModel3D which is then visualized.
+    - [CaptureWithSettingsFromYML] - Capture 2D and 3D data with
+      settings from YML, then generate and visualize a HALCON
+      ObjectModel3D.
     - [ConnectToSerialNumberCamera] - Connect to a specific Zivid 3D
       camera based on its serial number.
   - **InfoUtilOther**
@@ -57,11 +56,11 @@ from the camera can be used.
   - **Advanced**
     - **HandEyeCalibration**
       - [EyeInHandCalibration3DObject] - Hand-eye calibration with a
-        Zivid camera and a 3D calibration object
+        Zivid camera and a 3D calibration object.
       - [EyeInHandCalibrationMVTecPlate] - Hand-eye calibration with a
-        Zivid camera and MVTec calibration plate
+        Zivid camera and MVTec calibration plate.
       - [JSONHomogeneousMatrixToHalconPose] - Transform homogenous
-        matrixes to halcon pose
+        matrixes to halcon pose.
     - **ObjectMatching**
       - [SurfaceMatchingCreateModel] - Create a model for HALCON
         surface-based 3D matching algorithm from a Zivid point cloud
@@ -101,7 +100,7 @@ Zivid offers two ways of interfacing with HALCON:
     Software].
 
 Zivid and HALCON are compatible with Windows 10 and 11, and Ubuntu
-20.04, 22.04, 24.04.
+20.04, 22.04, 24.04, 26.04.
 
 ------------------------------------------------------------------------
 
@@ -126,7 +125,7 @@ The following HALCON versions have been tested and confirmed to work
 with Zivid cameras:
 
 - 19.05 Progress, 20.05 Progress, 21.11 Progress, 24.05 Progress, 24.11
-  Progress-Steady, 25.05 Progress
+  Progress-Steady, 25.05 Progress, 25.11 Progress, 26.05 Progress
 
 We recommend using one of the HALCON versions we have tested.
 
