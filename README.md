@@ -114,7 +114,7 @@ To set up and use Zivid in one of these operating systems, please follow
 their respective instructions on the following pages:
 
 - [Install Zivid + HALCON for Windows]
-- [Install Zivid + HALCON for LINUX]
+- [Install Zivid + HALCON for Linux]
 - [Create a HALCON "Hello World" Program]
 - [How to Run a HALCON Sample]
 - [Capture Settings in HALCON]
@@ -168,7 +168,7 @@ Zivid Samples are distributed under the [BSD license].
   [C#]: https://support.zivid.com/en/latest//camera/api-reference/samples/csharp.html
   [Zivid Software]: https://support.zivid.com/en/latest//camera/getting-started/software-installation.html
   [Install Zivid + HALCON for Windows]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/install-zivid-halcon-for-windows.html
-  [Install Zivid + HALCON for LINUX]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/install-zivid-halcon-for-linux.html
+  [Install Zivid + HALCON for Linux]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/install-zivid-halcon-for-linux.html
   [Create a HALCON "Hello World" Program]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/create-a-halcon-hello-world.html
   [How to Run a HALCON Sample]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/how-to-run-a-halcon-sample.html
   [Capture Settings in HALCON]: https://support.zivid.com/en/latest/camera/api-reference/samples/halcon/capture-settings-in-halcon.html
